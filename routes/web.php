@@ -64,7 +64,7 @@ Route::get('/confirm-password', [ConfirmPasswordController::class, 'showConfirmF
 Route::post('/confirm-password', [ConfirmPasswordController::class, 'confirm']);
 
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
 
 //Karyawan
 Route::get('/datakaryawan/{{ $karyawan->nip }}/edit', [KaryawanController::class, 'edit']);

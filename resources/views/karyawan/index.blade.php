@@ -8,7 +8,8 @@
                 <div class="card-header pb-0">
                     <div class="d-flex align-items-center">
                         <p class="mb-0">Daftar Karyawan</p>
-                        <a href="/datakaryawan/create" class="btn btn-primary btn-sm ms-auto">Tambah</a>
+                        <a href="/datakaryawan/create" class="btn btn-primary btn-sm ms-auto" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">Tambah</a>
                     </div>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
@@ -67,4 +68,16 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script>
+        $(document).ready(function() {
+            showKaryawan();
+        });
+
+        function showKaryawan() {
+            alert('test');
+        }
+    </script>
 @endsection
