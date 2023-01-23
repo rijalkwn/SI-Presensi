@@ -3,18 +3,19 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\PasswordController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\VerifyEmailController;
 use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ConfirmPasswordController;
 use App\Http\Controllers\EmailVerificationController;
-use App\Http\Controllers\ForgotPasswordController;
-use App\Http\Controllers\VerifyEmailController;
 use App\Http\Controllers\EmailVerificationPromptController;
-use App\Http\Controllers\PageController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +30,7 @@ use App\Http\Controllers\PageController;
 //login 
 Route::get('/login', [LoginController::class, 'show'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.perform');
-Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 //register
 Route::get('/register', [RegisterController::class, 'create'])->name('register');
@@ -65,12 +66,10 @@ Route::post('/confirm-password', [ConfirmPasswordController::class, 'confirm']);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+//Karyawan
+Route::get('/datakaryawan/{{ $karyawan->nip }}/edit', [KaryawanController::class, 'edit']);
+Route::resource('/datakaryawan', KaryawanController::class)->names('datakaryawan');
 
-//sidebar
-Route::get('/page', [PageController::class, 'index'])->name('page');
-Route::get('/profile', [PageController::class, 'index'])->name('profile');
-Route::get('/user-management', [PageController::class, 'index'])->name('user-management');
-Route::get('/virtual-reality', [PageController::class, 'vr'])->name('virtual-reality');
-Route::get('/profile-static', [PageController::class, 'profile'])->name('profile-static');
-Route::get('/sign-in-static', [PageController::class, 'sigin'])->name('sign-in-static');
-Route::get('/sign-up-static', [PageController::class, 'signup'])->name('sign-up-static');
+//jabatan
+Route::get('/jabatan/{{ $jabatan->id }}/edit', [JabatanController::class, 'edit']);
+Route::resource('/jabatan', JabatanController::class)->names('jabatan');

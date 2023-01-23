@@ -15,7 +15,11 @@ class JabatanController extends Controller
      */
     public function index()
     {
-        //
+        return view('jabatan.index', [
+            'title' => 'Jabatan',
+            'active' => 'jabatan',
+            'jabatans' => Jabatan::all(),
+        ]);
     }
 
     /**
