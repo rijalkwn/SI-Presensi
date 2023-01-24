@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jabatan;
-use App\Http\Requests\StoreJabatanRequest;
-use App\Http\Requests\UpdateJabatanRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
+
 
 class JabatanController extends Controller
 {
@@ -38,9 +40,30 @@ class JabatanController extends Controller
      * @param  \App\Http\Requests\StoreJabatanRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreJabatanRequest $request)
+    public function store(Request $request)
     {
-        //
+
+        // $validated = Validator::make($request->all(), [
+        //     'nama' => 'required',
+        //     'gaji_pokok' => 'required',
+        //     'tunjangan' => 'required',
+        // ]);
+
+        // // if ($validated->fails()) {
+        // //     return response()->json([
+        // //         'status' => 400,
+        // //         'message' => 'error',
+        // //         'errors' => $validated->message(),
+        // //     ]);
+        // } else {
+        //     $jabatan = new Jabatan;
+        //     $jabatan->nama_jabatan = $request->input('nama_jabatan');
+        //     $jabatan->save();
+        //     return response()->json([
+        //         'status' => 200,
+        //         'errrors' => 'Jabatan Added Successfully',
+        //     ]);
+        // }
     }
 
     /**
@@ -72,7 +95,7 @@ class JabatanController extends Controller
      * @param  \App\Models\Jabatan  $jabatan
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateJabatanRequest $request, Jabatan $jabatan)
+    public function update(Request $request, Jabatan $jabatan)
     {
         //
     }

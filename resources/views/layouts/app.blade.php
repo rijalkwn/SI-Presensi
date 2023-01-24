@@ -13,19 +13,20 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
 
     <!-- Nucleo Icons -->
-    <link href="./assets/css/nucleo-icons.css" rel="stylesheet" />
-    <link href="./assets/css/nucleo-svg.css" rel="stylesheet" />
+    <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-    <link href="assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- CSS Files -->
     <link id="pagestyle" href="assets/css/argon-dashboard.css" rel="stylesheet" />
     {{-- icons --}}
     {{-- jquery --}}
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    {{-- jam --}}
+    <script src="assets/js/jam.js"></script>
 </head>
 
-<body class="{{ $class ?? '' }}">
+<body class="{{ $class ?? '' }}" onload="realtimeClock()">
 
     @guest
         @yield('content')
@@ -35,7 +36,6 @@
         @if (in_array(request()->route()->getName(),
                 ['sign-in-static', 'sign-up-static', 'login', 'register', 'recover-password', 'rtl', 'virtual-reality']))
             @yield('content')
-            @include('karyawan.modal')
         @else
             @if (
                 !in_array(request()->route()->getName(),
@@ -43,11 +43,14 @@
                 <div class="min-height-300 bg-primary position-absolute w-100"></div>
             @elseif (in_array(request()->route()->getName(),
                     ['profile-static', 'profile']))
+                <div class="position-absolute w-100 min-height-300 top-0"
+                    style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/profile-layout-header.jpg'); background-position-y: 50%;">
+                    <span class="mask bg-primary opacity-6"></span>
+                </div>
             @endif
             @include('layouts.navbars.auth.sidenav')
             <main class="main-content border-radius-lg">
                 @yield('content')
-                @include('karyawan.modal')
             </main>
             {{-- @include('components.fixed-plugin') --}}
         @endif

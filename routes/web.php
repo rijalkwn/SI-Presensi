@@ -3,13 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\VerifyEmailController;
+use App\Http\Controllers\PresensiMasukController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ConfirmPasswordController;
@@ -70,6 +70,15 @@ Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
 Route::get('/datakaryawan/{{ $karyawan->nip }}/edit', [KaryawanController::class, 'edit']);
 Route::resource('/datakaryawan', KaryawanController::class)->names('datakaryawan');
 
+// //jabatan
+// Route::get('/jabatan/{{ $jabatan->id }}/edit', [JabatanController::class, 'edit']);
+// Route::resource('/jabatan', JabatanController::class)->names('jabatan');
+
 //jabatan
-Route::get('/jabatan/{{ $jabatan->id }}/edit', [JabatanController::class, 'edit']);
-Route::resource('/jabatan', JabatanController::class)->names('jabatan');
+Route::get('/jabatan', [JabatanController::class, 'index'])->name('jabatan');
+Route::post('/jabatan', [JabatanController::class, 'store'])->name('jabatan.store');
+
+
+//PRESENSI
+//masuk
+Route::get('/masuk', [PresensiMasukController::class, 'create'])->name('presensi.masuk');
