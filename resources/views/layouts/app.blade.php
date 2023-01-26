@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="" sizes="76x76" href="/img/logos/logo.png">
-    <link rel="icon" type="image/png" href="/img/logos/logo.png">
+    <link rel="" sizes="76x76" href="/img/logos/logos.png">
+    <link rel="icon" type="image/png" href="/img/logos/logos.png">
     <title>
         SI Presensi
     </title>
@@ -30,12 +30,12 @@
     @endguest
 
     @auth
-        <div class="min-height-500 bg-primary position-absolute w-100"></div>
+        <div class="min-height-500 bg-primary position-absolute w-100" style="z-index: -999">
+        </div>
         @include('layouts.navbars.auth.sidenav')
         <main class="main-content border-radius-lg">
             @yield('content')
         </main>
-        {{-- @include('components.fixed-plugin') --}}
     @endauth
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     {{-- jam --}}
@@ -62,6 +62,7 @@
     <script src="assets/js/argon-dashboard.js"></script>
     @stack('js');
     @yield('js')
+    @include('sweetalert::alert')
 </body>
 
 </html>

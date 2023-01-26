@@ -77,7 +77,6 @@
                             </div>
                             <div class="col-4 text-end">
                                 <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                                    <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
                                     <i class="fa fa-thermometer-full text-lg opacity-10" aria-hidden="true"></i>
                                 </div>
                             </div>
@@ -117,9 +116,6 @@
                                         <th <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Status</th>
-                                        <th
-                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Action</th>
                                     </tr>
                                 </thead>
                                 {{-- <tbody>
@@ -159,5 +155,6 @@
                 </div>
             </div>
         </div>
+        @include('layouts.footers.auth.footer')
     </div>
 @endsection

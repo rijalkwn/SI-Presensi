@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Jabatan;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use RealRashid\SweetAlert\Facades\Alert;
 
 
 
@@ -56,7 +56,8 @@ class JabatanController extends Controller
             ]
         );
         Jabatan::create($data);
-        return redirect()->route('jabatan.index')->with('success', 'Jabatan berhasil ditambahkan');
+        Alert::success('Success', 'Jabatan berhasil ditambahkan');
+        return redirect()->route('jabatan.index');
     }
 
     /**
@@ -94,7 +95,19 @@ class JabatanController extends Controller
      */
     public function update(Request $request, Jabatan $jabatan)
     {
-        //
+        $data = $request->validate(
+            [
+                'nama_jabatan' => 'required|unique:jabatans|max:255',
+            ],
+            [
+                'nama_jabatan.required' => 'Nama jabatan harus diisi',
+                'nama_jabatan.unique' => 'Nama jabatan sudah ada',
+                'nama_jabatan.max' => 'Nama jabatan maksimal 255 karakter',
+            ]
+        );
+        Jabatan::where('id', $jabatan->id)->update($data);
+        Alert::success('Success', 'Jabatan berhasil diubah');
+        return redirect()->route('jabatan.index')->with('success', 'Jabatan berhasil diubah');
     }
 
     /**
@@ -106,6 +119,7 @@ class JabatanController extends Controller
     public function destroy(Jabatan $jabatan)
     {
         Jabatan::destroy($jabatan->id);
-        return redirect()->route('jabatan.index')->with('success', 'Jabatan berhasil dihapus');
+        Alert::success('Success', 'Jabatan berhasil dihapus');
+        return redirect()->route('jabatan.index');
     }
 }

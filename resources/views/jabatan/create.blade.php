@@ -36,8 +36,11 @@
                                     <button type="submit" class="btn btn-warning">Submit</button>
                                 </div>
                             </div>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
+        @include('layouts.footers.auth.footer')
     </div>
 @endsection

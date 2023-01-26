@@ -20,7 +20,7 @@ class KaryawanSeeder extends Seeder
             'nip' => '123',
             'nama' => 'Rijal kurniawan',
             'email' => 'rijal@gmail.com',
-            'jabatan' => 'Direktur',
+            'jabatan_id' => '1',
         ]);
     }
 }

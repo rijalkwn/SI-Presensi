@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Karyawan;
-use App\Models\Jabatan;
 use App\Models\User;
-
+use App\Models\Jabatan;
+use App\Models\Karyawan;
 use Illuminate\Http\Request;
+
+use function Symfony\Component\String\b;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class KaryawanController extends Controller
 {
@@ -50,7 +52,7 @@ class KaryawanController extends Controller
             'nip' => 'required|numeric',
             'nama' => 'required|max:255|string',
             'email' => 'required|email',
-            'jabatan' => 'required',
+            'jabatan_id' => 'required',
         ]);
 
         User::create([
@@ -67,11 +69,11 @@ class KaryawanController extends Controller
             'nip' => $request->nip,
             'nama' => $request->nama,
             'email' => $request->email,
-            'jabatan' => $request->jabatan,
+            'jabatan_id' => $request->jabatan_id,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-
+        Alert::success('Berhasil', 'Data Karyawan berhasil ditambahkan');
         return redirect()->Route('karyawan.index')->with('success', 'Data berhasil ditambahkan');
     }
 
@@ -92,12 +94,12 @@ class KaryawanController extends Controller
      * @param  \App\Models\Karyawan  $karyawan
      * @return \Illuminate\Http\Response
      */
-    public function edit(Karyawan $karyawan, $nip)
+    public function edit($id)
     {
-        $karyawan = Karyawan::where('nip', $nip)->first();
-        $user = User::where('nip', $nip)->first();
+        $karyawan = Karyawan::where('nip', $id)->first();
+        $user = User::where('nip', $id)->first();
         $jabatans = Jabatan::all();
-        return view('karyawan.edit', compact('karyawan', 'user', 'jabatans'), [
+        return view('karyawan.edit', compact('jabatans', 'karyawan', 'user'), [
             'title' => 'Edit Karyawan',
             'active' => 'karyawan',
         ]);
@@ -110,23 +112,31 @@ class KaryawanController extends Controller
      * @param  \App\Models\Karyawan  $karyawan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $nip)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'nip' => 'required|unique:karyawans|min:4|max:255|numeric',
-            'nama' => 'required|max:255',
+            'nama' => 'required|string',
             'email' => 'required|email',
             'jabatan_id' => 'required',
         ]);
+        $datakaryawan = [
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'jabatan_id' => $request->jabatan_id,
+            'updated_at' => now(),
+        ];
+        Karyawan::where('nip', $id)->update($datakaryawan);
 
-        $dataUser = $request->only(['email', 'nama', 'nip']);
-        User::where('nip', $nip)->update($dataUser);
+        $datauser = [
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'updated_at' => now(),
+        ];
+        User::where('nip', $id)->update($datauser);
 
-        $data = $request->only(['nip', 'nama', 'email', 'jabatan_id']);
-        Karyawan::where('nip', $nip)->update($data);
 
-
-        return redirect()->route('karyawan.index')->with('success', 'Data Karyawan Berhasil Diubah');
+        Alert::success('Data Karyawan Berhasil Diubah');
+        return redirect()->route('karyawan.index');
     }
 
 

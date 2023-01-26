@@ -1,32 +1,23 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 
 @section('content')
-    @include('layouts.navbars.auth.topnav', ['title' => 'Tambah Karyawan'])
+    @include('layouts.navbars.auth.topnav', ['title' => 'Edit Karyawan'])
     <div class="container-fluid py-4">
         <div class="row mt-4 mx-4">
             <div class="col-lg-10">
-                <form action="/karyawan" method="post">
+                <form action="/karyawan/{{ $karyawan->nip }}" method="post">
+                    @method('PUT')
                     @csrf
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="h3 mb-0">Tambah Karyawan</h5>
+                            <h5 class="h3 mb-0">Edit Karyawan</h5>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <div
-                                        class="form-group
-                                        @error('nip') has-danger @enderror">
+                                    <div class="form-group">
                                         <label class="form-control-label" for="nip">NIP</label>
-                                        <input type="text" name="nip" id="nip" autofocus required
-                                            class="form-control
-                                            @error('nip') is-invalid @enderror"
-                                            value="{{ old('nip') }}">
-                                        @error('nip')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                        <input type="text" readonly class="form-control" value="{{ $karyawan->nip }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -37,7 +28,7 @@
                                         <input type="text" name="nama" id="nama" required
                                             class="form-control
                                             @error('nama') is-invalid @enderror"
-                                            value="{{ old('nama') }}">
+                                            value="{{ $karyawan->nama }}">
                                         @error('nama')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -52,10 +43,10 @@
                                         class="form-group
                                         @error('email') has-danger @enderror">
                                         <label class="form-control-label" for="email">Email</label>
-                                        <input type="text" name="email" id="email" required
+                                        <input type="email" name="email" id="email" required
                                             class="form-control
                                             @error('email') is-invalid @enderror"
-                                            value="{{ old('email') }}">
+                                            value="{{ $karyawan->email }}">
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -71,13 +62,14 @@
                                         <select name="jabatan_id" id="jabatan_id" required
                                             class="form-control
                                             @error('jabatan_id') is-invalid @enderror">
-                                            <option>Pilih Jabatan</option>
+                                            <option value="" disabled>Pilih Jabatan</option>
                                             @foreach ($jabatans as $jabatan)
-                                                <option value="{{ $jabatan->id }}">
+                                                <option value="{{ $jabatan->id }}"
+                                                    {{ $karyawan->jabatan_id == $jabatan->id ? 'selected' : '' }}>
                                                     {{ $jabatan->nama_jabatan }}</option>
                                             @endforeach
                                         </select>
-                                        @error('jabatan_id')
+                                        @error('jabatan')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -85,12 +77,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row mt-4">
                                 <div class="col-lg-12">
                                     <a href="/karyawan" class="btn btn-secondary">Batal</a>
                                     <button type="submit" class="btn btn-warning">Submit</button>
                                 </div>
                             </div>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>

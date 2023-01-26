@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('alamat')->nullable();
             $table->string('no_telp')->nullable();
             $table->foreign('nip')->references('nip')->on('users')->onDelete('cascade');
-            $table->string('jabatan')->references('nama_jabatan')->on('jabatans')->onDelete('cascade');
+            $table->string('jabatan_id')->references('id')->on('jabatans')->onDelete('cascade');
             $table->timestamps();
         });
     }

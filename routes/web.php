@@ -22,6 +22,7 @@ use App\Http\Controllers\PresensiPulangController;
 |
 */
 //login 
+Route::get('/', [LoginController::class, 'show'])->name('login-page');
 Route::get('/login', [LoginController::class, 'show'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.perform');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -32,33 +33,30 @@ Route::post('/register', [RegisterController::class, 'store'])->name('register.p
 
 Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
 
-//karyawan
-Route::get('/karyawan/{{ $karyawan->nip }}/edit', [KaryawanController::class, 'edit'])->name('karyawan');
-Route::resource('/karyawan', KaryawanController::class)->names('karyawan');
+Route::group(['middleware' => 'admin'], function () {
+    //karyawan
+    Route::get('/karyawan/{{ $karyawan->id }}/edit', [KaryawanController::class, 'edit'])->name('karyawan');
+    Route::resource('/karyawan', KaryawanController::class)->names('karyawan');
+    //jabatan
+    Route::get('/jabatan/{{ $jabatan->id }}/edit', [JabatanController::class, 'edit']);
+    Route::resource('/jabatan', JabatanController::class)->names('jabatan');
+});
 
+Route::group(['middleware' => 'user'], function () {
+    //PRESENSI
+    //masuk
+    Route::get('/masuk', [PresensiMasukController::class, 'create'])->name('presensi.masuk');
+    Route::post('/masuk', [PresensiMasukController::class, 'store'])->name('presensi.masuk.store');
 
-//jabatan
-Route::get('/jabatan/{{ $jabatan->id }}/edit', [JabatanController::class, 'edit']);
-Route::resource('/jabatan', JabatanController::class)->names('jabatan');
+    //pulang
+    Route::get('/pulang', [PresensiPulangController::class, 'create'])->name('presensi.pulang');
+    Route::post('/pulang', [PresensiPulangController::class, 'store'])->name('presensi.pulang.store');
 
-// //jabatan
-// Route::get('/jabatan', [JabatanController::class, 'index'])->name('jabatan');
-// Route::post('/jabatan', [JabatanController::class, 'store'])->name('jabatan.store');
+    //izin
+    Route::get('/izin', [PresensiIzinController::class, 'create'])->name('presensi.izin');
+    Route::post('/izin', [PresensiIzinController::class, 'store'])->name('presensi.izin.store');
 
-
-//PRESENSI
-//masuk
-Route::get('/masuk', [PresensiMasukController::class, 'create'])->name('presensi.masuk');
-Route::post('/masuk', [PresensiMasukController::class, 'store'])->name('presensi.masuk.store');
-
-//pulang
-Route::get('/pulang', [PresensiPulangController::class, 'create'])->name('presensi.pulang');
-Route::post('/pulang', [PresensiPulangController::class, 'store'])->name('presensi.pulang.store');
-
-//izin
-Route::get('/izin', [PresensiIzinController::class, 'create'])->name('presensi.izin');
-Route::post('/izin', [PresensiIzinController::class, 'store'])->name('presensi.izin.store');
-
-//sakit
-Route::get('/sakit', [PresensiSakitController::class, 'create'])->name('presensi.sakit');
-Route::post('/sakit', [PresensiSakitController::class, 'store'])->name('presensi.sakit.store');
+    //sakit
+    Route::get('/sakit', [PresensiSakitController::class, 'create'])->name('presensi.sakit');
+    Route::post('/sakit', [PresensiSakitController::class, 'store'])->name('presensi.sakit.store');
+});
