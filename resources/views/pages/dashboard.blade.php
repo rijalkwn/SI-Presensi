@@ -29,9 +29,11 @@
                     <div class="card-body p-3">
                         <div class="row">
                             <div class="col-8">
-                                <div class="numbers">
-                                    <h4 class="text-lg text-uppercase font-weight-bold my-3 ms-3">PULANG</h4>
-                                </div>
+                                <a href="/pulang">
+                                    <div class="numbers">
+                                        <h4 class="text-lg text-uppercase font-weight-bold my-3 ms-3">PULANG</h4>
+                                    </div>
+                                </a>
                             </div>
                             <div class="col-4 text-end">
                                 <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
@@ -67,9 +69,11 @@
                     <div class="card-body p-3">
                         <div class="row">
                             <div class="col-8">
-                                <div class="numbers">
-                                    <h4 class="text-lg text-uppercase font-weight-bold my-3 ms-3">SAKIT</h4>
-                                </div>
+                                <a href="/sakit">
+                                    <div class="numbers">
+                                        <h4 class="text-lg text-uppercase font-weight-bold my-3 ms-3">SAKIT</h4>
+                                    </div>
+                                </a>
                             </div>
                             <div class="col-4 text-end">
                                 <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
@@ -113,9 +117,6 @@
                                         <th <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Status</th>
-                                        <th
-                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Lokasi</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Action</th>

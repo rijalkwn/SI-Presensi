@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Presensi extends Model
 {
     use HasFactory;
-    protected $table = 'presensi';
     protected $guarded = [];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'nip', 'nip');
+    }
 }

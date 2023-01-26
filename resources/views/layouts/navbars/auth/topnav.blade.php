@@ -13,6 +13,7 @@
         <div class="text-center text-md-end px-3 px-xl-0 me-3">
             <span class="d-sm-inline d-none text-md" id="clock" style="color: white"></span>
         </div>
+
     </div>
     <ul class="navbar-nav  justify-content-end">
         <li class="nav-item d-flex align-items-center">

@@ -23,8 +23,11 @@ return new class extends Migration
             $table->string('keterangan');
             $table->string('status');
             $table->string('foto');
-            $table->string('lokasi');
-            $table->foreign('nip')->references('nip')->on('karyawans')->onDelete('cascade');
+            $table->string('latitude_masuk');
+            $table->string('longitude_masuk');
+            $table->string('latitude_keluar')->nullable();
+            $table->string('longitude_keluar')->nullable();
+            $table->foreign('nip')->references('nip')->on('users')->onDelete('cascade');
             $table->string('jabatan')->references('nama_jabatan')->on('jabatans')->onDelete('cascade');
             $table->timestamps();
         });

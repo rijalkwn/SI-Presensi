@@ -20,8 +20,7 @@
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'dashboard' ? 'active' : '' }}"
-                    href="{{ route('home') }}">
+                <a class="nav-link {{ Request::is('dashboard*') ? 'active' : '' }}" href="{{ route('home') }}">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="fa fa-home text-dark text-sm opacity-10"></i>
@@ -33,8 +32,7 @@
                 <h6 class="ms-4 text-uppercase text-xs font-weight-bolder opacity-6 mb-0">Administrator</h6>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'datakaryawan' ? 'active' : '' }}"
-                    href="/datakaryawan">
+                <a class="nav-link {{ Request::is('karyawan*') ? 'active' : '' }}" href="/karyawan">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="fa fa-users text-dark text-sm opacity-10"></i>
@@ -43,7 +41,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'jabatan' ? 'active' : '' }}" href="/jabatan">
+                <a class="nav-link {{ Request::is('jabatan*') ? 'active' : '' }}" href="/jabatan">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="fa fa-database text-dark text-sm opacity-10"></i>

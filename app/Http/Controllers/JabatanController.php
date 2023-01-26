@@ -31,7 +31,10 @@ class JabatanController extends Controller
      */
     public function create()
     {
-        //
+        return view('jabatan.create', [
+            'title' => 'Tambah Jabatan',
+            'active' => 'jabatan',
+        ]);
     }
 
     /**
@@ -42,28 +45,18 @@ class JabatanController extends Controller
      */
     public function store(Request $request)
     {
-
-        // $validated = Validator::make($request->all(), [
-        //     'nama' => 'required',
-        //     'gaji_pokok' => 'required',
-        //     'tunjangan' => 'required',
-        // ]);
-
-        // // if ($validated->fails()) {
-        // //     return response()->json([
-        // //         'status' => 400,
-        // //         'message' => 'error',
-        // //         'errors' => $validated->message(),
-        // //     ]);
-        // } else {
-        //     $jabatan = new Jabatan;
-        //     $jabatan->nama_jabatan = $request->input('nama_jabatan');
-        //     $jabatan->save();
-        //     return response()->json([
-        //         'status' => 200,
-        //         'errrors' => 'Jabatan Added Successfully',
-        //     ]);
-        // }
+        $data = $request->validate(
+            [
+                'nama_jabatan' => 'required|unique:jabatans|max:255',
+            ],
+            [
+                'nama_jabatan.required' => 'Nama jabatan harus diisi',
+                'nama_jabatan.unique' => 'Nama jabatan sudah ada',
+                'nama_jabatan.max' => 'Nama jabatan maksimal 255 karakter',
+            ]
+        );
+        Jabatan::create($data);
+        return redirect()->route('jabatan.index')->with('success', 'Jabatan berhasil ditambahkan');
     }
 
     /**
@@ -85,7 +78,11 @@ class JabatanController extends Controller
      */
     public function edit(Jabatan $jabatan)
     {
-        //
+        return view('jabatan.edit', [
+            'title' => 'Edit Jabatan',
+            'active' => 'jabatan',
+            'jabatan' => $jabatan,
+        ]);
     }
 
     /**
@@ -108,6 +105,7 @@ class JabatanController extends Controller
      */
     public function destroy(Jabatan $jabatan)
     {
-        //
+        Jabatan::destroy($jabatan->id);
+        return redirect()->route('jabatan.index')->with('success', 'Jabatan berhasil dihapus');
     }
 }

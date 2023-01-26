@@ -47,26 +47,10 @@ class KaryawanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nip' => 'required|unique:karyawans|min:4|max:255|numeric',
+            'nip' => 'required|numeric',
             'nama' => 'required|max:255|string',
             'email' => 'required|email',
             'jabatan' => 'required',
-        ], [
-            'nip.required' => 'NIP tidak boleh kosong',
-            'nip.unique' => 'NIP sudah terdaftar',
-            'nama.required' => 'Nama tidak boleh kosong',
-            'nama.max' => 'Nama tidak boleh lebih dari 255 karakter',
-            'nama.string' => 'Nama harus berupa string',
-            'email.required' => 'Email tidak boleh kosong',
-            'email.email' => 'Email tidak valid',
-            'jabatan.required' => 'Jabatan tidak boleh kosong',
-        ]);
-
-        Karyawan::create([
-            'nip' => $request->nip,
-            'nama' => $request->nama,
-            'email' => $request->email,
-            'jabatan' => $request->jabatan,
         ]);
 
         User::create([
@@ -79,8 +63,16 @@ class KaryawanController extends Controller
             'updated_at' => now(),
         ]);
 
+        Karyawan::create([
+            'nip' => $request->nip,
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'jabatan' => $request->jabatan,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
 
-        return redirect()->route('datakaryawan.index')->with('success', 'Data Karyawan Berhasil Ditambahkan');
+        return redirect()->Route('karyawan.index')->with('success', 'Data berhasil ditambahkan');
     }
 
     /**
@@ -100,9 +92,15 @@ class KaryawanController extends Controller
      * @param  \App\Models\Karyawan  $karyawan
      * @return \Illuminate\Http\Response
      */
-    public function edit(Karyawan $karyawan)
+    public function edit(Karyawan $karyawan, $nip)
     {
-        //
+        $karyawan = Karyawan::where('nip', $nip)->first();
+        $user = User::where('nip', $nip)->first();
+        $jabatans = Jabatan::all();
+        return view('karyawan.edit', compact('karyawan', 'user', 'jabatans'), [
+            'title' => 'Edit Karyawan',
+            'active' => 'karyawan',
+        ]);
     }
 
     /**
@@ -112,10 +110,25 @@ class KaryawanController extends Controller
      * @param  \App\Models\Karyawan  $karyawan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Karyawan $karyawan)
+    public function update(Request $request, $nip)
     {
-        //
+        $request->validate([
+            'nip' => 'required|unique:karyawans|min:4|max:255|numeric',
+            'nama' => 'required|max:255',
+            'email' => 'required|email',
+            'jabatan_id' => 'required',
+        ]);
+
+        $dataUser = $request->only(['email', 'nama', 'nip']);
+        User::where('nip', $nip)->update($dataUser);
+
+        $data = $request->only(['nip', 'nama', 'email', 'jabatan_id']);
+        Karyawan::where('nip', $nip)->update($data);
+
+
+        return redirect()->route('karyawan.index')->with('success', 'Data Karyawan Berhasil Diubah');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -123,8 +136,10 @@ class KaryawanController extends Controller
      * @param  \App\Models\Karyawan  $karyawan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Karyawan $karyawan)
+    public function destroy($nip)
     {
-        //
+        User::where('nip', $nip)->delete();
+        Karyawan::where('nip', $nip)->delete();
+        return redirect()->route('karyawan.index')->with('success', 'Data Karyawan Berhasil Dihapus');
     }
 }
