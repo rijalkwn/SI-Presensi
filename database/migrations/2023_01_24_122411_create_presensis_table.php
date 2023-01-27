@@ -22,7 +22,7 @@ return new class extends Migration
             $table->time('jam_keluar')->nullable();
             $table->string('keterangan');
             $table->string('status');
-            $table->string('foto');
+            $table->string('foto')->nullable();
             $table->string('latitude_masuk');
             $table->string('longitude_masuk');
             $table->string('latitude_keluar')->nullable();

@@ -22,10 +22,10 @@ use App\Http\Controllers\PresensiPulangController;
 |
 */
 //login 
-Route::get('/', [LoginController::class, 'show'])->name('login-page');
-Route::get('/login', [LoginController::class, 'show'])->name('login');
+Route::get('/', [LoginController::class, 'show'])->name('login-page')->middleware('guest');
+Route::get('/login', [LoginController::class, 'show'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'login'])->name('login.perform');
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
 
 //register
 Route::get('/register', [RegisterController::class, 'create'])->name('register');
