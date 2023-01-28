@@ -55,11 +55,11 @@
                                             </td>
                                             <td class="align-middle text-center text-sm">
                                                 <p class="text-sm font-weight-bold mb-0">
-                                                    @if ($presensi->jam_keluar == '')
-                                                        <span class="badge badge-sm bg-danger">Tidak Absen
+                                                    @if ($presensi->jam_pulang == '')
+                                                        <span class="badge badge-sm bg-secondary">Tidak Absen
                                                         </span>
                                                     @else
-                                                        {{ $presensi->jam_keluar }}
+                                                        {{ $presensi->jam_pulang }}
                                                     @endif
                                                 </p>
                                             </td>
@@ -67,13 +67,23 @@
                                                 <p class="text-sm font-weight-bold mb-0">
                                                     @if ($presensi->keterangan != 'Terlambat')
                                                         <span class="badge badge-sm bg-success">Tepat Waktu</span>
-                                                    @else
-                                                        <span class="badge badge-sm bg-danger">Terlambat</span>
+                                                    @elseif ($presensi->keterangan == 'Terlambat')
+                                                        <span class="badge badge-sm bg-secondary">Terlambat</span>
                                                     @endif
                                                 </p>
                                             </td>
                                             <td class="align-middle text-center text-sm">
-                                                <p class="text-sm font-weight-bold mb-0">{{ $presensi->status }}</p>
+                                                <p class="text-sm font-weight-bold mb-0">
+                                                    @if ($presensi->status == 'Hadir')
+                                                        <span class="badge badge-sm bg-success">Hadir</span>
+                                                    @elseif ($presensi->status == 'Izin')
+                                                        <span class="badge badge-sm bg-primary">Izin</span>
+                                                    @elseif ($presensi->status == 'Sakit')
+                                                        <span class="badge badge-sm bg-info">Sakit</span>
+                                                    @else
+                                                        <span class="badge badge-sm bg-danger">Tidak Absen</span>
+                                                    @endif
+                                                </p>
                                             </td>
                                         </tr>
                                     @endforeach

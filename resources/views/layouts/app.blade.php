@@ -9,18 +9,24 @@
     <title>
         SI Presensi
     </title>
+
+    {{-- css bootstrap --}}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
 
     <!-- Nucleo Icons -->
-    <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url('assets/css/nucleo-icons.css') }}" />
     <link rel="stylesheet" href="{{ url('assets/css/nucleo-icons.css') }}">
-    <link href="assets/css/nucleo-svg.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url('assets/css/nucleo-svg.css') }}" />
 
-    {{-- <!-- CSS Files -->
-    <link id="pagestyle" href="assets/css/argon-dashboard.css" rel="stylesheet" /> --}}
+    <!-- CSS Files -->
     <link rel="stylesheet" href="{{ url('assets/css/argon-dashboard.css') }}">
-    {{-- icons --}}
+
+    {{-- filepond --}}
+    <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
 </head>
 
 <body class="{{ $class ?? '' }}" onload="realtimeClock()">
@@ -37,6 +43,10 @@
             @yield('content')
         </main>
     @endauth
+
+    {{-- filepond --}}
+    <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+    {{--   jquery --}}
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     {{-- jam --}}
     <script src="assets/js/jam.js"></script>

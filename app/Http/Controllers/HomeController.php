@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Presensi;
+use App\Models\Karyawan;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -25,6 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $karyawanside = Karyawan::where('nip', auth()->user()->nip)->first();
         $countMasuk = Presensi::WhereNotNull('jam_masuk')->count();
         $countPulang = Presensi::WhereNotNull('jam_pulang')->count();
         $countIzin = Presensi::Where('status', 'Izin')->count();
@@ -40,6 +42,7 @@ class HomeController extends Controller
             'countIzin' => $countIzin,
             'countSakit' => $countSakit,
             'presensiAll' => $presensiAll,
+            'karyawan' => $karyawanside,
         ]);
     }
 }

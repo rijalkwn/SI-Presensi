@@ -1,11 +1,25 @@
 <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4"
     id="sidenav-main">
-    <div class="sidenav-header">
+    <div class="sidenav-header mb-2">
         <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
             aria-hidden="true" id="iconSidenav"></i>
         <a class="navbar-brand m-0" href="#" target="_blank">
-            <img src="/img/logos/logos.png" class="navbar-brand-img h-100" alt="main_logo">
-            <span class="ms-1 font-weight-bold">SI Presensi Karyawan</span>
+            {{-- nama user --}}
+            <div class="d-flex align-items-center">
+                <div class="avatar avatar-sm avatar-indicators avatar-online">
+                    <img src="{{ asset('img/profile/default.jpg') }}" alt="avatar" class="rounded-circle">
+                </div>
+                <div class="ms-2">
+                    <div class="ms-2 mb-0 text-lg font-weight-bold">{{ Auth::user()->nama }}</div>
+                    <div class="ms-2">
+                        @if (Auth::user()->role == 'admin')
+                            <h6 class="mb-0 text-sm">Administrator</h6>
+                        @elseif(Auth::user()->role == 'user')
+                            <h6 class="mb-0 text-sm">{{ $karyawan->jabatan->nama_jabatan }}</h6>
+                        @endif
+                    </div>
+                </div>
+            </div>
         </a>
     </div>
     {{-- <div class="sidenav-header">

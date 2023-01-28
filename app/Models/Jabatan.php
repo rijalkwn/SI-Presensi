@@ -14,4 +14,9 @@ class Jabatan extends Model
     {
         return $this->hasMany(Karyawan::class);
     }
+
+    public function presensis()
+    {
+        return $this->hasManyThrough(Presensi::class, Karyawan::class);
+    }
 }

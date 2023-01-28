@@ -4,7 +4,7 @@
     @include('layouts.navbars.auth.topnav', ['title' => 'Jabatan'])
     <div class="container-fluid py-4">
         <div class="row mt-4 mx-4">
-            <div class="col-12">
+            <div class="col-lg-9">
                 <div class="card mb-4">
                     <div class="card-header pb-0">
                         <div class="d-flex align-items-center">
@@ -14,7 +14,7 @@
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
-                            <table class="table align-items-center mb-0 table-striped">
+                            <table class="table align-items-center mb-0 table-hover">
                                 <thead>
                                     <tr>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No
@@ -29,10 +29,11 @@
                                 <tbody>
                                     @foreach ($jabatans as $jabatan)
                                         <tr>
-                                            <td class="align-middle text-center">
-                                                <p class="text-sm font-weight-bold mb-0">{{ $loop->iteration }}</p>
                                             <td>
-                                                <p class="text-sm font-weight-bold mb-0">{{ $jabatan->nama_jabatan }}</p>
+                                                <p class="text-sm font-weight-bold mb-0 mx-3">{{ $loop->iteration }}</p>
+                                            <td>
+                                                <p class="text-sm font-weight-bold mb-0 mx-3">{{ $jabatan->nama_jabatan }}
+                                                </p>
                                             </td>
                                             <td class="align-middle text-end">
                                                 <div class="d-flex px-3 py-1 justify-content-center align-items-center">
@@ -54,10 +55,14 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="mt-4 mb-2 mx-3">
+                            {{ $jabatans->links('pagination::bootstrap-5') }}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        @include('layouts.footers.auth.footer')
+    </div>
+    @include('layouts.footers.auth.footer')
     </div>
 @endsection

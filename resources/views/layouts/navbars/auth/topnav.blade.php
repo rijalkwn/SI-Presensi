@@ -13,17 +13,16 @@
             {{-- <h6 class="font-weight-bolder text-white mb-0">judul</h6> --}}
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 me-md-0 me-sm-4 py-2" id="navbar">
-            <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+            {{-- <div class="ms-md-auto pe-md-3 d-flex align-items-center">
                 <div class="input-group me-4 fs-5">
                     <span class="d-sm-inline d-none text-md" id="clock" style="color: white"></span>
                 </div>
-            </div>
-            <ul class="navbar-nav  justify-content-end">
-                <li class="nav-item d-flex align-items-center">
+            </div> --}}
+            <ul class="navbar-nav ms-auto justify-content-end">
+                <li class="nav-item d-flex align-items-center pe-2">
                     <form role="form" method="post" action="{{ route('logout') }}" id="logout-form">
                         @csrf
-                        <a href="{{ route('logout') }}" class="nav-link text-white font-weight-bold px-0"
-                            onclick="return confirm('Anda akan logout, Yakin?')">
+                        <a href="{{ route('logout') }}" class="nav-link text-white font-weight-bold px-0">
                             <i class="fa fa-sign-out me-sm-1"></i>
                             <span class="d-sm-inline d-none">Logout</span>
                         </a>

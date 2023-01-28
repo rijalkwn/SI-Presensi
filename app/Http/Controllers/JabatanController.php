@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Jabatan;
 use Illuminate\Http\Request;
+use App\Models\Karyawan;
 use RealRashid\SweetAlert\Facades\Alert;
 
 
@@ -20,7 +21,7 @@ class JabatanController extends Controller
         return view('jabatan.index', [
             'title' => 'Jabatan',
             'active' => 'jabatan',
-            'jabatans' => Jabatan::all(),
+            'jabatans' => Jabatan::paginate(6)
         ]);
     }
 

@@ -30,5 +30,26 @@ class UserSeeder extends Seeder
             'password' => Hash::make('123'),
             'role' => 'user',
         ]);
+        DB::table('users')->insert([
+            'nip' => '124',
+            'nama' => 'Lutfiani',
+            'email' => 'lutfiani@gmail.com',
+            'password' => Hash::make('123'),
+            'role' => 'user',
+        ]);
+        DB::table('users')->insert([
+            'nip' => '125',
+            'nama' => 'Paijo',
+            'email' => 'paijo@gmail.com',
+            'password' => Hash::make('123'),
+            'role' => 'user',
+        ]);
+        DB::table('users')->insert([
+            'nip' => '126',
+            'nama' => 'King',
+            'email' => 'king@gmail.com',
+            'password' => Hash::make('123'),
+            'role' => 'user',
+        ]);
     }
 }
