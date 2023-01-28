@@ -25,6 +25,7 @@
                         <a href="{{ route('logout') }}" class="nav-link text-white font-weight-bold px-0"
                             onclick="return confirm('Anda akan logout, Yakin?')">
                             <i class="fa fa-sign-out me-sm-1"></i>
+                            <span class="d-sm-inline d-none">Logout</span>
                         </a>
                     </form>
                 </li>

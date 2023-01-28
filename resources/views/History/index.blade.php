@@ -1,5 +1,5 @@
 @if (auth()->user()->role == 'admin')
-    @include('pages.dashboardAdmin')
+    @include('History.historyAdmin')
 @elseif (auth()->user()->role == 'user')
-    @include('pages.dashboard')
+    @include('History.historyUser')
 @endif

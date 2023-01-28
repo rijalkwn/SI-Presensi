@@ -5,7 +5,8 @@
     <div class="container-fluid py-4">
         <div class="row">
             <div class="col-lg-10">
-                <form action="" method="post" enctype="multipart/form-data">
+                <form action="{{ route('presensi.masuk.store') }}" method="post" enctype="multipart/form-data">
+                    @csrf
                     <div class="card">
                         <div class="card-header">
                             <h5 class="h3 mb-0">Presensi Masuk</h5>
@@ -40,57 +41,6 @@
                                         <label class="form-control-label" for="nama">Nama</label>
                                         <input type="text" name="nama" id="nama" class="form-control" disabled
                                             value="{{ $karyawan->nama }}">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div
-                                        class="form-group
-                                        @error('foto') has-danger @enderror">
-                                        <label class="form-control-label" for="foto">Foto</label>
-                                        <input type="file" name="foto" id="foto"
-                                            class="form-control
-                                            @error('foto') is-invalid @enderror"
-                                            value="{{ old('foto') }}">
-                                        @error('foto')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <label class="form-control-label" for="">Lokasi</label>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div
-                                                class="form-group
-                                        @error('latitude_masuk') has-danger @enderror">
-                                                <input type="text" name="latitude_masuk" id="latitude_masuk" disabled
-                                                    class="form-control @error('latitude_masuk') is-invalid @enderror"
-                                                    value="{{ old('latitude_masuk') }}" placeholder="Latitude">
-                                                @error('latitude_masuk')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div
-                                                class="form-group
-                                        @error('longitude_masuk') has-danger @enderror">
-                                                <input type="text" name="longitude_masuk" id="longitude_masuk" disabled
-                                                    class="form-control @error('longitude_masuk') is-invalid @enderror"
-                                                    value="{{ old('longitude_masuk') }}" placeholder="Longitude">
-                                                @error('longitude_masuk')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\Presensi;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +25,21 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('pages.home');
+        $countMasuk = Presensi::WhereNotNull('jam_masuk')->count();
+        $countPulang = Presensi::WhereNotNull('jam_pulang')->count();
+        $countIzin = Presensi::Where('status', 'Izin')->count();
+        $countSakit = Presensi::Where('status', 'Sakit')->count();
+        $presensis = Presensi::where('nip', auth()->user()->nip)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
+        $presensiAll = Presensi::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
+        return view('pages.home', [
+            'title' => 'Dashboard',
+            'active' => 'dashboard',
+            'presensis' => $presensis,
+            'countMasuk' => $countMasuk,
+            'countPulang' => $countPulang,
+            'countIzin' => $countIzin,
+            'countSakit' => $countSakit,
+            'presensiAll' => $presensiAll,
+        ]);
     }
 }
