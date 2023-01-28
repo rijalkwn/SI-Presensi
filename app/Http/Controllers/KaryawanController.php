@@ -19,10 +19,11 @@ class KaryawanController extends Controller
      */
     public function index()
     {
+        $karyawan  = Karyawan::paginate(8);
         return view('karyawan.index', [
             'title' => 'Karyawan',
             'active' => 'karyawan',
-            'karyawans' => Karyawan::all(),
+            'karyawans' => $karyawan,
         ]);
     }
 

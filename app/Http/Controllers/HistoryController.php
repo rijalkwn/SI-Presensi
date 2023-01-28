@@ -11,9 +11,9 @@ class HistoryController extends Controller
 {
     public function index()
     {
-        $presensis = Presensi::where('nip', auth()->user()->nip)->get();
+        $presensis = Presensi::where('nip', auth()->user()->nip)->paginate(8);
         $karyawanside = Karyawan::where('nip', auth()->user()->nip)->first();
-        $presensiAll = Presensi::All();
+        $presensiAll = Presensi::paginate(8);
         return view('history.index', [
             'title' => 'History',
             'active' => 'history',

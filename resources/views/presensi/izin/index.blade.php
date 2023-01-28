@@ -12,32 +12,20 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group @error('tanggal') has-danger @enderror">
-                                        <label class="form-control-label" for="tanggal">Tanggal</label>
-                                        <input type="date" name="tanggal" id="tanggal" disabled value=""
-                                            class="form-control
-                                            @error('tanggal') is-invalid @enderror"
-                                            value="{{ old('tanggal') }}">
-                                        @error('tanggal')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="tanggal">Tanggal</label>
+                                            <input type="text" name="tanggal" id="tanggal" disabled
+                                                class="form-control" value="{{ $today }}">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group @error('jam') has-danger @enderror">
-                                        <label class="form-control-label" for="jam">Jam</label>
-                                        <input type="time" name="jam" id="jam" disabled
-                                            class="form-control
-                                            @error('jam') is-invalid @enderror"
-                                            value="{{ old('jam') }}">
-                                        @error('jam')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="waktu">Waktu</label>
+                                            <input type="time" name="waktu" id="waktu" disabled
+                                                class="form-control" value="{{ $time }}">
+                                        </div>
                                     </div>
                                 </div>
                             </div>

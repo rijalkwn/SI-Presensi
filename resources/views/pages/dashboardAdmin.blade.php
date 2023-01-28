@@ -177,6 +177,9 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="mt-4 mb-2 mx-3">
+                            {{ $presensiAll->links('pagination::bootstrap-5') }}
+                        </div>
                     </div>
                 </div>
             </div>
