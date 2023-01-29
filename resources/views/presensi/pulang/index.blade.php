@@ -45,7 +45,8 @@
                                 </div>
                             </div>
                             <div class="row mt-4">
-                                <div class="col-lg-">
+                                <div class="col-lg-6">
+                                    <a href="{{ route('home') }}" class="btn btn-secondary">Kembali</a>
                                     <button class="btn btn-warning" type="submit">Submit</button>
                                 </div>
                             </div>

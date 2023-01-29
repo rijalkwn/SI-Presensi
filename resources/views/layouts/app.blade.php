@@ -25,8 +25,6 @@
     <!-- CSS Files -->
     <link rel="stylesheet" href="{{ url('assets/css/argon-dashboard.css') }}">
 
-    {{-- filepond --}}
-    <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
 </head>
 
 <body class="{{ $class ?? '' }}" onload="realtimeClock()">
@@ -44,8 +42,6 @@
         </main>
     @endauth
 
-    {{-- filepond --}}
-    <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
     {{--   jquery --}}
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     {{-- jam --}}

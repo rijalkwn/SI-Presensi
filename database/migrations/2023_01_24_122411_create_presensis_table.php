@@ -24,6 +24,10 @@ return new class extends Migration
             $table->string('surat')->nullable();
             $table->string('keterangan')->nullable();
             $table->string('status');
+            $table->string('lat_masuk')->nullable();
+            $table->string('long_masuk')->nullable();
+            $table->string('lat_pulang')->nullable();
+            $table->string('long_pulang')->nullable();
             $table->foreign('nip')->references('nip')->on('users')->onDelete('cascade');
             $table->foreign('jabatan')->references('nama_jabatan')->on('jabatans')->onDelete('cascade');
             $table->timestamps();
