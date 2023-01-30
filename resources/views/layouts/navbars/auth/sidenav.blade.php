@@ -15,7 +15,7 @@
                         @if (Auth::user()->role == 'admin')
                             <h6 class="mb-0 text-sm">Administrator</h6>
                         @elseif(Auth::user()->role == 'user')
-                            <h6 class="mb-0 text-sm">{{ $karyawan->jabatan->nama_jabatan }}</h6>
+                            <p class="mb-0 text-sm fs-6">{{ $karyawan->kepegawaian->status_kepegawaian }}</p>
                         @endif
                     </div>
                 </div>

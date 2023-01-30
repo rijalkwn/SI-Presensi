@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('nama');
             $table->string('email')->unique();
             $table->string('tempat_lahir')->nullable();
-            $table->string('tanggal_lahir')->nullable();
+            $table->date('tanggal_lahir')->nullable();
             $table->string('alamat')->nullable();
-            $table->string('tmt')->nullable();
+            $table->date('tmt')->nullable();
             $table->string('foto')->nullable();
             $table->foreign('nik')->references('nik')->on('users')->onDelete('cascade');
             $table->string('kepegawaian_id')->references('id')->on('kepegawaians')->onDelete('cascade');

@@ -31,7 +31,7 @@ class LoginController extends Controller
             $credentials['email'] = $credentials['identifier'];
             unset($credentials['identifier']);
         } else {
-            $credentials['nim_nip'] = $credentials['identifier'];
+            $credentials['nik'] = $credentials['identifier'];
             unset($credentials['identifier']);
         }
 

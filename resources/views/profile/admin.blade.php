@@ -8,7 +8,7 @@
                 <h5 class="h3 mb-0">Profile</h5>
             </div>
             <div class="card-body">
-                <form action="" method="post">
+                <form action="{{ route('profile_admin.update', $user->id) }}" method="post">
                     @csrf
                     @method('put')
                     {{-- <div class="row">

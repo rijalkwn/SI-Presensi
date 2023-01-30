@@ -75,7 +75,7 @@ Route::group(['middleware' => 'user'], function () {
 });
 
 //profile admin
-Route::resource('/admin/profile', ProfileAdminController::class)->names('profile.admin')->middleware('admin');
+Route::resource('/admin/profile', ProfileAdminController::class)->names('profile_admin')->middleware('admin');
 
 //profile user
-Route::resource('/user/profile', ProfileUserController::class)->names('profile.user')->middleware('user');
+Route::resource('/user/profile', ProfileUserController::class)->names('profile_user')->middleware('user');

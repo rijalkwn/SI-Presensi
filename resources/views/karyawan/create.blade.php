@@ -67,7 +67,7 @@
                                     <div
                                         class="form-group
                                         @error('kepegawaian_id') has-danger @enderror">
-                                        <label class="form-control-label" for="kepegawaian_id">Jabatan</label>
+                                        <label class="form-control-label" for="kepegawaian_id">Status Kepegawaian</label>
                                         <select name="kepegawaian_id" id="kepegawaian_id" required
                                             class="form-control
                                             @error('kepegawaian_id') is-invalid @enderror">

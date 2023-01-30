@@ -10,14 +10,15 @@ class ProfileAdminController extends Controller
 {
     public function index()
     {
+        $user = User::where('id', auth()->user()->id)->first();
         return view('profile.admin', [
             'title' => 'Profile',
             'active' => 'profile',
-            'user' => User::find(auth()->user()->id)
+            'user' => $user
         ]);
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $data = $request->validate([
             'nik' => 'required|max:255',
@@ -25,16 +26,19 @@ class ProfileAdminController extends Controller
             'email' => 'required|email|max:255',
         ], [
             'nik.required' => 'NIK harus diisi',
-            'name.required' => 'Nama harus diisi',
-            'name.max' => 'Nama maksimal 255 karakter',
+            'nama.required' => 'Nama harus diisi',
+            'nama.max' => 'Nama maksimal 255 karakter',
             'email.required' => 'Email harus diisi',
             'email.email' => 'Email tidak valid',
             'email.max' => 'Email maksimal 255 karakter',
         ]);
 
-        $user = User::find(auth()->user()->id);
-        $user->update($data);
+        User::where('id', $id)->update([
+            'nik' => $request->nik,
+            'nama' => $request->nama,
+            'email' => $request->email,
+        ]);
         Alert::success('Berhasil', 'Data berhasil diubah');
-        return redirect()->route('profile.index');
+        return redirect()->back();
     }
 }
