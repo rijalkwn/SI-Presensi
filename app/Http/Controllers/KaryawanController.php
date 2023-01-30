@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Jabatan;
+use App\Models\Kepegawaian;
 use App\Models\Karyawan;
 use Illuminate\Http\Request;
 
@@ -37,7 +37,7 @@ class KaryawanController extends Controller
         return view('karyawan.create', [
             'title' => 'Tambah Karyawan',
             'active' => 'karyawan',
-            'jabatans' => Jabatan::all(),
+            'kepegawaians' => Kepegawaian::all(),
         ]);
     }
 
@@ -53,7 +53,7 @@ class KaryawanController extends Controller
             'nik' => 'required|numeric',
             'nama' => 'required|max:255|string',
             'email' => 'required|email',
-            'jabatan_id' => 'required',
+            'kepegawaian_id' => 'required',
         ]);
 
         User::create([
@@ -70,7 +70,7 @@ class KaryawanController extends Controller
             'nik' => $request->nik,
             'nama' => $request->nama,
             'email' => $request->email,
-            'jabatan_id' => $request->jabatan_id,
+            'kepegawaian_id' => $request->kepegawaian_id,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -99,8 +99,8 @@ class KaryawanController extends Controller
     {
         $karyawan = Karyawan::where('nik', $id)->first();
         $user = User::where('nik', $id)->first();
-        $jabatans = Jabatan::all();
-        return view('karyawan.edit', compact('jabatans', 'karyawan', 'user'), [
+        $kepegawaians = Kepegawaian::all();
+        return view('karyawan.edit', compact('kepegawaians', 'karyawan', 'user'), [
             'title' => 'Edit Karyawan',
             'active' => 'karyawan',
         ]);
@@ -118,12 +118,12 @@ class KaryawanController extends Controller
         $request->validate([
             'nama' => 'required|string',
             'email' => 'required|email',
-            'jabatan_id' => 'required',
+            'kepegawaian_id' => 'required',
         ]);
         $datakaryawan = [
             'nama' => $request->nama,
             'email' => $request->email,
-            'jabatan_id' => $request->jabatan_id,
+            'kepegawaian_id' => $request->jabatan_id,
             'updated_at' => now(),
         ];
         Karyawan::where('nik', $id)->update($datakaryawan);

@@ -21,25 +21,25 @@ class KaryawanSeeder extends Seeder
             'nik' => '123',
             'nama' => 'Rijal kurniawan',
             'email' => 'rijal@gmail.com',
-            'jabatan_id' => '1',
+            'kepegawaian_id' => '1',
         ]);
         DB::table('karyawans')->insert([
             'nik' => '124',
             'nama' => 'Lutfiani',
             'email' => 'lutfiani@gmail.com',
-            'jabatan_id' => '1',
+            'kepegawaian_id' => '1',
         ]);
         DB::table('karyawans')->insert([
             'nik' => '125',
             'nama' => 'Paijo',
             'email' => 'paijo@gmail.com',
-            'jabatan_id' => '3',
+            'kepegawaian_id' => '3',
         ]);
         DB::table('karyawans')->insert([
             'nik' => '126',
             'nama' => 'King',
             'email' => 'king@gmail.com',
-            'jabatan_id' => '2',
+            'kepegawaian_id' => '2',
         ]);
     }
 }

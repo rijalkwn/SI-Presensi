@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 
-class JabatanSeeder extends Seeder
+class KepegawaianSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,15 +16,15 @@ class JabatanSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('jabatans')->insert([
+        DB::table('kepegawaians')->insert([
             [
-                'nama_jabatan' => 'Direktur',
+                'status_kepegawaian' => 'Guru Tidak Tetap',
             ],
             [
-                'nama_jabatan' => 'Manager',
+                'status_kepegawaian' => 'Pegawai Tidak Tetap',
             ],
             [
-                'nama_jabatan' => 'Staff',
+                'status_kepegawaian' => 'Guru Tamu',
             ],
         ]);
     }

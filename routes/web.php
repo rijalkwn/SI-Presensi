@@ -5,7 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CenterController;
 use App\Http\Controllers\HistoryController;
-use App\Http\Controllers\JabatanController;
+use App\Http\Controllers\KepegawaianController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\ProfileUserController;
 use App\Http\Controllers\PresensiIzinController;
@@ -49,9 +49,9 @@ Route::group(['middleware' => 'admin'], function () {
     //karyawan
     Route::get('/karyawan/{{ $karyawan->id }}/edit', [KaryawanController::class, 'edit'])->name('karyawan');
     Route::resource('/karyawan', KaryawanController::class)->names('karyawan');
-    //jabatan
-    Route::get('/jabatan/{{ $jabatan->id }}/edit', [JabatanController::class, 'edit']);
-    Route::resource('/jabatan', JabatanController::class)->names('jabatan');
+    //kepegawaian
+    Route::get('/kepegawaian/{{ $kepegawaian->id }}/edit', [KepegawaianController::class, 'edit']);
+    Route::resource('/kepegawaian', KepegawaianController::class)->names('kepegawaian');
 });
 
 

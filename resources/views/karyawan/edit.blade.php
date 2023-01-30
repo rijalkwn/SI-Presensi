@@ -57,19 +57,19 @@
                                 <div class="col-lg-6">
                                     <div
                                         class="form-group
-                                        @error('jabatan_id') has-danger @enderror">
-                                        <label class="form-control-label" for="jabatan_id">Jabatan</label>
-                                        <select name="jabatan_id" id="jabatan_id" required
+                                        @error('kepegawaian_id') has-danger @enderror">
+                                        <label class="form-control-label" for="kepegawaian_id">Status Kepegawaian</label>
+                                        <select name="kepegawaian_id" id="kepegawaian_id" required
                                             class="form-control
                                             @error('jabatan_id') is-invalid @enderror">
-                                            <option value="" disabled>Pilih Jabatan</option>
-                                            @foreach ($jabatans as $jabatan)
-                                                <option value="{{ $jabatan->id }}"
-                                                    {{ $karyawan->jabatan_id == $jabatan->id ? 'selected' : '' }}>
-                                                    {{ $jabatan->nama_jabatan }}</option>
+                                            <option value="" disabled>Pilih Status Kepegawaian</option>
+                                            @foreach ($jabatans as $kepegawaian)
+                                                <option value="{{ $kepegawaian->id }}"
+                                                    {{ $karyawan->kepegawaian_id == $kepegawaian->id ? 'selected' : '' }}>
+                                                    {{ $kepegawaian->status_kepegawaian }}</option>
                                             @endforeach
                                         </select>
-                                        @error('jabatan')
+                                        @error('kepegawaian')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

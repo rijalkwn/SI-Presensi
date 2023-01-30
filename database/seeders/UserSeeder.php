@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
             'nik' => '1234567890',
             'nama' => 'Admin',
             'email' => 'admin@admin.com',
-            'password' => Hash::make('admin'),
+            'password' => Hash::make('123'),
             'role' => 'admin',
         ]);
         DB::table('users')->insert([

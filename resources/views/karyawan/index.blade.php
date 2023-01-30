@@ -29,7 +29,7 @@
                                         </th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Jabatan</th>
+                                            Status Kepegawaian</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Action</th>
@@ -52,7 +52,7 @@
                                             </td>
                                             <td class="align-middle text-center text-sm">
                                                 <p class="text-sm font-weight-bold mb-0">
-                                                    {{ $karyawan->jabatan->nama_jabatan }}</p>
+                                                    {{ $karyawan->kepegawaian->status_kepegawaian }}</p>
                                             </td>
                                             <td class="align-middle text-end">
                                                 <div class="d-flex px-3 py-1 justify-content-center align-items-center">

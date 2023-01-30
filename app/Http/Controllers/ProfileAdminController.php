@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ProfileAdminController extends Controller
 {
@@ -23,6 +24,7 @@ class ProfileAdminController extends Controller
             'nama' => 'required|max:255',
             'email' => 'required|email|max:255',
         ], [
+            'nik.required' => 'NIK harus diisi',
             'name.required' => 'Nama harus diisi',
             'name.max' => 'Nama maksimal 255 karakter',
             'email.required' => 'Email harus diisi',
@@ -32,6 +34,7 @@ class ProfileAdminController extends Controller
 
         $user = User::find(auth()->user()->id);
         $user->update($data);
-        return redirect()->route('profile.index')->with('success', 'Profile berhasil diupdate');
+        Alert::success('Berhasil', 'Data berhasil diubah');
+        return redirect()->route('profile.index');
     }
 }

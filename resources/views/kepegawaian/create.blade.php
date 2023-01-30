@@ -5,24 +5,25 @@
     <div class="container-fluid py-4">
         <div class="row mt-4 mx-4">
             <div class="col-lg-10">
-                <form action="/jabatan" method="post">
+                <form action="/kepegawaian" method="post">
                     @csrf
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="h3 mb-0">Tambah Jabatan</h5>
+                            <h5 class="h3 mb-0">Tambah Status Kepegawaian</h5>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-10">
                                     <div
                                         class="form-group
-                                        @error('nama_jabatan') has-danger @enderror">
-                                        <label class="form-control-label" for="nama_jabatan">Nama Jabatan</label>
-                                        <input type="text" name="nama_jabatan" id="nama_jabatan" required
+                                        @error('status_kepegawaian') has-danger @enderror">
+                                        <label class="form-control-label" for="status_kepegawaian">Nama Status
+                                            Kepegawaian</label>
+                                        <input type="text" name="status_kepegawaian" id="status_kepegawaian" required
                                             class="form-control
-                                            @error('nama_jabatan') is-invalid @enderror"
-                                            value="{{ old('nama_jabatan') }}">
-                                        @error('nama_jabatan')
+                                            @error('status_kepegawaian') is-invalid @enderror"
+                                            value="{{ old('status_kepegawaian') }}">
+                                        @error('status_kepegawaian')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

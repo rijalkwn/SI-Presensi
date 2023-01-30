@@ -5,25 +5,26 @@
     <div class="container-fluid py-4">
         <div class="row mt-4 mx-4">
             <div class="col-lg-10">
-                <form action="/jabatan/{{ $jabatan->id }}" method="post">
+                <form action="/kepegawaian/{{ $kepegawaian->id }}" method="post">
                     @method('put')
                     @csrf
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="h3 mb-0">Edit Jabatan</h5>
+                            <h5 class="h3 mb-0">Edit Status Kepegawaian</h5>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-10">
                                     <div
                                         class="form-group
-                                        @error('nama_jabatan') has-danger @enderror">
-                                        <label class="form-control-label" for="nama_jabatan">Nama Jabatan</label>
-                                        <input type="text" name="nama_jabatan" id="nama_jabatan" required
+                                        @error('status_kepegawaian') has-danger @enderror">
+                                        <label class="form-control-label" for="status_kepegawaian">Status
+                                            Kepegawaian</label>
+                                        <input type="text" name="status_kepegawaian" id="status_kepegawaian" required
                                             class="form-control
-                                            @error('nama_jabatan') is-invalid @enderror"
-                                            value="{{ $jabatan->nama_jabatan }}">
-                                        @error('nama_jabatan')
+                                            @error('status_kepegawaian') is-invalid @enderror"
+                                            value="{{ $kepegawaian->status_kepegawaian }}">
+                                        @error('status_kepegawaian')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -33,7 +34,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <a href="/jabatan" class="btn btn-secondary">Batal</a>
+                                    <a href="/kepegawaian" class="btn btn-secondary">Batal</a>
                                     <button type="submit" class="btn btn-warning">Update</button>
                                 </div>
                             </div>

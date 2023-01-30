@@ -16,8 +16,5 @@ class JabatanFactory extends Factory
      */
     public function definition()
     {
-        return [
-            'nama_jabatan' => fake()->randomElement(['Manager', 'Kasir', 'Pelayan', 'Koki']),
-        ];
     }
 }

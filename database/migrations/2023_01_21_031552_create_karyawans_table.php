@@ -17,11 +17,13 @@ return new class extends Migration
             $table->string('nik')->primary();
             $table->string('nama');
             $table->string('email')->unique();
-            $table->string('jenis_kelamin')->nullable();
+            $table->string('tempat_lahir')->nullable();
+            $table->string('tanggal_lahir')->nullable();
             $table->string('alamat')->nullable();
-            $table->string('no_telp')->nullable();
+            $table->string('tmt')->nullable();
+            $table->string('foto')->nullable();
             $table->foreign('nik')->references('nik')->on('users')->onDelete('cascade');
-            $table->string('jabatan_id')->references('id')->on('jabatans')->onDelete('cascade');
+            $table->string('kepegawaian_id')->references('id')->on('kepegawaians')->onDelete('cascade');
             $table->timestamps();
         });
     }

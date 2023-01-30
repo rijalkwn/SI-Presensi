@@ -101,12 +101,12 @@
                                 <thead>
                                     <tr>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">NO
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">NIP
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">NIK
                                         </th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama
                                         </th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Jabatan
+                                            Status Kepegawaian
                                         </th>
                                         <th
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
@@ -129,13 +129,14 @@
                                             <td>
                                                 <p class="text-sm font-weight-bold mb-0">{{ $loop->iteration }}</p>
                                             <td>
-                                                <p class="text-sm font-weight-bold mb-0">{{ $presensi->nip }}</p>
+                                                <p class="text-sm font-weight-bold mb-0">{{ $presensi->nik }}</p>
                                             </td>
                                             <td>
                                                 <p class="text-sm font-weight-bold mb-0">{{ $presensi->nama }}</p>
                                             </td>
                                             <td>
-                                                <p class="text-sm font-weight-bold mb-0">{{ $presensi->jabatan }}</p>
+                                                <p class="text-sm font-weight-bold mb-0">{{ $presensi->status_kepegawaian }}
+                                                </p>
                                             </td>
                                             <td>
                                                 <p class="text-sm font-weight-bold mb-0">{{ $presensi->jam_masuk }}</p>

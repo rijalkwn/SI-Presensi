@@ -22,7 +22,7 @@
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama
                                         </th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Jabatan
+                                            Status Kepegawaian
                                         </th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Jam Masuk
@@ -48,7 +48,8 @@
                                                 <p class="text-sm font-weight-bold mb-0">{{ $presensi->nama }}</p>
                                             </td>
                                             <td class="align-middle text-center text-sm">
-                                                <p class="text-sm font-weight-bold mb-0">{{ $presensi->jabatan }}</p>
+                                                <p class="text-sm font-weight-bold mb-0">{{ $presensi->status_kepegawaian }}
+                                                </p>
                                             </td>
                                             <td class="align-middle text-center text-sm">
                                                 <p class="text-sm font-weight-bold mb-0">{{ $presensi->jam_masuk }}</p>

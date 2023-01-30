@@ -66,13 +66,13 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ Request::is('jabatan*') ? 'active' : '' }}"
-                        href="{{ route('jabatan.index') }}">
+                    <a class="nav-link {{ Request::is('kepegawaian*') ? 'active' : '' }}"
+                        href="{{ route('kepegawaian.index') }}">
                         <div
                             class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="fa fa-database text-dark text-sm opacity-10"></i>
+                            <i class="fa fa-files-o text-dark text-sm opacity-10"></i>
                         </div>
-                        <span class="nav-link-text ms-1">Jabatan</span>
+                        <span class="nav-link-text ms-1">Status Kepegawaian</span>
                     </a>
                 </li>
             @endif
