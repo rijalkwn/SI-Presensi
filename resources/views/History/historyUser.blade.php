@@ -17,7 +17,7 @@
                                 <thead>
                                     <tr>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">NO
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">NIP
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">NIK
                                         </th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama
                                         </th>
@@ -42,7 +42,7 @@
                                                 <p class="text-sm font-weight-bold mb-0">{{ $loop->iteration }}</p>
                                             </td>
                                             <td class="align-middle text-center text-sm">
-                                                <p class="text-sm font-weight-bold mb-0">{{ $presensi->nip }}</p>
+                                                <p class="text-sm font-weight-bold mb-0">{{ $presensi->nik }}</p>
                                             </td>
                                             <td class="align-middle text-center text-sm">
                                                 <p class="text-sm font-weight-bold mb-0">{{ $presensi->nama }}</p>

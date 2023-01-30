@@ -14,13 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('karyawans', function (Blueprint $table) {
-            $table->string('nip')->primary();
+            $table->string('nik')->primary();
             $table->string('nama');
             $table->string('email')->unique();
             $table->string('jenis_kelamin')->nullable();
             $table->string('alamat')->nullable();
             $table->string('no_telp')->nullable();
-            $table->foreign('nip')->references('nip')->on('users')->onDelete('cascade');
+            $table->foreign('nik')->references('nik')->on('users')->onDelete('cascade');
             $table->string('jabatan_id')->references('id')->on('jabatans')->onDelete('cascade');
             $table->timestamps();
         });

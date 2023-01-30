@@ -17,35 +17,35 @@ class UserSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'nip' => '1234567890',
+            'nik' => '1234567890',
             'nama' => 'Admin',
             'email' => 'admin@admin.com',
             'password' => Hash::make('admin'),
             'role' => 'admin',
         ]);
         DB::table('users')->insert([
-            'nip' => '123',
+            'nik' => '123',
             'nama' => 'Rijal kurniawan',
             'email' => 'rijal@gmail.com',
             'password' => Hash::make('123'),
             'role' => 'user',
         ]);
         DB::table('users')->insert([
-            'nip' => '124',
+            'nik' => '124',
             'nama' => 'Lutfiani',
             'email' => 'lutfiani@gmail.com',
             'password' => Hash::make('123'),
             'role' => 'user',
         ]);
         DB::table('users')->insert([
-            'nip' => '125',
+            'nik' => '125',
             'nama' => 'Paijo',
             'email' => 'paijo@gmail.com',
             'password' => Hash::make('123'),
             'role' => 'user',
         ]);
         DB::table('users')->insert([
-            'nip' => '126',
+            'nik' => '126',
             'nama' => 'King',
             'email' => 'king@gmail.com',
             'password' => Hash::make('123'),

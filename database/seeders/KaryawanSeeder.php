@@ -18,25 +18,25 @@ class KaryawanSeeder extends Seeder
     public function run()
     {
         DB::table('karyawans')->insert([
-            'nip' => '123',
+            'nik' => '123',
             'nama' => 'Rijal kurniawan',
             'email' => 'rijal@gmail.com',
             'jabatan_id' => '1',
         ]);
         DB::table('karyawans')->insert([
-            'nip' => '124',
+            'nik' => '124',
             'nama' => 'Lutfiani',
             'email' => 'lutfiani@gmail.com',
             'jabatan_id' => '1',
         ]);
         DB::table('karyawans')->insert([
-            'nip' => '125',
+            'nik' => '125',
             'nama' => 'Paijo',
             'email' => 'paijo@gmail.com',
             'jabatan_id' => '3',
         ]);
         DB::table('karyawans')->insert([
-            'nip' => '126',
+            'nik' => '126',
             'nama' => 'King',
             'email' => 'king@gmail.com',
             'jabatan_id' => '2',

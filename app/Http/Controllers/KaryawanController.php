@@ -50,24 +50,24 @@ class KaryawanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nip' => 'required|numeric',
+            'nik' => 'required|numeric',
             'nama' => 'required|max:255|string',
             'email' => 'required|email',
             'jabatan_id' => 'required',
         ]);
 
         User::create([
-            'nip' => $request->nip,
+            'nik' => $request->nik,
             'nama' => $request->nama,
             'email' => $request->email,
-            'password' => bcrypt($request->nip),
+            'password' => bcrypt($request->nik),
             'role' => 'user',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
         Karyawan::create([
-            'nip' => $request->nip,
+            'nik' => $request->nik,
             'nama' => $request->nama,
             'email' => $request->email,
             'jabatan_id' => $request->jabatan_id,
@@ -97,8 +97,8 @@ class KaryawanController extends Controller
      */
     public function edit($id)
     {
-        $karyawan = Karyawan::where('nip', $id)->first();
-        $user = User::where('nip', $id)->first();
+        $karyawan = Karyawan::where('nik', $id)->first();
+        $user = User::where('nik', $id)->first();
         $jabatans = Jabatan::all();
         return view('karyawan.edit', compact('jabatans', 'karyawan', 'user'), [
             'title' => 'Edit Karyawan',
@@ -126,14 +126,14 @@ class KaryawanController extends Controller
             'jabatan_id' => $request->jabatan_id,
             'updated_at' => now(),
         ];
-        Karyawan::where('nip', $id)->update($datakaryawan);
+        Karyawan::where('nik', $id)->update($datakaryawan);
 
         $datauser = [
             'nama' => $request->nama,
             'email' => $request->email,
             'updated_at' => now(),
         ];
-        User::where('nip', $id)->update($datauser);
+        User::where('nik', $id)->update($datauser);
 
 
         Alert::success('Data Karyawan Berhasil Diubah');
@@ -147,10 +147,10 @@ class KaryawanController extends Controller
      * @param  \App\Models\Karyawan  $karyawan
      * @return \Illuminate\Http\Response
      */
-    public function destroy($nip)
+    public function destroy($nik)
     {
-        User::where('nip', $nip)->delete();
-        Karyawan::where('nip', $nip)->delete();
+        User::where('nik', $nik)->delete();
+        Karyawan::where('nik', $nik)->delete();
         return redirect()->route('karyawan.index')->with('success', 'Data Karyawan Berhasil Dihapus');
     }
 }

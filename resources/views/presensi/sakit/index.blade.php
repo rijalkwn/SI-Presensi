@@ -45,13 +45,13 @@
                                 <div class="col-lg-6">
                                     <div
                                         class="form-group
-                                        @error('nip') has-danger @enderror">
-                                        <label class="form-control-label" for="nip">NIP</label>
-                                        <input type="text" name="nip" id="nip"
+                                        @error('nik') has-danger @enderror">
+                                        <label class="form-control-label" for="nik">NIK</label>
+                                        <input type="text" name="nik" id="nik"
                                             class="form-control
-                                            @error('nip') is-invalid @enderror"
-                                            value="{{ old('nip') }}">
-                                        @error('nip')
+                                            @error('nik') is-invalid @enderror"
+                                            value="{{ old('nik') }}">
+                                        @error('nik')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

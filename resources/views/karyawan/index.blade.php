@@ -19,7 +19,7 @@
                                     <tr>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No
                                         </th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">NIP
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">NIK
                                         </th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama
                                         </th>
@@ -42,7 +42,7 @@
                                                 <p class="text-sm font-weight-bold mb-0">{{ $loop->iteration }}</p>
                                             </td>
                                             <td>
-                                                <p class="text-sm font-weight-bold mb-0">{{ $karyawan->nip }}</p>
+                                                <p class="text-sm font-weight-bold mb-0">{{ $karyawan->nik }}</p>
                                             </td>
                                             <td>
                                                 <p class="text-sm font-weight-bold mb-0">{{ $karyawan->nama }}</p>
@@ -56,10 +56,10 @@
                                             </td>
                                             <td class="align-middle text-end">
                                                 <div class="d-flex px-3 py-1 justify-content-center align-items-center">
-                                                    <a href="/karyawan/{{ $karyawan->nip }}/edit"
+                                                    <a href="/karyawan/{{ $karyawan->nik }}/edit"
                                                         class="btn btn-link text-warning mb-0"><i
                                                             class="fas fa-edit"></i></a>
-                                                    <form action="/karyawan/{{ $karyawan->nip }}" method="post">
+                                                    <form action="/karyawan/{{ $karyawan->nik }}" method="post">
                                                         @csrf
                                                         @method('delete')
                                                         <button type="submit" class="btn btn-link text-danger mb-0"

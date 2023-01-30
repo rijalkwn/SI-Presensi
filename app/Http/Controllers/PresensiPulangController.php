@@ -12,7 +12,7 @@ class PresensiPulangController extends Controller
 {
     public function create()
     {
-        $karyawan = Karyawan::where('nip', auth()->user()->nip)->first();
+        $karyawan = Karyawan::where('nik', auth()->user()->nik)->first();
         $time = Carbon::now()->isoFormat('HH:mm:ss');
         $today = Carbon::now()->isoFormat('dddd, D MMMM Y');
         if (Presensi::whereDate('created_at', Carbon::today())->first() == null) {
@@ -32,18 +32,18 @@ class PresensiPulangController extends Controller
 
     public function store()
     {
-        $karyawan = Karyawan::where('nip', auth()->user()->nip)->first();
-        $presensi = Presensi::where('nip', auth()->user()->nip)->whereDate('created_at', Carbon::today())->first();
+        $karyawan = Karyawan::where('nik', auth()->user()->nik)->first();
+        $presensi = Presensi::where('nik', auth()->user()->nik)->whereDate('created_at', Carbon::today())->first();
         //presensi pulang
         if ($presensi) {
             if ($presensi->jam_pulang == null) {
                 if (Carbon::now()->isoFormat('HH:mm:ss') > '16:00:00') {
-                    Presensi::where('nip', auth()->user()->nip)->whereDate('created_at', Carbon::today())->update([
+                    Presensi::where('nik', auth()->user()->nik)->whereDate('created_at', Carbon::today())->update([
                         'jam_pulang' => Carbon::now()->isoFormat('HH:mm:ss'),
                         'keterangan' => 'Tepat waktu',
                     ]);
                 } else {
-                    Presensi::where('nip', auth()->user()->nip)->whereDate('created_at', Carbon::today())->update([
+                    Presensi::where('nik', auth()->user()->nik)->whereDate('created_at', Carbon::today())->update([
                         'jam_pulang' => Carbon::now()->isoFormat('HH:mm:ss'),
                         'keterangan' => 'Pulang cepat',
                     ]);

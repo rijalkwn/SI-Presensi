@@ -31,9 +31,9 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="form-control-label" for="nip">NIP</label>
-                                        <input type="text" name="nip" id="nip" class="form-control" disabled
-                                            value="{{ $karyawan->nip }}">
+                                        <label class="form-control-label" for="nik">NIK</label>
+                                        <input type="text" name="nik" id="nik" class="form-control" disabled
+                                            value="{{ $karyawan->nik }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">

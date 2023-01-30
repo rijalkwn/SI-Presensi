@@ -26,12 +26,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $karyawanside = Karyawan::where('nip', auth()->user()->nip)->first();
+        $karyawanside = Karyawan::where('nik', auth()->user()->nik)->first();
         $countMasuk = Presensi::WhereNotNull('jam_masuk')->count();
         $countPulang = Presensi::WhereNotNull('jam_pulang')->count();
         $countIzin = Presensi::Where('status', 'Izin')->count();
         $countSakit = Presensi::Where('status', 'Sakit')->count();
-        $presensis = Presensi::where('nip', auth()->user()->nip)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->paginate(5);
+        $presensis = Presensi::where('nik', auth()->user()->nik)->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->paginate(5);
         $presensiAll = Presensi::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->paginate(5);
         return view('pages.home', [
             'title' => 'Dashboard',

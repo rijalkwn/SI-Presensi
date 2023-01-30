@@ -5,7 +5,7 @@
     <div class="container-fluid py-4">
         <div class="row mt-4 mx-4">
             <div class="col-lg-10">
-                <form action="/karyawan/{{ $karyawan->nip }}" method="post">
+                <form action="/karyawan/{{ $karyawan->nik }}" method="post">
                     @method('PUT')
                     @csrf
                     <div class="card">
@@ -16,8 +16,8 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="form-control-label" for="nip">NIP</label>
-                                        <input type="text" readonly class="form-control" value="{{ $karyawan->nip }}">
+                                        <label class="form-control-label" for="nik">NIK</label>
+                                        <input type="text" readonly class="form-control" value="{{ $karyawan->nik }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">

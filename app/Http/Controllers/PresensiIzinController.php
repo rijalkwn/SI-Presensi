@@ -14,7 +14,7 @@ class PresensiIzinController extends Controller
     {
         $time = Carbon::now()->isoFormat('HH:mm:ss');
         $today = Carbon::now()->isoFormat('dddd, D MMMM Y');
-        $karyawanside = Karyawan::where('nip', auth()->user()->nip)->first();
+        $karyawanside = Karyawan::where('nik', auth()->user()->nik)->first();
         return view('presensi.izin.index', [
             'title' => 'Presensi Izin',
             'active' => 'presensi_izin',
@@ -27,7 +27,7 @@ class PresensiIzinController extends Controller
     public function store(Request $request)
     {
         $today = Carbon::today();
-        $presensi = Presensi::where('nip', auth()->user()->nip)->whereDate('created_at', $today)->first();
+        $presensi = Presensi::where('nik', auth()->user()->nik)->whereDate('created_at', $today)->first();
         if ($presensi) {
             if ($presensi->status == 'Izin') {
                 Alert::error('Presensi Izin', 'Anda sudah melakukan presensi izin hari ini');
@@ -43,9 +43,9 @@ class PresensiIzinController extends Controller
             $request->validate([
                 'file' => 'required|mimes:pdf|max:2048',
             ]);
-            $karyawan = Karyawan::where('nip', auth()->user()->nip)->first();
-            Presensi::where('nip', auth()->user()->nip)->whereDate('created_at', Carbon::today())->create([
-                'nip' => auth()->user()->nip,
+            $karyawan = Karyawan::where('nik', auth()->user()->nik)->first();
+            Presensi::where('nik', auth()->user()->nik)->whereDate('created_at', Carbon::today())->create([
+                'nik' => auth()->user()->nik,
                 'nama' => auth()->user()->nama,
                 'status' => 'Izin',
                 'tanggal' => Carbon::now()->isoFormat('YY-MM-DD'),

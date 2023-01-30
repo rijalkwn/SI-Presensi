@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('presensis', function (Blueprint $table) {
             $table->id();
-            $table->string('nip');
+            $table->string('nik');
             $table->string('nama');
             $table->date('tanggal');
             $table->string('jabatan');
@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('long_masuk')->nullable();
             $table->string('lat_pulang')->nullable();
             $table->string('long_pulang')->nullable();
-            $table->foreign('nip')->references('nip')->on('users')->onDelete('cascade');
+            $table->foreign('nik')->references('nik')->on('users')->onDelete('cascade');
             $table->foreign('jabatan')->references('nama_jabatan')->on('jabatans')->onDelete('cascade');
             $table->timestamps();
         });
