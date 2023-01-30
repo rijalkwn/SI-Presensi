@@ -80,23 +80,21 @@
                 <h6 class="ms-4 text-uppercase text-xs font-weight-bolder opacity-6 mb-0">My Account</h6>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ Request::is('profile*') ? 'active' : '' }}"
-                    href="{{ route('karyawan.index') }}">
+                <a class="nav-link {{ Request::is('') ? 'active' : '' }}" href="/{{ Auth::User()->role }}/profile">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="fa fa-users text-dark text-sm opacity-10"></i>
+                        <i class="fa fa-address-card text-dark text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text ms-1">Profile</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ Request::is('password*') ? 'active' : '' }}"
-                    href="{{ route('jabatan.index') }}">
+                <a class="nav-link {{ Request::is('') ? 'active' : '' }}" href="">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="fa fa-key text-dark text-sm opacity-10"></i>
                     </div>
-                    <span class="nav-link-text ms-1">Ubah Password</span>
+                    <span class="nav-link-text ms-1">Password</span>
                 </a>
             </li>
         </ul>

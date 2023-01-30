@@ -7,7 +7,9 @@ use App\Http\Controllers\CenterController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\ProfileUserController;
 use App\Http\Controllers\PresensiIzinController;
+use App\Http\Controllers\ProfileAdminController;
 use App\Http\Controllers\PresensiMasukController;
 use App\Http\Controllers\PresensiSakitController;
 use App\Http\Controllers\PresensiPulangController;
@@ -71,3 +73,9 @@ Route::group(['middleware' => 'user'], function () {
     Route::get('/dashbaord/presensi-sakit', [PresensiSakitController::class, 'create'])->name('presensi.sakit');
     Route::post('/dashbaord/presensi-sakit', [PresensiSakitController::class, 'store'])->name('presensi.sakit.store');
 });
+
+//profile admin
+Route::resource('/admin/profile', ProfileAdminController::class)->names('profile.admin')->middleware('admin');
+
+//profile user
+Route::resource('/user/profile', ProfileUserController::class)->names('profile.user')->middleware('user');
