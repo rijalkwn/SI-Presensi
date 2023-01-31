@@ -4,14 +4,16 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CenterController;
+use App\Http\Controllers\UploadController;
 use App\Http\Controllers\HistoryController;
-use App\Http\Controllers\KepegawaianController;
 use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\KepegawaianController;
 use App\Http\Controllers\ProfileUserController;
 use App\Http\Controllers\PresensiIzinController;
 use App\Http\Controllers\ProfileAdminController;
 use App\Http\Controllers\PresensiMasukController;
 use App\Http\Controllers\PresensiSakitController;
+use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\PresensiPulangController;
 
 /*
@@ -76,6 +78,9 @@ Route::group(['middleware' => 'user'], function () {
 
 //profile admin
 Route::resource('/admin/profile', ProfileAdminController::class)->names('profile_admin')->middleware('admin');
-
 //profile user
 Route::resource('/user/profile', ProfileUserController::class)->names('profile_user')->middleware('user');
+
+//change password
+Route::resource('/admin/change_password', ChangePasswordController::class);
+Route::resource('/user/change_password', ChangePasswordController::class);

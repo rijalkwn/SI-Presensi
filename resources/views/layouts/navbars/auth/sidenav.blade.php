@@ -7,7 +7,8 @@
             {{-- nama user --}}
             <div class="d-flex align-items-center">
                 <div class="avatar avatar-sm avatar-indicators avatar-online">
-                    <img src="{{ asset('img/profile/default.jpg') }}" alt="avatar" class="rounded-circle">
+                    <img src="{{ $karyawan->foto == null ? asset('img/profile/default.jpg') : asset($karyawan->foto) }}"
+                        alt="avatar" class="rounded-circle">
                 </div>
                 <div class="ms-2">
                     <div class="ms-2 mb-0 text-lg font-weight-bold">{{ Auth::user()->nama }}</div>
@@ -89,7 +90,8 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ Request::is('') ? 'active' : '' }}" href="">
+                <a class="nav-link {{ Request::is('') ? 'active' : '' }}"
+                    href="/{{ Auth::user()->role }}/change_password">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="fa fa-key text-dark text-sm opacity-10"></i>

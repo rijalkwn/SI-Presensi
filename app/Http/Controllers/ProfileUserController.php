@@ -10,6 +10,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use App\Models\temp_file;
 use RealRashid\SweetAlert\Facades\Alert;
+use Termwind\Components\Dd;
 
 class ProfileUserController extends Controller
 {
@@ -28,10 +29,13 @@ class ProfileUserController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'foto' => [
+            'file' =>
+            [
+                // required if fileProfile null
                 Rule::requiredIf(function () {
                     return Karyawan::where('nik', Auth::user()->nik)->first()->foto == null;
                 }),
+                'max:2048',
             ],
             'nama' => 'required|string',
             'email' => 'required|email',
@@ -48,8 +52,8 @@ class ProfileUserController extends Controller
             'alamat.required' => 'Alamat harus diisi',
             'tmt.required' => 'TMT harus diisi',
             'kepegawaian_id.required' => 'Kepegawaian harus diisi',
+            'file.max' => 'Ukuran file maksimal 2MB',
         ]);
-        $temp = temp_file::where('path', $request->foto)->first();
 
         Karyawan::where('nik', auth()->user()->nik)->update([
             'nama' => $request->nama,
@@ -62,22 +66,22 @@ class ProfileUserController extends Controller
         ]);
 
         User::where('nik', auth()->user()->nik)->update([
-            'name' => $request->nama,
+            'nama' => $request->nama,
             'email' => $request->email,
         ]);
 
-        if ($temp && $request->foto != null) {
-            if (Karyawan::where('nik', $id)->first()->foto != null) {
-                unlink(Karyawan::where('nik', $id)->first()->foto);
-            }
-            $uniq = time() . uniqid();
-            rename(public_path('files/temp/' . $temp->path), public_path('files/profile/' . $id . '_' . $uniq . '.jpg'));
-            Karyawan::where('nik', $id)->update([
-                'foto' => 'files/profile/' . $id . '_' . $uniq . '.jpg',
-            ]);
-            $temp->delete();
-        }
 
+        $file = $request->file('file');
+        if ($file) {
+            $profil = Karyawan::where('nik', auth()->user()->nik)->first();
+            if ($profil->foto != null) {
+                unlink($profil->foto);
+            }
+            $file->move('files/profile', $file->getClientOriginalName());
+            Karyawan::where('nik', auth()->user()->nik)->update([
+                'foto' => 'files/profile/' . $file->getClientOriginalName()
+            ]);
+        }
         Alert::success('Berhasil', 'Data berhasil diubah');
         return redirect()->back();
     }

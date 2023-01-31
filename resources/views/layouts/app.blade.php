@@ -2,7 +2,8 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="" sizes="76x76" href="/img/logos/logos.png">
     <link rel="icon" type="image/png" href="/img/logos/logos.png">
@@ -24,10 +25,12 @@
 
     <!-- CSS Files -->
     <link rel="stylesheet" href="{{ url('assets/css/argon-dashboard.css') }}">
+    {{-- filepond --}}
+    <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
 
 </head>
 
-<body class="{{ $class ?? '' }}" onload="realtimeClock()">
+<body class="{{ $class ?? '' }}">
 
     @guest
         @yield('content')
@@ -42,17 +45,15 @@
         </main>
     @endauth
 
-    {{--   jquery --}}
-    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     {{-- jam --}}
-    <script src="assets/js/jam.js"></script>
+    <script src="{{ url('assets/js/jam.js') }}"></script>
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <!--   Core JS Files   -->
-    <script src="assets/js/core/popper.min.js"></script>
-    <script src="assets/js/core/bootstrap.min.js"></script>
-    <script src="assets/js/plugins/perfect-scrollbar.min.js"></script>
-    <script src="assets/js/plugins/smooth-scrollbar.min.js"></script>
+    <script src="{{ url('assets/js/core/popper.min.js') }}"></script>
+    <script src="{{ url('assets/js/core/bootstrap.min.js') }}"></script>
+    <script src="{{ url('assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
+    <script src="{{ url('assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
     <script>
         var win = navigator.platform.indexOf('Win') > -1;
         if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -62,10 +63,12 @@
             Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
         }
     </script>
-    <!-- Github buttons -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-    <script src="assets/js/argon-dashboard.js"></script>
+    <script src="{{ url('assets/js/argon-dashboard.js') }}"></script>
+    {{-- filepond
+    <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script> --}}
+
     @stack('js');
     @yield('js')
     @include('sweetalert::alert')
