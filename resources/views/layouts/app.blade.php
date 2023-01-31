@@ -8,7 +8,7 @@
     <link rel="" sizes="76x76" href="/img/logos/logos.png">
     <link rel="icon" type="image/png" href="/img/logos/logos.png">
     <title>
-        SI Presensi
+        SI Presensi | {{ $title ?? '' }}
     </title>
 
     {{-- css bootstrap --}}

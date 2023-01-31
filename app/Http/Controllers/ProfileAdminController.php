@@ -12,7 +12,7 @@ class ProfileAdminController extends Controller
     {
         $user = User::where('id', auth()->user()->id)->first();
         return view('profile.admin', [
-            'title' => 'Profile',
+            'title' => 'My Profile',
             'active' => 'profile',
             'user' => $user
         ]);

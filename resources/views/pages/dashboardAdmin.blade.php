@@ -115,10 +115,7 @@
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Jam Keluar</th>
-                                        <th <th
-                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Keterangan</th>
-                                        <th <th
+                                        <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Status</th>
                                     </tr>
@@ -148,15 +145,6 @@
                                                             Pulang</span>
                                                     @else
                                                         {{ $presensi->jam_pulang }}
-                                                    @endif
-                                                </p>
-                                            </td>
-                                            <td class="align-middle text-center text-sm">
-                                                <p class="text-sm font-weight-bold mb-0">
-                                                    @if ($presensi->keterangan != 'Terlambat')
-                                                        <span class="badge badge-sm bg-success">Tepat Waktu</span>
-                                                    @elseif ($presensi->keterangan == 'Terlambat')
-                                                        <span class="badge badge-sm bg-secondary">Terlambat</span>
                                                     @endif
                                                 </p>
                                             </td>

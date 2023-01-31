@@ -15,13 +15,30 @@ class PresensiMasukController extends Controller
         $karyawan = Karyawan::where('nik', auth()->user()->nik)->first();
         $time = Carbon::now()->isoFormat('HH:mm:ss');
         $today = Carbon::now()->isoFormat('dddd, D MMMM Y');
-        return view('presensi.masuk.index', [
-            'title' => 'Presensi Masuk',
-            'active' => 'presensi_masuk',
-            'today' => $today,
-            'time' => $time,
-            'karyawan' => $karyawan,
-        ]);
+        $presensi = Presensi::where('nik', auth()->user()->nik)->whereDate('created_at', Carbon::today())->first();
+        if ($presensi) {
+            if ($presensi->status == 'Hadir') {
+                return back()->withErrors([
+                    'PresensiError' => 'Anda sudah melakukan presensi masuk hari ini!!',
+                ])->onlyInput('PresensiError');
+            } elseif ($presensi->status == 'Izin') {
+                return back()->withErrors([
+                    'PresensiError' => 'Anda sudah melakukan Absen Izin hari ini!!',
+                ])->onlyInput('PresensiError');
+            } else {
+                return back()->withErrors([
+                    'PresensiError' => 'Anda sudah melakukan Absen Sakit hari ini!!',
+                ])->onlyInput('PresensiError');
+            }
+        } else {
+            return view('presensi.masuk.index', [
+                'title' => 'Presensi Masuk',
+                'active' => 'presensi_masuk',
+                'today' => $today,
+                'time' => $time,
+                'karyawan' => $karyawan,
+            ]);
+        }
     }
 
     public function store()
@@ -40,8 +57,7 @@ class PresensiMasukController extends Controller
                     'status' => 'Hadir',
                     'tanggal' => Carbon::now()->isoFormat('YY-MM-DD'),
                     'jam_masuk' => Carbon::now()->isoFormat('HH:mm:ss'),
-                    'jabatan' => $karyawan->jabatan->nama_jabatan,
-                    'keterangan' => 'Tepat waktu',
+                    'status_kepegawaian' => $karyawan->kepegawaian->status_kepegawaian,
                 ]);
             } else {
                 Presensi::where('nik', auth()->user()->nik)->whereDate('created_at', Carbon::today())->create([
@@ -50,8 +66,7 @@ class PresensiMasukController extends Controller
                     'status' => 'Hadir',
                     'tanggal' => Carbon::now()->isoFormat('YY-MM-DD'),
                     'jam_masuk' => Carbon::now()->isoFormat('HH:mm:ss'),
-                    'jabatan' => $karyawan->jabatan->nama_jabatan,
-                    'keterangan' => 'Terlambat',
+                    'status_kepegawaian' => $karyawan->kepegawaian->status_kepegawaian,
                 ]);
             }
 

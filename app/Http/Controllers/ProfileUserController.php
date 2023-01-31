@@ -19,7 +19,7 @@ class ProfileUserController extends Controller
         $kepegawaian = Kepegawaian::all();
         $karyawan = Karyawan::where('nik', auth()->user()->nik)->first();
         return view('profile.user', [
-            'title' => 'Profile',
+            'title' => 'My Profile',
             'active' => 'profile',
             'karyawan' => $karyawan,
             'kepegawaians' => $kepegawaian

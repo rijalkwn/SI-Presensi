@@ -13,20 +13,18 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label class="form-control-label" for="tanggal">Tanggal</label>
-                                            <input type="text" name="tanggal" id="tanggal" disabled
-                                                class="form-control" value="{{ $today }}">
-                                        </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="tanggal">Tanggal</label>
+                                        <input type="text" name="tanggal" id="tanggal" disabled class="form-control"
+                                            value="{{ $today }}">
                                     </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label class="form-control-label" for="waktu">Waktu</label>
-                                            <input type="time" name="waktu" id="waktu" disabled
-                                                class="form-control" value="{{ $time }}">
-                                        </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="waktu">Waktu</label>
+                                        <input type="time" name="waktu" id="waktu" disabled class="form-control"
+                                            value="{{ $time }}">
                                     </div>
                                 </div>
                             </div>

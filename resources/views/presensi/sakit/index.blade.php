@@ -5,7 +5,8 @@
     <div class="container-fluid py-4">
         <div class="row">
             <div class="col-lg-10">
-                <form action="" method="post" enctype="multipart/form-data">
+                <form action="{{ route('presensi.sakit.store') }}" method="post" enctype="multipart/form-data">
+                    @csrf
                     <div class="card">
                         <div class="card-header">
                             <h5 class="h3 mb-0">Sakit</h5>
@@ -13,83 +14,49 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <div class="form-group @error('tanggal') has-danger @enderror">
+                                    <div class="form-group">
                                         <label class="form-control-label" for="tanggal">Tanggal</label>
-                                        <input type="date" name="tanggal" id="tanggal" disabled value=""
-                                            class="form-control
-                                            @error('tanggal') is-invalid @enderror"
-                                            value="{{ old('tanggal') }}">
-                                        @error('tanggal')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                        <input type="text" name="tanggal" id="tanggal" disabled class="form-control"
+                                            value="{{ $today }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <div class="form-group @error('jam') has-danger @enderror">
-                                        <label class="form-control-label" for="jam">Jam</label>
-                                        <input type="time" name="jam" id="jam" disabled
-                                            class="form-control
-                                            @error('jam') is-invalid @enderror"
-                                            value="{{ old('jam') }}">
-                                        @error('jam')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="waktu">Waktu</label>
+                                        <input type="time" name="waktu" id="waktu" disabled class="form-control"
+                                            value="{{ $time }}">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <div
-                                        class="form-group
-                                        @error('nik') has-danger @enderror">
+                                    <div class="form-group">
                                         <label class="form-control-label" for="nik">NIK</label>
-                                        <input type="text" name="nik" id="nik"
-                                            class="form-control
-                                            @error('nik') is-invalid @enderror"
-                                            value="{{ old('nik') }}">
-                                        @error('nik')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                        <input type="text" name="nik" id="nik" class="form-control" disabled
+                                            value="{{ $karyawan->nik }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <div
-                                        class="form-group
-                                        @error('nama') has-danger @enderror">
+                                    <div class="form-group">
                                         <label class="form-control-label" for="nama">Nama</label>
-                                        <input type="text" name="nama" id="nama"
-                                            class="form-control
-                                            @error('nama') is-invalid @enderror"
-                                            value="{{ old('nama') }}">
-                                        @error('nama')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                        <input type="text" name="nama" id="nama" class="form-control" disabled
+                                            value="{{ $karyawan->nama }}">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-6">
+                                {{-- file --}}
+                                <div class="col-lg-12">
                                     <div
-                                        class="form-group
-                                        @error('file') has-danger @enderror">
+                                        class="form-group @error('file')
+                                        has-danger
+                                    @enderror">
                                         <label class="form-control-label" for="file">Surat Sakit</label>
-                                        <input type="file" name="file" id="file"
-                                            class="form-control
-                                            @error('file') is-invalid @enderror"
-                                            value="{{ old('file') }}">
-                                        @error('file')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                        <input type="file" name="file" id="file" class="form-control">
+                                        <label class="text-danger fst-italic">*Format file [.pdf], pastikan
+                                            file
+                                            yang
+                                            diupload benar.</label>
                                     </div>
                                 </div>
                             </div>

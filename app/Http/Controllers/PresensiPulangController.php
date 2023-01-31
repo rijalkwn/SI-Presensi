@@ -15,18 +15,35 @@ class PresensiPulangController extends Controller
         $karyawan = Karyawan::where('nik', auth()->user()->nik)->first();
         $time = Carbon::now()->isoFormat('HH:mm:ss');
         $today = Carbon::now()->isoFormat('dddd, D MMMM Y');
-        if (Presensi::whereDate('created_at', Carbon::today())->first() == null) {
-            Alert::error('Presensi Pulang', 'Anda belum melakukan presensi masuk hari ini! Silakan melakukan presensi masuk terlebih dahulu');
-            return redirect()->route('presensi.masuk');
+        $presensi = Presensi::where('nik', auth()->user()->nik)->whereDate('created_at', Carbon::today())->first();
+        if ($presensi) {
+            if ($presensi->status == 'Hadir') {
+                if ($presensi->jam_pulang == null) {
+                    return view('presensi.pulang.index', [
+                        'title' => 'Presensi Pulang',
+                        'active' => 'presensi_pulang',
+                        'today' => $today,
+                        'time' => $time,
+                        'karyawan' => $karyawan,
+                    ]);
+                } else {
+                    return back()->withErrors([
+                        'PresensiError' => 'Anda sudah melakukan presensi pulang hari ini!!',
+                    ])->onlyInput('PresensiError');
+                }
+            } elseif ($presensi->status == 'Izin') {
+                return back()->withErrors([
+                    'PresensiError' => 'Anda sudah melakukan Absen Izin hari ini!!',
+                ])->onlyInput('PresensiError');
+            } else {
+                return back()->withErrors([
+                    'PresensiError' => 'Anda sudah melakukan Absen Sakit hari ini!!',
+                ])->onlyInput('PresensiError');
+            }
         } else {
-            return view('presensi.pulang.index', [
-                'title' => 'Presensi Pulang',
-                'active' => 'presensi_pulang',
-                'today' => $today,
-                'time' => $time,
-                'karyawan' => $karyawan,
-                'warning' => $warning ?? null,
-            ]);
+            return back()->withErrors([
+                'PresensiError' => 'Anda belum melakukan presensi masuk hari ini!!',
+            ])->onlyInput('PresensiError');
         }
     }
 
@@ -40,12 +57,10 @@ class PresensiPulangController extends Controller
                 if (Carbon::now()->isoFormat('HH:mm:ss') > '16:00:00') {
                     Presensi::where('nik', auth()->user()->nik)->whereDate('created_at', Carbon::today())->update([
                         'jam_pulang' => Carbon::now()->isoFormat('HH:mm:ss'),
-                        'keterangan' => 'Tepat waktu',
                     ]);
                 } else {
                     Presensi::where('nik', auth()->user()->nik)->whereDate('created_at', Carbon::today())->update([
                         'jam_pulang' => Carbon::now()->isoFormat('HH:mm:ss'),
-                        'keterangan' => 'Pulang cepat',
                     ]);
                 }
                 Alert::success('Presensi Pulang', 'Presensi pulang berhasil dilakukan');
