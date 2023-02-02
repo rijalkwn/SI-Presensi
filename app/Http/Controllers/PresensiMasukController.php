@@ -7,6 +7,7 @@ use App\Models\Karyawan;
 use App\Models\Presensi;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
+use Stevebauman\Location\Facades\Location;
 
 class PresensiMasukController extends Controller
 {
@@ -49,26 +50,15 @@ class PresensiMasukController extends Controller
             Alert::error('Presensi Masuk', 'Anda sudah melakukan presensi masuk hari ini');
             return redirect()->route('home');
         } else {
-            //terlambat
-            if (Carbon::now()->isoFormat('HH:mm:ss') < '07:01:00') {
-                Presensi::where('nik', auth()->user()->nik)->whereDate('created_at', Carbon::today())->create([
-                    'nik' => auth()->user()->nik,
-                    'nama' => auth()->user()->nama,
-                    'status' => 'Hadir',
-                    'tanggal' => Carbon::now()->isoFormat('YY-MM-DD'),
-                    'jam_masuk' => Carbon::now()->isoFormat('HH:mm:ss'),
-                    'status_kepegawaian' => $karyawan->kepegawaian->status_kepegawaian,
-                ]);
-            } else {
-                Presensi::where('nik', auth()->user()->nik)->whereDate('created_at', Carbon::today())->create([
-                    'nik' => auth()->user()->nik,
-                    'nama' => auth()->user()->nama,
-                    'status' => 'Hadir',
-                    'tanggal' => Carbon::now()->isoFormat('YY-MM-DD'),
-                    'jam_masuk' => Carbon::now()->isoFormat('HH:mm:ss'),
-                    'status_kepegawaian' => $karyawan->kepegawaian->status_kepegawaian,
-                ]);
-            }
+            Presensi::where('nik', auth()->user()->nik)->whereDate('created_at', Carbon::today())->create([
+                'nik' => auth()->user()->nik,
+                'nama' => auth()->user()->nama,
+                'status' => 'Hadir',
+                'tanggal' => Carbon::now()->isoFormat('YY-MM-DD'),
+                'jam_masuk' => Carbon::now()->isoFormat('HH:mm:ss'),
+                'status_kepegawaian' => $karyawan->kepegawaian->status_kepegawaian,
+            ]);
+
 
             Alert::success('Presensi Masuk', 'Presensi masuk berhasil dilakukan');
             return redirect()->route('home');

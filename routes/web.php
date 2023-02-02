@@ -43,7 +43,12 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
 //history
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
-    Route::get('/history', [HistoryController::class, 'index'])->name('history');
+    Route::get('/user/history', [HistoryController::class, 'index'])->name('history.user');
+});
+Route::group(['middleware' => 'admin'], function () {
+    Route::get('/history/cetak', [HistoryController::class, 'cetak'])->name('history.cetak');
+    Route::get('admin/history', [HistoryController::class, 'indexadmin'])->name('history.admin');
+    Route::delete('/history/delete-all', [HistoryController::class, 'destroy'])->name('history.destroy');
 });
 
 //presensi

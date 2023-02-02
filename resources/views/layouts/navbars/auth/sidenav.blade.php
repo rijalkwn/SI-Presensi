@@ -47,15 +47,29 @@
                     <span class="nav-link-text ms-1">Dashboard</span>
                 </a>
             </li>
-            <li class="nav-item my-0">
-                <a class="nav-link {{ Request::is('history*') ? 'active' : '' }}" href="{{ route('history') }}">
-                    <div
-                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="fa fa-history text-dark text-sm opacity-10"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">History Presensi</span>
-                </a>
-            </li>
+            @if (auth()->user()->role == 'admin')
+                <li class="nav-item my-0">
+                    <a class="nav-link {{ Request::is('history*') ? 'active' : '' }}"
+                        href="{{ route('history.admin') }}">
+                        <div
+                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="fa fa-history text-dark text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">History Presensi</span>
+                    </a>
+                </li>
+            @elseif(auth()->user()->role == 'user')
+                <li class="nav-item my-0">
+                    <a class="nav-link {{ Request::is('history*') ? 'active' : '' }}"
+                        href="{{ route('history.user') }}">
+                        <div
+                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="fa fa-history text-dark text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">History Presensi</span>
+                    </a>
+                </li>
+            @endif
             @if (auth()->user()->role == 'admin')
                 <li class="nav-item mt-1 d-flex align-items-center">
                     <h6 class="ms-4 text-uppercase text-xs font-weight-bolder opacity-6 mb-0">Administrator</h6>

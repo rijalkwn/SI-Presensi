@@ -63,6 +63,6 @@ class PresensiSakitController extends Controller
             'surat' => $nama_file,
         ]);
         Alert::success('Absen Sakit', 'Absen sakit berhasil dilakukan');
-        return redirect()->route('home');
+        return redirect()->back();
     }
 }

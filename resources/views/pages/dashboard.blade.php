@@ -9,86 +9,90 @@
         <div class="row">
             <div class="col-lg-3 col-sm-6 mb-xl-0 mb-4">
                 <div class="card">
-                    <div class="card-body p-3">
-                        <div class="row">
-                            <div class="col-8">
-                                <a href="{{ route('presensi.masuk') }}">
+                    <a href="{{ route('presensi.masuk') }}">
+                        <div class="card-body p-3">
+                            <div class="row">
+                                <div class="col-8">
                                     <div class="numbers">
                                         <h4 class="text-lg text-uppercase font-weight-bold my-3 ms-3">MASUK</h4>
                                     </div>
-                                </a>
-                            </div>
-                            <div class="col-4 my-auto">
-                                <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                                    <i class="fa fa-calendar ntext-lg opacity-10" aria-hidden="true"></i>
+                                </div>
+                                <div class="col-4 my-auto">
+                                    <div
+                                        class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
+                                        <i class="fa fa-calendar ntext-lg opacity-10" aria-hidden="true"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
             <div class="col-lg-3 col-sm-6 mb-xl-0 mb-4">
                 <div class="card">
-                    <div class="card-body p-3">
-                        <div class="row">
-                            <div class="col-8">
-                                <a href="{{ route('presensi.pulang') }}">
+                    <a href="{{ route('presensi.pulang') }}">
+                        <div class="card-body p-3">
+                            <div class="row">
+                                <div class="col-8">
                                     <div class="numbers">
                                         <h4 class="text-lg text-uppercase font-weight-bold my-3 ms-3">PULANG</h4>
                                     </div>
-                                </a>
-                            </div>
-                            <div class="col-4 my-auto">
-                                <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                                    <i class="fa fa-calendar text-lg opacity-10" aria-hidden="true"></i>
+                                </div>
+                                <div class="col-4 my-auto">
+                                    <div
+                                        class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
+                                        <i class="fa fa-calendar text-lg opacity-10" aria-hidden="true"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
             <div class="col-lg-3 col-sm-6 mb-xl-0 mb-4">
                 <div class="card">
-                    <div class="card-body p-3">
-                        <div class="row">
-                            <div class="col-8">
-                                <a href="{{ route('presensi.izin') }}" method>
+                    <a href="{{ route('presensi.izin') }}" method>
+                        <div class="card-body p-3">
+                            <div class="row">
+                                <div class="col-8">
                                     <div class="numbers">
                                         <h4 class="text-lg text-uppercase font-weight-bold my-3 ms-3">IZIN</h4>
                                     </div>
-                                </a>
-                            </div>
-                            <div class="col-4 my-auto">
-                                <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                                    <i class="fa fa-calendar-times-o text-lg opacity-10" aria-hidden="true"></i>
+                                </div>
+                                <div class="col-4 my-auto">
+                                    <div
+                                        class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
+                                        <i class="fa fa-calendar-times-o text-lg opacity-10" aria-hidden="true"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
             <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
                 <div class="card">
-                    <div class="card-body p-3">
-                        <div class="row">
-                            <div class="col-8">
-                                <a href="{{ route('presensi.sakit') }}">
+                    <a href="{{ route('presensi.sakit') }}">
+                        <div class="card-body p-3">
+                            <div class="row">
+                                <div class="col-8">
                                     <div class="numbers">
                                         <h4 class="text-lg text-uppercase font-weight-bold my-3 ms-3">SAKIT</h4>
                                     </div>
-                                </a>
-                            </div>
-                            <div class="col-4 my-auto">
-                                <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                                    <i class="fa fa-thermometer-full text-lg opacity-10" aria-hidden="true"></i>
+                                </div>
+                                <div class="col-4 my-auto">
+                                    <div
+                                        class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
+                                        <i class="fa fa-thermometer-full text-lg opacity-10" aria-hidden="true"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
-        <div class="row mt-4 mx-4">
+        <div class="row mt-4">
             <div class="col-lg-12">
                 <div class="card mb-4">
                     <div class="card-header pb-0">
@@ -101,7 +105,8 @@
                             <table class="table align-items-center mb-0">
                                 <thead>
                                     <tr>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">NO
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            NO
                                         </th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Tanggal</th>
@@ -123,7 +128,8 @@
                                                 <p class="ps-3">{{ $loop->iteration }}</p>
                                             </td>
                                             <td class="text-sm">
-                                                <p class="ps-2 text-sm font-weight-bold mb-0">{{ $presensi->tanggal }}</p>
+                                                <p class="ps-2 text-sm font-weight-bold mb-0">{{ $presensi->tanggal }}
+                                                </p>
                                             </td>
                                             <td class="text-sm">
                                                 <p class="text-sm font-weight-bold mb-0">
@@ -158,14 +164,14 @@
                                                         @endif
                                                     @elseif ($presensi->status == 'Izin')
                                                         <span>
-                                                            <a href="{{ $presensi->surat }}"
+                                                            <a href="{{ asset('/files/suratIzin/' . $presensi->surat) }}"
                                                                 style="text-decoration: underline; color:cornflowerblue">lihat
                                                                 surat
                                                                 izin</a>
                                                         </span>
                                                     @elseif ($presensi->status == 'Sakit')
                                                         <span>
-                                                            <a href="{{ $presensi->surat }}"
+                                                            <a href="{{ asset('/files/suratSakit/' . $presensi->surat) }}"
                                                                 style="text-decoration: underline; color:cornflowerblue">lihat
                                                                 surat sakit</a>
                                                         </span>
