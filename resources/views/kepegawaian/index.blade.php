@@ -56,6 +56,12 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            <p class="text-danger text-xs ms-4 mt-4 alert">*Jangan menghapus data ini apabila masih ada
+                                karyawan
+                                yang
+                                memiliki
+                                status kepegawaian yang
+                                akan dihapus*</p>
                         </div>
                         <div class="mt-4 mb-2 mx-3">
                             {{ $kepegawaians->links('pagination::bootstrap-5') }}

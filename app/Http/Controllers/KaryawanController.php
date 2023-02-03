@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Kepegawaian;
 use App\Models\Karyawan;
+use App\Models\Kepegawaian;
 use Illuminate\Http\Request;
-
-use function Symfony\Component\String\b;
+use App\Imports\KaryawanImport;
+use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class KaryawanController extends Controller
@@ -152,5 +152,21 @@ class KaryawanController extends Controller
         User::where('nik', $nik)->delete();
         Karyawan::where('nik', $nik)->delete();
         return redirect()->route('karyawan.index')->with('success', 'Data Karyawan Berhasil Dihapus');
+    }
+
+    public function bulk(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv',
+        ], [
+            'file.required' => 'File tidak boleh kosong',
+            'file.mimes' => 'File harus berformat xlsx, xls, atau csv',
+        ]);
+
+        Excel::import(new KaryawanImport, $request->file('file'));
+
+        // Alert success
+        Alert::success('Success!', 'Data mahasiswa berhasil ditambahkan');
+        return redirect()->back();
     }
 }

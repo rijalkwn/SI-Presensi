@@ -46,16 +46,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/user/history', [HistoryController::class, 'index'])->name('history.user');
 });
 Route::group(['middleware' => 'admin'], function () {
+    //history
     Route::get('/history/cetak', [HistoryController::class, 'cetak'])->name('history.cetak');
     Route::get('admin/history', [HistoryController::class, 'indexadmin'])->name('history.admin');
     Route::delete('/history/delete-all', [HistoryController::class, 'destroy'])->name('history.destroy');
-});
-
-//presensi
-Route::group(['middleware' => 'admin'], function () {
     //karyawan
     Route::get('/karyawan/{{ $karyawan->id }}/edit', [KaryawanController::class, 'edit'])->name('karyawan');
     Route::resource('/karyawan', KaryawanController::class)->names('karyawan');
+    Route::post('/karyawan/import', [KaryawanController::class, 'bulk'])->name('karyawan.bulk');
     //kepegawaian
     Route::get('/kepegawaian/{{ $kepegawaian->id }}/edit', [KepegawaianController::class, 'edit']);
     Route::resource('/kepegawaian', KepegawaianController::class)->names('kepegawaian');

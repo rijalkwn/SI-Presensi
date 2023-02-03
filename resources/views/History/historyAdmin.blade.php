@@ -11,7 +11,7 @@
                             <p class="mb-0">History Presensi Karyawan</p>
                             <div class="ms-auto d-flex">
                                 <form action="{{ route('history.admin') }}" method="get" class="me-3">
-                                    <select name="bulan" onchange="this.form.submit()" class="form-select me-3 bg-info">
+                                    <select name="bulan" onchange="this.form.submit()" class="form-select me-3">
                                         <option value="">Pilih Bulan</option>
                                         <option value="1" {{ $selectedMonth == 1 ? 'selected' : '' }}>Januari
                                         </option>

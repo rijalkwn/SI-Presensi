@@ -48,7 +48,7 @@ class KepegawaianController extends Controller
     {
         $data = $request->validate(
             [
-                'status_kepegawaian' => 'required|unique:jabatans|max:255',
+                'status_kepegawaian' => 'required|unique:kepegawaians|max:255',
             ],
             [
                 'status_kepegawaian.required' => 'Status kepegawaian harus diisi',
