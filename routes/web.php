@@ -4,8 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CenterController;
+use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\KepegawaianController;
 use App\Http\Controllers\ProfileUserController;
@@ -57,6 +59,10 @@ Route::group(['middleware' => 'admin'], function () {
     //kepegawaian
     Route::get('/kepegawaian/{{ $kepegawaian->id }}/edit', [KepegawaianController::class, 'edit']);
     Route::resource('/kepegawaian', KepegawaianController::class)->names('kepegawaian');
+
+    //setting presensi
+    Route::get('/setting/create', [SettingController::class, 'create'])->name('setting.create');
+    Route::post('/setting/store', [SettingController::class, 'store'])->name('setting.store');
 });
 
 
@@ -77,6 +83,9 @@ Route::group(['middleware' => 'user'], function () {
     //sakit
     Route::get('/dashbaord/presensi-sakit', [PresensiSakitController::class, 'create'])->name('presensi.sakit');
     Route::post('/dashbaord/presensi-sakit', [PresensiSakitController::class, 'store'])->name('presensi.sakit.store');
+
+    //lokasi
+    Route::get('/lokasi', [LokasiController::class, 'index'])->name('lokasi');
 });
 
 //profile admin

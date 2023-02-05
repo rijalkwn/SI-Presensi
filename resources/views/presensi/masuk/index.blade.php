@@ -14,6 +14,8 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-6">
+                                    <input type="hidden" id="lat" name="lat">
+                                    <input type="hidden" id="lng" name="lng">
                                     <div class="form-group">
                                         <label class="form-control-label" for="tanggal">Tanggal</label>
                                         <input type="text" name="tanggal" id="tanggal" disabled class="form-control"
@@ -47,7 +49,7 @@
                             <div class="row mt-4">
                                 <div class="col-lg-6">
                                     <a href="{{ route('home') }}" class="btn btn-secondary">Kembali</a>
-                                    <button class="btn btn-warning" id="submit" type="submit">Submit</button>
+                                    <button class="btn btn-warning" id="absenMasuk" type="submit">Submit</button>
                                 </div>
                             </div>
                         </div>
@@ -57,3 +59,52 @@
         </div>
     </div>
 @endsection
+
+@push('javascript')
+    <!-- Datatables -->
+    <script src="{{ asset('/assets/js/plugins/datatables/datatables.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#basic-datatables').DataTable();
+        });
+
+        window.setTimeout(function() {
+            document.getElementById('absenMasuk').removeAttribute('disabled')
+        }, 2000);
+
+        getLocation();
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                alert('Geolocation tidak didukung oleh peramban ini');
+            }
+        }
+
+        function showPosition(position) {
+            var lat = position.coords.latitude;
+            var lng = position.coords.longitude;
+
+            document.getElementById('lat').value = lat;
+            document.getElementById('lng').value = lng;
+            document.getElementById('latTest').value = lat;
+            document.getElementById('lngTest').value = lng;
+        }
+    </script>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+
+    <script>
+        // disable all input and button after submit
+        $('form').submit(function() {
+            // show spinner on button
+            $(this).find('button[type=submit]').html(
+                `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Loading...`
+            );
+            $('button').attr('disabled', 'disabled');
+        });
+    </script>
+@endpush

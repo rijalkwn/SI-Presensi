@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="{{ url('assets/css/argon-dashboard.css') }}">
     {{-- filepond --}}
     <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
-
+    @stack('css')
 </head>
 
 <body class="{{ $class ?? '' }}">
@@ -69,7 +69,7 @@
     {{-- filepond
     <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script> --}}
 
-    @stack('js');
+    @stack('javascript')
     @yield('js')
     @include('sweetalert::alert')
 </body>

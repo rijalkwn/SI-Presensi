@@ -41,7 +41,7 @@ class LoginController extends Controller
         }
 
         return back()->withErrors([
-            'loginError' => 'Login Failed.',
+            'loginError' => 'Login Failed!!!',
         ])->onlyInput('loginError');
     }
 

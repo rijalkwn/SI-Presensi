@@ -14,7 +14,8 @@
                                     <i class="fa fa-cloud-download"></i> Import
                                 </a>
                                 <a href="/karyawan/create" class="btn btn-warning btn-sm"><i class="fa fa-plus-square"
-                                        aria-hidden="true"></i> Tambah</a>
+                                        aria-hidden="true"></i> Tambah
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -45,7 +46,7 @@
                                     @foreach ($karyawans as $karyawan)
                                         <tr>
                                             <td>
-                                                <p class="text-sm font-weight-bold mb-0">{{ $loop->iteration }}</p>
+                                                <p class="text-sm font-weight-bold mb-0 ms-3">{{ $loop->iteration }}</p>
                                             </td>
                                             <td>
                                                 <p class="text-sm font-weight-bold mb-0">{{ $karyawan->nik }}</p>
@@ -65,7 +66,8 @@
                                                     <a href="/karyawan/{{ $karyawan->nik }}/edit"
                                                         class="btn btn-link text-warning mb-0"><i
                                                             class="fas fa-edit"></i></a>
-                                                    <form action="/karyawan/{{ $karyawan->nik }}" method="post">
+                                                    <form action="/karyawan/{{ $karyawan->nik }}" method="post"
+                                                        class="my-auto">
                                                         @csrf
                                                         @method('delete')
                                                         <button type="submit" class="btn btn-link text-danger mb-0"
@@ -112,7 +114,8 @@
                         <li>File harus berformat .xlsx, .xls, .csv</li>
                         <li>File harus memiliki header kolom nik, nama, email, status kepegawaian</li>
                         <li>Header kolom harus sesuai dengan contoh</li>
-                        <li>Status Kepegawaian hanya tersedia tiga sesuai contoh</li>
+                        <li>Status Kepegawaian hanya tersedia tiga yaitu "Guru Tidak Tetap", "Pegawai Tidak Tetap", dan
+                            "Guru Tamu"</li>
                     </ul>
                 </div>
                 <form action="{{ route('karyawan.bulk') }}" method="POST" enctype="multipart/form-data">
@@ -130,3 +133,19 @@
         </div>
     </div>
 </div>
+
+@push('javascript')
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+
+    <script>
+        // disable all input and button after submit
+        $('form').submit(function() {
+            // show spinner on button
+            $(this).find('button[type=submit]').html(
+                `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Loading...`
+            );
+            $('button').attr('disabled', 'disabled');
+        });
+    </script>
+@endpush

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Karyawan;
 use App\Models\Presensi;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use Stevebauman\Location\Facades\Location;
@@ -17,6 +18,7 @@ class PresensiMasukController extends Controller
         $time = Carbon::now()->isoFormat('HH:mm:ss');
         $today = Carbon::now()->isoFormat('dddd, D MMMM Y');
         $presensi = Presensi::where('nik', auth()->user()->nik)->whereDate('created_at', Carbon::today())->first();
+
         if ($presensi) {
             if ($presensi->status == 'Hadir') {
                 return back()->withErrors([
@@ -42,15 +44,23 @@ class PresensiMasukController extends Controller
         }
     }
 
-    public function store()
+    public function store(Request $request)
     {
         $karyawan = Karyawan::where('nik', auth()->user()->nik)->first();
+
+
+        // data koordinat sekolah
+        $koordinat = Setting::where('id', 1)->first();
+
+        $jarak = $this->distance($request->lat, $request->lng, $koordinat->latitude, $koordinat->longitude, "K"); // <-- dihitung menggunakan satuan kilometer
+
         $presensi = Presensi::where('nik', auth()->user()->nik)->whereDate('created_at', Carbon::today())->first();
-        if ($presensi) {
-            Alert::error('Presensi Masuk', 'Anda sudah melakukan presensi masuk hari ini');
-            return redirect()->route('home');
+
+        if ($jarak > $koordinat->radius) {
+            Alert::error('Presensi Masuk', 'Anda tidak berada di dalam radius sekolah');
+            return redirect()->back();
         } else {
-            Presensi::where('nik', auth()->user()->nik)->whereDate('created_at', Carbon::today())->create([
+            $presensi->create([
                 'nik' => auth()->user()->nik,
                 'nama' => auth()->user()->nama,
                 'status' => 'Hadir',
@@ -58,8 +68,6 @@ class PresensiMasukController extends Controller
                 'jam_masuk' => Carbon::now()->isoFormat('HH:mm:ss'),
                 'status_kepegawaian' => $karyawan->kepegawaian->status_kepegawaian,
             ]);
-
-
             Alert::success('Presensi Masuk', 'Presensi masuk berhasil dilakukan');
             return redirect()->route('home');
         }

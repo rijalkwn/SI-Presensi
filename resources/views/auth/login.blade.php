@@ -18,6 +18,10 @@
                                         Negeri 1 Prembun</p>
                                 </div>
                                 <div class="card-body">
+                                    @error('loginError')
+                                        <div class="alert alert-danger text-white font-weight-bold text-center">
+                                            {{ $message }}</div>
+                                    @enderror
                                     <form role="form" method="POST" action="{{ route('login.perform') }}">
                                         @csrf
                                         @method('post')
@@ -33,7 +37,7 @@
                                             <label class="form-label" style="font-size: small">Password<span
                                                     style="color: red;">*</span></label>
                                             <input type="password" name="password" class="form-control form-control-lg"
-                                                aria-label="Password" value="123">
+                                                aria-label="Password" value="">
                                             @error('password')
                                                 <p class="text-danger text-xs pt-1"> {{ $message }} </p>
                                             @enderror

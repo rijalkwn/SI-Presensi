@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Imports\KaryawanImport;
 use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
+use Termwind\Components\Dd;
 
 class KaryawanController extends Controller
 {
@@ -19,7 +20,7 @@ class KaryawanController extends Controller
      */
     public function index()
     {
-        $karyawan  = Karyawan::paginate(8);
+        $karyawan  = Karyawan::paginate(10);
         return view('karyawan.index', [
             'title' => 'Karyawan',
             'active' => 'karyawan',
@@ -49,12 +50,26 @@ class KaryawanController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nik' => 'required|numeric',
-            'nama' => 'required|max:255|string',
-            'email' => 'required|email',
-            'kepegawaian_id' => 'required',
-        ]);
+        $request->validate(
+            [
+                'nik' => 'required|numeric|unique:users,nik',
+                'nama' => 'required|max:255|string',
+                'email' => 'required|unique:users,email|email:dns',
+                'kepegawaian_id' => 'required',
+            ],
+            [
+                'nik.required' => 'NIK tidak boleh kosong',
+                'nik.numeric' => 'NIK harus berupa angka',
+                'nik.unique' => 'NIK sudah terdaftar',
+                'nama.required' => 'Nama tidak boleh kosong',
+                'nama.max' => 'Nama tidak boleh lebih dari 255 karakter',
+                'nama.string' => 'Nama harus berupa huruf',
+                'email.required' => 'Email tidak boleh kosong',
+                'email.email' => 'Email tidak valid',
+                'email.unique' => 'Email sudah terdaftar',
+                'kepegawaian_id.required' => 'Kepegawaian tidak boleh kosong',
+            ]
+        );
 
         User::create([
             'nik' => $request->nik,
@@ -117,8 +132,15 @@ class KaryawanController extends Controller
     {
         $request->validate([
             'nama' => 'required|string',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,nik',
             'kepegawaian_id' => 'required',
+        ], [
+            'nama.required' => 'Nama tidak boleh kosong',
+            'nama.string' => 'Nama harus berupa huruf',
+            'email.required' => 'Email tidak boleh kosong',
+            'email.email' => 'Email tidak valid',
+            'email.unique' => 'Email sudah terdaftar',
+            'kepegawaian_id.required' => 'Kepegawaian tidak boleh kosong',
         ]);
         $datakaryawan = [
             'nama' => $request->nama,
@@ -166,7 +188,7 @@ class KaryawanController extends Controller
         Excel::import(new KaryawanImport, $request->file('file'));
 
         // Alert success
-        Alert::success('Success!', 'Data mahasiswa berhasil ditambahkan');
+        Alert::success('Success!', 'Data karyawan berhasil ditambahkan');
         return redirect()->back();
     }
 }
