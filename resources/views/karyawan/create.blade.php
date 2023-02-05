@@ -18,7 +18,7 @@
                                         class="form-group
                                         @error('nik') has-danger @enderror">
                                         <label class="form-control-label" for="nik">NIK</label>
-                                        <input type="text" name="nik" id="nik" autofocus required
+                                        <input type="number" name="nik" id="nik" autofocus required
                                             class="form-control
                                             @error('nik') is-invalid @enderror"
                                             value="{{ old('nik') }}">
@@ -71,7 +71,7 @@
                                         <select name="kepegawaian_id" id="kepegawaian_id" required
                                             class="form-control
                                             @error('kepegawaian_id') is-invalid @enderror">
-                                            <option>Pilih Status Kepegawaian</option>
+                                            <option disabled>Pilih Status Kepegawaian</option>
                                             @foreach ($kepegawaians as $kepegawaian)
                                                 <option value="{{ $kepegawaian->id }}">
                                                     {{ $kepegawaian->status_kepegawaian }}</option>

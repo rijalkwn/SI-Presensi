@@ -60,14 +60,25 @@ class PresensiMasukController extends Controller
             Alert::error('Presensi Masuk', 'Anda tidak berada di dalam radius sekolah');
             return redirect()->back();
         } else {
-            $presensi->create([
-                'nik' => auth()->user()->nik,
-                'nama' => auth()->user()->nama,
-                'status' => 'Hadir',
-                'tanggal' => Carbon::now()->isoFormat('YY-MM-DD'),
-                'jam_masuk' => Carbon::now()->isoFormat('HH:mm:ss'),
-                'status_kepegawaian' => $karyawan->kepegawaian->status_kepegawaian,
-            ]);
+            if (Carbon::now()->isoFormat('HH:mm:ss') > $koordinat->jam_masuk) {
+                $presensi->create([
+                    'nik' => auth()->user()->nik,
+                    'nama' => auth()->user()->nama,
+                    'status' => 'Terlambat',
+                    'tanggal' => Carbon::now()->isoFormat('YY-MM-DD'),
+                    'jam_masuk' => Carbon::now()->isoFormat('HH:mm:ss'),
+                    'status_kepegawaian' => $karyawan->kepegawaian->status_kepegawaian,
+                ]);
+            } else {
+                $presensi->create([
+                    'nik' => auth()->user()->nik,
+                    'nama' => auth()->user()->nama,
+                    'status' => 'Hadir Tepat Waktu',
+                    'tanggal' => Carbon::now()->isoFormat('YY-MM-DD'),
+                    'jam_masuk' => Carbon::now()->isoFormat('HH:mm:ss'),
+                    'status_kepegawaian' => $karyawan->kepegawaian->status_kepegawaian,
+                ]);
+            }
             Alert::success('Presensi Masuk', 'Presensi masuk berhasil dilakukan');
             return redirect()->route('home');
         }

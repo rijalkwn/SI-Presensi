@@ -17,7 +17,8 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="form-control-label" for="nik">NIK</label>
-                                        <input type="text" readonly class="form-control" value="{{ $karyawan->nik }}">
+                                        <input type="number" class="form-control" name="nik" id="nik" readonly
+                                            value="{{ $karyawan->nik }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -63,7 +64,7 @@
                                             class="form-control
                                             @error('jabatan_id') is-invalid @enderror">
                                             <option value="" disabled>Pilih Status Kepegawaian</option>
-                                            @foreach ($jabatans as $kepegawaian)
+                                            @foreach ($kepegawaians as $kepegawaian)
                                                 <option value="{{ $kepegawaian->id }}"
                                                     {{ $karyawan->kepegawaian_id == $kepegawaian->id ? 'selected' : '' }}>
                                                     {{ $kepegawaian->status_kepegawaian }}</option>

@@ -61,8 +61,8 @@ Route::group(['middleware' => 'admin'], function () {
     Route::resource('/kepegawaian', KepegawaianController::class)->names('kepegawaian');
 
     //setting presensi
-    Route::get('/setting/create', [SettingController::class, 'create'])->name('setting.create');
-    Route::post('/setting/store', [SettingController::class, 'store'])->name('setting.store');
+    Route::get('/setting', [SettingController::class, 'index'])->name('setting.index');
+    Route::post('/setting/edit', [SettingController::class, 'update'])->name('setting.update');
 });
 
 

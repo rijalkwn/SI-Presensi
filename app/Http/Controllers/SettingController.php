@@ -5,17 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
+use Termwind\Components\Dd;
 
 class SettingController extends Controller
 {
-    public function create()
+    public function index()
     {
         $setting = Setting::first();
         $title = 'Setting';
         return view('setting.edit', compact('setting', 'title'));
     }
 
-    public function store(Request $request)
+    public function update(Request $request)
     {
         $validate = $request->validate([
             'jam_masuk' => 'required',
@@ -32,11 +33,8 @@ class SettingController extends Controller
             'radius.required' => 'Radius tidak boleh kosong',
         ]);
         $setting = Setting::first();
-        if ($setting) {
-            $setting->update($validate);
-        } else {
-            Setting::create($validate);
-        }
+        $setting->update($validate);
+
         Alert::success('Berhasil', 'Setting berhasil disimpan');
         return redirect()->back();
     }

@@ -56,7 +56,8 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            <p class="text-danger text-xs ms-4 mt-4 alert">*Jangan menghapus data ini apabila masih ada
+                            <p class="text-danger text-xs ms-4 mt-4 alert">*Jangan menghapus data status kepegawaian ini
+                                apabila masih ada
                                 karyawan
                                 yang
                                 memiliki

@@ -39,9 +39,8 @@ class LoginController extends Controller
             $request->session()->regenerate();
             return redirect()->intended('dashboard');
         }
-
         return back()->withErrors([
-            'loginError' => 'Login Failed!!!',
+            'loginError' => 'Login Failed.',
         ])->onlyInput('loginError');
     }
 

@@ -28,19 +28,14 @@
                                         <div class="flex flex-col mb-3">
                                             <label class="form-label" style="font-size: small"> NIK atau Email <span
                                                     style="color: red;">*</span></label>
-                                            <input type="text" name="identifier" class="form-control form-control-lg">
-                                            @error('identifier')
-                                                <p class="text-danger text-xs pt-1"> {{ $message }} </p>
-                                            @enderror
+                                            <input type="text" name="identifier" class="form-control form-control-lg"
+                                                required>
                                         </div>
                                         <div class="flex flex-col mb-3">
                                             <label class="form-label" style="font-size: small">Password<span
                                                     style="color: red;">*</span></label>
                                             <input type="password" name="password" class="form-control form-control-lg"
-                                                aria-label="Password" value="">
-                                            @error('password')
-                                                <p class="text-danger text-xs pt-1"> {{ $message }} </p>
-                                            @enderror
+                                                aria-label="Password" required>
                                         </div>
                                         <div class="text-center">
                                             <button type="submit"

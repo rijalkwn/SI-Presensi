@@ -43,42 +43,50 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($karyawans as $karyawan)
+                                    @if ($karyawans->count() == 0)
                                         <tr>
-                                            <td>
-                                                <p class="text-sm font-weight-bold mb-0 ms-3">{{ $loop->iteration }}</p>
-                                            </td>
-                                            <td>
-                                                <p class="text-sm font-weight-bold mb-0">{{ $karyawan->nik }}</p>
-                                            </td>
-                                            <td>
-                                                <p class="text-sm font-weight-bold mb-0">{{ $karyawan->nama }}</p>
-                                            </td>
-                                            <td>
-                                                <p class="text-sm font-weight-bold mb-0">{{ $karyawan->email }}</p>
-                                            </td>
-                                            <td class="align-middle text-center text-sm">
-                                                <p class="text-sm font-weight-bold mb-0">
-                                                    {{ $karyawan->kepegawaian->status_kepegawaian }}</p>
-                                            </td>
-                                            <td class="align-middle text-end">
-                                                <div class="d-flex px-3 py-1 justify-content-center align-items-center">
-                                                    <a href="/karyawan/{{ $karyawan->nik }}/edit"
-                                                        class="btn btn-link text-warning mb-0"><i
-                                                            class="fas fa-edit"></i></a>
-                                                    <form action="/karyawan/{{ $karyawan->nik }}" method="post"
-                                                        class="my-auto">
-                                                        @csrf
-                                                        @method('delete')
-                                                        <button type="submit" class="btn btn-link text-danger mb-0"
-                                                            onclick="return confirm('Yakin ingin menghapus data ini??')">
-                                                            <i class="fas fa-trash"></i>
-                                                        </button>
-                                                    </form>
-                                                </div>
+                                            <td colspan="6" class="text-center">
+                                                <p class="text-xl font-weight-bold mb-0">Data tidak ditemukan</p>
                                             </td>
                                         </tr>
-                                    @endforeach
+                                    @else
+                                        @foreach ($karyawans as $karyawan)
+                                            <tr>
+                                                <td>
+                                                    <p class="text-sm font-weight-bold mb-0 ms-3">{{ $loop->iteration }}</p>
+                                                </td>
+                                                <td>
+                                                    <p class="text-sm font-weight-bold mb-0">{{ $karyawan->nik }}</p>
+                                                </td>
+                                                <td>
+                                                    <p class="text-sm font-weight-bold mb-0">{{ $karyawan->nama }}</p>
+                                                </td>
+                                                <td>
+                                                    <p class="text-sm font-weight-bold mb-0">{{ $karyawan->email }}</p>
+                                                </td>
+                                                <td class="align-middle text-center text-sm">
+                                                    <p class="text-sm font-weight-bold mb-0">
+                                                        {{ $karyawan->kepegawaian->status_kepegawaian }}</p>
+                                                </td>
+                                                <td class="align-middle text-end">
+                                                    <div class="d-flex px-3 py-1 justify-content-center align-items-center">
+                                                        <a href="/karyawan/{{ $karyawan->nik }}/edit"
+                                                            class="btn btn-link text-warning mb-0"><i
+                                                                class="fas fa-edit"></i></a>
+                                                        <form action="/karyawan/{{ $karyawan->nik }}" method="post"
+                                                            class="my-auto">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button type="submit" class="btn btn-link text-danger mb-0"
+                                                                onclick="return confirm('Yakin ingin menghapus data ini??')">
+                                                                <i class="fas fa-trash"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>

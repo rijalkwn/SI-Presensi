@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Setting;
 use App\Models\Karyawan;
 use App\Models\Presensi;
 use Illuminate\Http\Request;
@@ -12,6 +13,7 @@ class PresensiPulangController extends Controller
 {
     public function create()
     {
+        $settting = Setting::first();
         $karyawan = Karyawan::where('nik', auth()->user()->nik)->first();
         $time = Carbon::now()->isoFormat('HH:mm:ss');
         $today = Carbon::now()->isoFormat('dddd, D MMMM Y');
@@ -19,13 +21,19 @@ class PresensiPulangController extends Controller
         if ($presensi) {
             if ($presensi->status == 'Hadir') {
                 if ($presensi->jam_pulang == null) {
-                    return view('presensi.pulang.index', [
-                        'title' => 'Presensi Pulang',
-                        'active' => 'presensi_pulang',
-                        'today' => $today,
-                        'time' => $time,
-                        'karyawan' => $karyawan,
-                    ]);
+                    if (Carbon::now()->isoFormat('HH:mm:ss') > $settting->jam_pulang) {
+                        return view('presensi.pulang.index', [
+                            'title' => 'Presensi Pulang',
+                            'active' => 'presensi_pulang',
+                            'today' => $today,
+                            'time' => $time,
+                            'karyawan' => $karyawan,
+                        ]);
+                    } else {
+                        return back()->withErrors([
+                            'PresensiError' => 'Anda belum bisa melakukan presensi pulang!!',
+                        ])->onlyInput('PresensiError');
+                    }
                 } else {
                     return back()->withErrors([
                         'PresensiError' => 'Anda sudah melakukan presensi pulang hari ini!!',
@@ -49,20 +57,15 @@ class PresensiPulangController extends Controller
 
     public function store()
     {
+        $settting = Setting::first();
         $karyawan = Karyawan::where('nik', auth()->user()->nik)->first();
         $presensi = Presensi::where('nik', auth()->user()->nik)->whereDate('created_at', Carbon::today())->first();
         //presensi pulang
         if ($presensi) {
             if ($presensi->jam_pulang == null) {
-                if (Carbon::now()->isoFormat('HH:mm:ss') > '16:00:00') {
-                    Presensi::where('nik', auth()->user()->nik)->whereDate('created_at', Carbon::today())->update([
-                        'jam_pulang' => Carbon::now()->isoFormat('HH:mm:ss'),
-                    ]);
-                } else {
-                    Presensi::where('nik', auth()->user()->nik)->whereDate('created_at', Carbon::today())->update([
-                        'jam_pulang' => Carbon::now()->isoFormat('HH:mm:ss'),
-                    ]);
-                }
+                Presensi::where('nik', auth()->user()->nik)->whereDate('created_at', Carbon::today())->update([
+                    'jam_pulang' => Carbon::now()->isoFormat('HH:mm:ss'),
+                ]);
                 Alert::success('Presensi Pulang', 'Presensi pulang berhasil dilakukan');
                 return redirect()->route('home');
             } else {

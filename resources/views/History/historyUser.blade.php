@@ -32,78 +32,88 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($presensis as $presensi)
+                                    @if ($presensis->count() == 0)
                                         <tr>
-                                            <td class="text-sm">
-                                                <p class="ps-3">{{ $loop->iteration }}</p>
-                                            </td>
-                                            <td class="text-sm">
-                                                <p class="ps-2 text-sm font-weight-bold mb-0">{{ $presensi->tanggal }}</p>
-                                            </td>
-                                            <td class="text-sm">
-                                                <p class="text-sm font-weight-bold mb-0">
-                                                    @if ($presensi->status == 'Hadir')
-                                                        <span class="ps-3">{{ $presensi->jam_masuk }}</span>
-                                                    @elseif ($presensi->status == 'Izin' || $presensi->status == 'Sakit')
-                                                        <span class="badge badge-sm bg-secondary ms-4">--:--:--</span>
-                                                    @endif
-                                                </p>
-                                            </td>
-                                            {{-- jam pulang --}}
-                                            <td class="text-sm">
-                                                <p class="text-sm font-weight-bold mb-0">
-                                                    @if ($presensi->status == 'Hadir')
-                                                        @if ($presensi->jam_pulang == null)
-                                                            <span class="badge badge-sm bg-secondary ms-4">--:--:--</span>
-                                                        @else
-                                                            <span class="ps-4">{{ $presensi->jam_pulang }}</span>
-                                                        @endif
-                                                    @elseif ($presensi->status == 'Izin' || $presensi->status == 'Sakit')
-                                                        <span class="badge badge-sm bg-secondary ms-4">--:--:--</span>
-                                                    @endif
-                                                </p>
-                                            </td>
-                                            <td class="text-sm">
-                                                <p class="text-sm font-weight-bold mb-0 ps-3">
-                                                    @if ($presensi->status == 'Hadir')
-                                                        @if ($presensi->jam_masuk > '07:00:00')
-                                                            Terlambat
-                                                        @else
-                                                            Tepat Waktu
-                                                        @endif
-                                                    @elseif ($presensi->status == 'Izin')
-                                                        <span>
-                                                            <a href="{{ asset('/files/suratIzin/' . $presensi->surat) }}"
-                                                                style="text-decoration: underline; color:cornflowerblue">lihat
-                                                                surat
-                                                                izin</a>
-                                                        </span>
-                                                    @elseif ($presensi->status == 'Sakit')
-                                                        <span>
-                                                            <a href="{{ asset('files/suratSakit/' . $presensi->surat) }}"
-                                                                style="text-decoration: underline; color:cornflowerblue">lihat
-                                                                surat sakit</a>
-                                                        </span>
-                                                    @else
-                                                        <span>Tidak Absen</span>
-                                                    @endif
-                                                </p>
-                                            </td>
-                                            <td class="text-sm">
-                                                <p class="text-sm font-weight-bold mb-0 ms-3">
-                                                    @if ($presensi->status == 'Hadir')
-                                                        <span class="badge badge-sm bg-success ms-2">Hadir</span>
-                                                    @elseif ($presensi->status == 'Izin')
-                                                        <span class="badge badge-sm bg-primary ms-2">Izin</span>
-                                                    @elseif ($presensi->status == 'Sakit')
-                                                        <span class="badge badge-sm bg-info ms-2">Sakit</span>
-                                                    @else
-                                                        <span class="badge badge-sm bg-danger ms-2">Tidak Absen</span>
-                                                    @endif
-                                                </p>
+                                            <td colspan="9" class="text-center">
+                                                <p class="text-xl font-weight-bold mb-0">Data tidak ditemukan</p>
                                             </td>
                                         </tr>
-                                    @endforeach
+                                    @else
+                                        @foreach ($presensis as $presensi)
+                                            <tr>
+                                                <td class="text-sm">
+                                                    <p class="ps-3">{{ $loop->iteration }}</p>
+                                                </td>
+                                                <td class="text-sm">
+                                                    <p class="ps-2 text-sm font-weight-bold mb-0">{{ $presensi->tanggal }}
+                                                    </p>
+                                                </td>
+                                                <td class="text-sm">
+                                                    <p class="text-sm font-weight-bold mb-0">
+                                                        @if ($presensi->status == 'Hadir')
+                                                            <span class="ps-3">{{ $presensi->jam_masuk }}</span>
+                                                        @elseif ($presensi->status == 'Izin' || $presensi->status == 'Sakit')
+                                                            <span class="badge badge-sm bg-secondary ms-4">--:--:--</span>
+                                                        @endif
+                                                    </p>
+                                                </td>
+                                                {{-- jam pulang --}}
+                                                <td class="text-sm">
+                                                    <p class="text-sm font-weight-bold mb-0">
+                                                        @if ($presensi->status == 'Hadir')
+                                                            @if ($presensi->jam_pulang == null)
+                                                                <span
+                                                                    class="badge badge-sm bg-secondary ms-4">--:--:--</span>
+                                                            @else
+                                                                <span class="ps-4">{{ $presensi->jam_pulang }}</span>
+                                                            @endif
+                                                        @elseif ($presensi->status == 'Izin' || $presensi->status == 'Sakit')
+                                                            <span class="badge badge-sm bg-secondary ms-4">--:--:--</span>
+                                                        @endif
+                                                    </p>
+                                                </td>
+                                                <td class="text-sm">
+                                                    <p class="text-sm font-weight-bold mb-0 ps-3">
+                                                        @if ($presensi->status == 'Hadir')
+                                                            @if ($presensi->jam_masuk > '07:00:00')
+                                                                Terlambat
+                                                            @else
+                                                                Tepat Waktu
+                                                            @endif
+                                                        @elseif ($presensi->status == 'Izin')
+                                                            <span>
+                                                                <a href="{{ asset('/files/suratIzin/' . $presensi->surat) }}"
+                                                                    style="text-decoration: underline; color:cornflowerblue">lihat
+                                                                    surat
+                                                                    izin</a>
+                                                            </span>
+                                                        @elseif ($presensi->status == 'Sakit')
+                                                            <span>
+                                                                <a href="{{ asset('files/suratSakit/' . $presensi->surat) }}"
+                                                                    style="text-decoration: underline; color:cornflowerblue">lihat
+                                                                    surat sakit</a>
+                                                            </span>
+                                                        @else
+                                                            <span>Tidak Absen</span>
+                                                        @endif
+                                                    </p>
+                                                </td>
+                                                <td class="text-sm">
+                                                    <p class="text-sm font-weight-bold mb-0 ms-3">
+                                                        @if ($presensi->status == 'Hadir')
+                                                            <span class="badge badge-sm bg-success ms-2">Hadir</span>
+                                                        @elseif ($presensi->status == 'Izin')
+                                                            <span class="badge badge-sm bg-primary ms-2">Izin</span>
+                                                        @elseif ($presensi->status == 'Sakit')
+                                                            <span class="badge badge-sm bg-info ms-2">Sakit</span>
+                                                        @else
+                                                            <span class="badge badge-sm bg-danger ms-2">Tidak Absen</span>
+                                                        @endif
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>

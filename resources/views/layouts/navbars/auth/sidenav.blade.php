@@ -107,7 +107,7 @@
                 </li>
                 <li class="nav-item my-0">
                     <a class="nav-link {{ Request::is('setting*') ? 'active' : '' }}"
-                        href="{{ route('setting.create') }}">
+                        href="{{ route('setting.index') }}">
                         <div
                             class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="fa fa-cogs text-dark text-sm opacity-10"></i>

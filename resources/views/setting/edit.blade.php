@@ -5,7 +5,7 @@
     <div class="container-fluid py-4">
         <div class="row mt-4 mx-4">
             <div class="col-lg-12">
-                <form action="{{ route('setting.store') }}" method="post">
+                <form action="{{ route('setting.update', $setting->id) }}" method="post">
                     @csrf
                     <div class="card">
                         <div class="card-header">
@@ -21,7 +21,7 @@
                                         <input type="time" name="jam_masuk" id="jam_masuk" required
                                             class="form-control
                                             @error('jam_masuk') is-invalid @enderror"
-                                            value="@if (isset($setting->jam_masuk)) {{ $setting->jam_masuk }} @endif">
+                                            value="{{ old('jam_masuk', $setting->jam_masuk) }}">
                                         @error('jam_masuk')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -38,8 +38,7 @@
                                         <input type="time" name="jam_pulang" id="jam_pulang" required
                                             class="form-control
                                             @error('latitude') has-danger @enderror"
-                                            value="@if (isset($setting->jam_pulang)) {{ $setting->jam_pulang }}
-                                                @else @endif">
+                                            value="{{ old('jam_pulang', $setting->jam_pulang) }}">
                                         @error('jam_pulang')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -61,7 +60,7 @@
                                                     required
                                                     class="form-control
                                             @error('latitude') is-invalid @enderror"
-                                                    value="@if (isset($setting->latitude)) {{ $setting->latitude }} @endif">
+                                                    value="{{ old('latitude', $setting->latitude) }}">
                                                 @error('latitude')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -77,8 +76,7 @@
                                                 <input type="longitude" name="longitude" id="longitude" required
                                                     class="form-control
                                             @error('longitude') is-invalid @enderror"
-                                                    value="@if (isset($setting->longitude)) {{ $setting->longitude }} @endif"
-                                                    placeholder="longitude">
+                                                    value="{{ old('longitude', $setting->longitude) }}">
                                                 @error('longitude')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -96,7 +94,7 @@
                                         <input type="number" name="radius" id="radius" required
                                             class="form-control
                                             @error('radius') is-invalid @enderror"
-                                            value="@if (isset($setting->radius)) {{ $setting->radius }}@else @endif">
+                                            value="{{ old('radius', $setting->radius) }}">
                                         @error('radius')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -109,12 +107,7 @@
                             </div>
                             <div class="row mt-4">
                                 <div class="col-lg-12">
-                                    @if ($setting)
-                                        <input type="hidden" name="_method" value="PUT">
-                                        <button type="submit" class="btn btn-warning">Update</button>
-                                    @else
-                                        <button type="submit" class="btn btn-warning">Tambah</button>
-                                    @endif
+                                    <button type="submit" class="btn btn-warning">Update</button>
                                 </div>
                             </div>
                         </div>
