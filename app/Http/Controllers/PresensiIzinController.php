@@ -43,9 +43,16 @@ class PresensiIzinController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'file' => 'required|mimes:pdf|max:2048',
-        ]);
+        $request->validate(
+            [
+                'file' => 'required|mimes:pdf|max:2048',
+            ],
+            [
+                'file.required' => 'File surat izin tidak boleh kosong',
+                'file.mimes' => 'File surat izin harus berformat pdf',
+                'file.max' => 'File surat izin maksimal 2MB',
+            ]
+        );
 
         $karyawan = Karyawan::where('nik', auth()->user()->nik)->first();
         Presensi::where('nik', auth()->user()->nik)->whereDate('created_at', Carbon::today())->create([

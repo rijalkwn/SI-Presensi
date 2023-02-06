@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Imports\ImportUser;
 use App\Models\User;
 use App\Models\Karyawan;
+use App\Imports\ImportUser;
 use App\Models\Kepegawaian;
 use Termwind\Components\Dd;
 use Illuminate\Http\Request;
@@ -12,6 +12,7 @@ use App\Imports\KaryawanImport;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
+use Yajra\DataTables\Facades\DataTables;
 
 class KaryawanController extends Controller
 {
@@ -22,7 +23,7 @@ class KaryawanController extends Controller
      */
     public function index()
     {
-        $karyawan  = Karyawan::paginate(10);
+        $karyawan  = Karyawan::all();
         return view('karyawan.index', [
             'title' => 'Karyawan',
             'active' => 'karyawan',
@@ -174,7 +175,8 @@ class KaryawanController extends Controller
     {
         User::where('nik', $nik)->delete();
         Karyawan::where('nik', $nik)->delete();
-        return redirect()->route('karyawan.index')->with('success', 'Data Karyawan Berhasil Dihapus');
+        Alert::success('Data Karyawan Berhasil Dihapus');
+        return redirect()->back();
     }
 
     public function bulk(Request $request)
@@ -193,4 +195,31 @@ class KaryawanController extends Controller
         Alert::success('Success!', 'Data karyawan berhasil ditambahkan');
         return redirect()->back();
     }
+
+    // public  function table()
+    // {
+    //     $query = Karyawan::orderBy('id', 'DESC')->get();
+
+    //     return DataTables::of($query)
+    //         ->addColumn('action', function ($item) {
+    //             return '
+    //                 <div class="btn-group">
+    //                     <a href="' . route('karyawan.edit', $item->nik) . '" class="btn btn-primary btn-sm">
+    //                         <i class="fa fa-pencil-alt"></i>
+    //                     </a>
+    //                     <form action="' . route('karyawan.destroy', $item->nik) . '" method="POST">
+    //                         ' . method_field('delete') . csrf_field() . '
+    //                         <button type="submit" class="btn btn-danger btn-sm">
+    //                             <i class="fa fa-trash"></i>
+    //                         </button>
+    //                     </form>
+    //                 </div>
+    //             ';
+    //         })
+    //         ->editColumn('kepegawaian_id', function ($item) {
+    //             return $item->kepegawaian->nama;
+    //         })
+    //         ->rawColumns(['action'])
+    //         ->make();
+    // }
 }

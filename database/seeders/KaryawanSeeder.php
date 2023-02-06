@@ -17,29 +17,29 @@ class KaryawanSeeder extends Seeder
      */
     public function run()
     {
-        // DB::table('karyawans')->insert([
-        //     'nik' => '123',
-        //     'nama' => 'Rijal kurniawan',
-        //     'email' => 'rijal@gmail.com',
-        //     'kepegawaian_id' => '1',
-        // ]);
-        // DB::table('karyawans')->insert([
-        //     'nik' => '124',
-        //     'nama' => 'Lutfiani',
-        //     'email' => 'lutfiani@gmail.com',
-        //     'kepegawaian_id' => '1',
-        // ]);
-        // DB::table('karyawans')->insert([
-        //     'nik' => '125',
-        //     'nama' => 'Paijo',
-        //     'email' => 'paijo@gmail.com',
-        //     'kepegawaian_id' => '3',
-        // ]);
-        // DB::table('karyawans')->insert([
-        //     'nik' => '126',
-        //     'nama' => 'King',
-        //     'email' => 'king@gmail.com',
-        //     'kepegawaian_id' => '2',
-        // ]);
+        DB::table('karyawans')->insert([
+            'nik' => '123',
+            'nama' => 'Rijal kurniawan',
+            'email' => 'rijal@gmail.com',
+            'kepegawaian_id' => '1',
+        ]);
+        DB::table('karyawans')->insert([
+            'nik' => '124',
+            'nama' => 'Lutfiani',
+            'email' => 'lutfiani@gmail.com',
+            'kepegawaian_id' => '1',
+        ]);
+        DB::table('karyawans')->insert([
+            'nik' => '125',
+            'nama' => 'Paijo',
+            'email' => 'paijo@gmail.com',
+            'kepegawaian_id' => '3',
+        ]);
+        DB::table('karyawans')->insert([
+            'nik' => '126',
+            'nama' => 'King',
+            'email' => 'king@gmail.com',
+            'kepegawaian_id' => '2',
+        ]);
     }
 }

@@ -17,10 +17,11 @@ class ImportUser implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         return new User([
-            'nik'      => $row['nik'],
+            'nik'      => str_replace(' ', '', $row['nik']),
             'nama'     => $row['nama'],
-            'email'    => $row['email'],
-            'password' => Hash::make($row['nik']),
+            'email'    => str_replace(' ', '', $row['email']),
+            'role'     => 'user',
+            'password' => Hash::make(str_replace(' ', '', $row['nik'])),
         ]);
     }
 }

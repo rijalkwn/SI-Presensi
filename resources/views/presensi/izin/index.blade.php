@@ -12,7 +12,7 @@
                             <h5 class="h3 mb-0">Izin</h5>
                         </div>
                         <div class="card-body">
-                            <div class="row">
+                            {{-- <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="form-control-label" for="tanggal">Tanggal</label>
@@ -43,7 +43,7 @@
                                             value="{{ $karyawan->nama }}">
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="row">
                                 {{-- file --}}
                                 <div class="col-lg-12">
@@ -58,6 +58,9 @@
                                             yang
                                             diupload benar.</label>
                                     </div>
+                                    @error('file')
+                                        <div class="text-danger fst-italic">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row mt-4">

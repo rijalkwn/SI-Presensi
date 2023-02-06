@@ -19,9 +19,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-body px-0 pt-0 pb-2">
+                    <div class="card-body px-4 py-3">
                         <div class="table-responsive p-0">
-                            <table class="table align-items-center mb-0 table-striped">
+                            <table class="table align-items-center mb-0 table-striped" id="karyawan">
                                 <thead>
                                     <tr>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No
@@ -43,55 +43,44 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if ($karyawans->count() == 0)
+                                    @foreach ($karyawans as $karyawan)
                                         <tr>
-                                            <td colspan="6" class="text-center">
-                                                <p class="text-xl font-weight-bold mb-0">Data tidak ditemukan</p>
+                                            <td>
+                                                <p class="text-sm font-weight-bold mb-0 ms-3">{{ $loop->iteration }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-sm font-weight-bold mb-0">{{ $karyawan->nik }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-sm font-weight-bold mb-0">{{ $karyawan->nama }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-sm font-weight-bold mb-0">{{ $karyawan->email }}</p>
+                                            </td>
+                                            <td class="align-middle text-center text-sm">
+                                                <p class="text-sm font-weight-bold mb-0">
+                                                    {{ $karyawan->kepegawaian->status_kepegawaian }}</p>
+                                            </td>
+                                            <td class="align-middle text-end">
+                                                <div class="d-flex px-3 py-1 justify-content-center align-items-center">
+                                                    <a href="/karyawan/{{ $karyawan->nik }}/edit"
+                                                        class="btn btn-link text-warning mb-0"><i
+                                                            class="fas fa-edit"></i></a>
+                                                    <form action="/karyawan/{{ $karyawan->nik }}" method="post"
+                                                        class="my-auto">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <button type="submit" class="btn btn-link text-danger mb-0"
+                                                            onclick="return confirm('Yakin ingin menghapus data ini??')">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
-                                    @else
-                                        @foreach ($karyawans as $karyawan)
-                                            <tr>
-                                                <td>
-                                                    <p class="text-sm font-weight-bold mb-0 ms-3">{{ $loop->iteration }}</p>
-                                                </td>
-                                                <td>
-                                                    <p class="text-sm font-weight-bold mb-0">{{ $karyawan->nik }}</p>
-                                                </td>
-                                                <td>
-                                                    <p class="text-sm font-weight-bold mb-0">{{ $karyawan->nama }}</p>
-                                                </td>
-                                                <td>
-                                                    <p class="text-sm font-weight-bold mb-0">{{ $karyawan->email }}</p>
-                                                </td>
-                                                <td class="align-middle text-center text-sm">
-                                                    <p class="text-sm font-weight-bold mb-0">
-                                                        {{ $karyawan->kepegawaian->status_kepegawaian }}</p>
-                                                </td>
-                                                <td class="align-middle text-end">
-                                                    <div class="d-flex px-3 py-1 justify-content-center align-items-center">
-                                                        <a href="/karyawan/{{ $karyawan->nik }}/edit"
-                                                            class="btn btn-link text-warning mb-0"><i
-                                                                class="fas fa-edit"></i></a>
-                                                        <form action="/karyawan/{{ $karyawan->nik }}" method="post"
-                                                            class="my-auto">
-                                                            @csrf
-                                                            @method('delete')
-                                                            <button type="submit" class="btn btn-link text-danger mb-0"
-                                                                onclick="return confirm('Yakin ingin menghapus data ini??')">
-                                                                <i class="fas fa-trash"></i>
-                                                            </button>
-                                                        </form>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    @endif
+                                    @endforeach
                                 </tbody>
                             </table>
-                        </div>
-                        <div class="mt-4 mb-2 mx-3">
-                            {{ $karyawans->links('pagination::bootstrap-5') }}
                         </div>
                     </div>
                 </div>
@@ -144,8 +133,14 @@
 
 @push('javascript')
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.13.2/b-2.3.4/b-html5-2.3.4/datatables.min.js">
+    </script>
     <script>
+        $(document).ready(function() {
+            $('#karyawan').DataTable({
+
+            });
+        });
         // disable all input and button after submit
         $('form').submit(function() {
             // show spinner on button

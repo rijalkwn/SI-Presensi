@@ -25,8 +25,11 @@
 
     <!-- CSS Files -->
     <link rel="stylesheet" href="{{ url('assets/css/argon-dashboard.css') }}">
-    {{-- filepond --}}
-    <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url('assets/css/style.css') }}">
+    {{-- datatables --}}
+    {{-- datatables --}}
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.datatables.net/v/bs5/dt-1.13.2/b-2.3.4/b-html5-2.3.4/datatables.min.css" />
     @stack('css')
 </head>
 
@@ -66,8 +69,6 @@
 
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="{{ url('assets/js/argon-dashboard.js') }}"></script>
-    {{-- filepond
-    <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script> --}}
 
     @stack('javascript')
     @yield('js')

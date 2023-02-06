@@ -3,51 +3,44 @@
 namespace App\Http\Controllers;
 
 use App;
+use PDF;
 use Carbon\Carbon;
 use App\Models\Karyawan;
 use App\Models\Presensi;
-use PDF;
 use Illuminate\Http\Request;
+use App\Exports\PresensiExport;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
+use Termwind\Components\Dd;
 
 class HistoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $presensis = Presensi::where('nik', auth()->user()->nik)->paginate(10);
-        $karyawanside = Karyawan::where('nik', auth()->user()->nik)->first();
-        return view('history.historyUser', [
-            'title' => 'History',
-            'active' => 'history',
-            'presensis' => $presensis,
-            'karyawan' => $karyawanside,
-        ]);
-    }
-    public function indexadmin(Request $request)
-    {
-        $selectedMonth = $request->input('bulan');
-        $data = Presensi::when($selectedMonth, function ($query) use ($selectedMonth) {
-            return $query->whereMonth('created_at', $selectedMonth);
-        })->paginate(10);
         $title = 'History';
+        $presensis = Presensi::get();
 
-        return view('history.historyAdmin', compact('data', 'selectedMonth', 'title'));
-    }
-    public function cetak(Request $request)
-    {
-        $selectedMonth = $request->input('bulan');
-        $data = Presensi::whereMonth('created_at', $selectedMonth)->get();
-
-        $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadView('history.cetak', compact('data'));
-        return $pdf->stream('data_presensi.pdf');
+        return view('history.historyAdmin', compact('title', 'presensis'));
     }
 
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        DB::table('presensis')->delete();
-        Alert::success('Berhasil', 'Data Presensi Berhasil Dihapus');
+        Presensi::where('id', $id)->delete();
+        Alert::success('Berhasil', 'Data berhasil dihapus');
         return redirect()->back();
+    }
+
+    public function export(Request $request)
+    {
+        //request bulamn
+        $bulan = $request->bulan;
+        $tahun = $request->tahun;
+
+        //query data
+        $data = Presensi::whereMonth('created_at', $bulan)
+            ->whereYear('created_at', $tahun)
+            ->get();
+        return Excel::download(new PresensiExport($data), 'presensi.xlsx');
     }
 }

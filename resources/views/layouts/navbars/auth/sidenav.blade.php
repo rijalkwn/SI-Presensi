@@ -50,7 +50,7 @@
             @if (auth()->user()->role == 'admin')
                 <li class="nav-item my-0">
                     <a class="nav-link {{ Request::is('history*') ? 'active' : '' }}"
-                        href="{{ route('history.admin') }}">
+                        href="{{ route('history.index') }}">
                         <div
                             class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="fa fa-history text-dark text-sm opacity-10"></i>

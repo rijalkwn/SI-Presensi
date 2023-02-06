@@ -1,11 +1,13 @@
 <?php
 
+use App\Models\Karyawan;
+use App\Models\Presensi;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CenterController;
 use App\Http\Controllers\LokasiController;
-use App\Http\Controllers\UploadController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\KaryawanController;
@@ -45,13 +47,21 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
 //history
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
-    Route::get('/user/history', [HistoryController::class, 'index'])->name('history.user');
+    Route::get('/user/history', function () {
+        $presensis = Presensi::where('nik', auth()->user()->nik)->get();
+        $karyawanside = Karyawan::where('nik', auth()->user()->nik)->first();
+        return view('history.historyUser', [
+            'title' => 'History',
+            'active' => 'history',
+            'presensis' => $presensis,
+            'karyawan' => $karyawanside,
+        ]);
+    })->name('history.user');
 });
 Route::group(['middleware' => 'admin'], function () {
     //history
-    Route::get('/history/cetak', [HistoryController::class, 'cetak'])->name('history.cetak');
-    Route::get('admin/history', [HistoryController::class, 'indexadmin'])->name('history.admin');
-    Route::delete('/history/delete-all', [HistoryController::class, 'destroy'])->name('history.destroy');
+    Route::resource('/history', HistoryController::class)->names('history');
+    Route::get('/export', [HistoryController::class, 'export'])->name('export-excel');
     //karyawan
     Route::get('/karyawan/{{ $karyawan->id }}/edit', [KaryawanController::class, 'edit'])->name('karyawan');
     Route::resource('/karyawan', KaryawanController::class)->names('karyawan');

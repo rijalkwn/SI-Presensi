@@ -53,25 +53,6 @@
             </table>
         </div>
     </main>
-    <footer>
-        <div class="row">
-            <div class="col-4 me-auto">
-                <p>Mengetahui,</p>
-                <p>(Kepala Sekolah)</p>
-                <br><br><br>
-                <p>Nama Kepala Sekolah</p>
-                <p>NIP: ____________</p>
-            </div>
-            <div class="col-4"></div>
-            <div class="col-4 ms-auto">
-                <p>Prembun, 12 Maret 2023</p>
-                <p>Petugas Absensi</p>
-                <br><br><br>
-                <p>Nama Petugas Absensi</p>
-                <p>NIP: ____________</p>
-            </div>
-        </div>
-    </footer>
 </body>
 
 </html>
