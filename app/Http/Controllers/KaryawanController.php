@@ -195,31 +195,4 @@ class KaryawanController extends Controller
         Alert::success('Success!', 'Data karyawan berhasil ditambahkan');
         return redirect()->back();
     }
-
-    // public  function table()
-    // {
-    //     $query = Karyawan::orderBy('id', 'DESC')->get();
-
-    //     return DataTables::of($query)
-    //         ->addColumn('action', function ($item) {
-    //             return '
-    //                 <div class="btn-group">
-    //                     <a href="' . route('karyawan.edit', $item->nik) . '" class="btn btn-primary btn-sm">
-    //                         <i class="fa fa-pencil-alt"></i>
-    //                     </a>
-    //                     <form action="' . route('karyawan.destroy', $item->nik) . '" method="POST">
-    //                         ' . method_field('delete') . csrf_field() . '
-    //                         <button type="submit" class="btn btn-danger btn-sm">
-    //                             <i class="fa fa-trash"></i>
-    //                         </button>
-    //                     </form>
-    //                 </div>
-    //             ';
-    //         })
-    //         ->editColumn('kepegawaian_id', function ($item) {
-    //             return $item->kepegawaian->nama;
-    //         })
-    //         ->rawColumns(['action'])
-    //         ->make();
-    // }
 }

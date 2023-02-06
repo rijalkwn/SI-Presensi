@@ -124,10 +124,23 @@
                                             </span>
                                         @enderror
                                     </div>
-                                    <p class="text-danger text-xs fst-italic">*Password karyawan akan di setel ulang yaitu
-                                        sesuai NIK*</p>
-                                    <button type="submit" class="btn btn-success"
-                                        onclick="return confirm('Anda yakin untuk melakukan reset password pada karyawan ini?')">Reset</button>
+                                    <div class="form-group">
+                                        <label for="password">New Password</label>
+                                        <input id="password" type="password"
+                                            class="form-control @error('password') is-invalid @enderror" name="password"
+                                            required autocomplete="new-password">
+                                        @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password-confirm">Confirm Password</label>
+                                        <input id="password-confirm" type="password" class="form-control"
+                                            name="password_confirmation" required autocomplete="new-password">
+                                    </div>
+                                    <button type="submit" class="btn btn-success">Reset</button>
                                 </form>
                             </div>
                         </div>
@@ -146,7 +159,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="bulk_add_karyawanLabel">Import Karyawan</h5>
-                <button type="button" class="btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-danger" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="col-12 mb-3">
