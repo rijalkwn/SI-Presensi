@@ -17,6 +17,7 @@ use App\Http\Controllers\PresensiIzinController;
 use App\Http\Controllers\ProfileAdminController;
 use App\Http\Controllers\PresensiMasukController;
 use App\Http\Controllers\PresensiSakitController;
+use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\PresensiPulangController;
 
@@ -73,6 +74,10 @@ Route::group(['middleware' => 'admin'], function () {
     //setting presensi
     Route::get('/setting', [SettingController::class, 'index'])->name('setting.index');
     Route::post('/setting/edit', [SettingController::class, 'update'])->name('setting.update');
+
+    //reset password
+    Route::get('/admin/reset-password', [ResetPasswordController::class, 'index'])->name('admin.reset-password');
+    Route::post('/admin/reset-password', [ResetPasswordController::class, 'resetPassword'])->name('admin.reset-password');
 });
 
 

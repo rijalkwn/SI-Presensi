@@ -3,7 +3,7 @@
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'Setting Presensi'])
     <div class="container-fluid py-4">
-        <div class="row mt-4 mx-4">
+        <div class="row mx-4">
             <div class="col-lg-12">
                 <form action="{{ route('setting.update', $setting->id) }}" method="post">
                     @csrf
