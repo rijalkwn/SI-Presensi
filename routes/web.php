@@ -7,6 +7,7 @@ use App\Http\Controllers\CenterController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\HistoryUserController;
 use App\Http\Controllers\KepegawaianController;
 use App\Http\Controllers\ProfileUserController;
 use App\Http\Controllers\PresensiIzinController;
@@ -50,6 +51,7 @@ Route::group(['middleware' => ['auth', 'prevent-back-history']], function () {
     Route::group(['middleware' => 'admin'], function () {
         //history
         Route::resource('/history', HistoryController::class)->names('history');
+        Route::get('/history/delete_history/{id}', [HistoryController::class, 'delete'])->name('delete_history');
         Route::get('/export', [HistoryController::class, 'export'])->name('export-excel');
 
         //karyawan
@@ -83,18 +85,18 @@ Route::group(['middleware' => ['auth', 'prevent-back-history']], function () {
 
         //PRESENSI
         //masuk
-        Route::post('/dashbaord/presensi-masuk', [PresensiMasukController::class, 'store'])->name('presensi.masuk.store');
+        Route::post('/dashboard/presensi-masuk', [PresensiMasukController::class, 'store'])->name('presensi.masuk.store');
 
         //pulang
-        Route::post('/dashbaord/presensi-pulang', [PresensiPulangController::class, 'store'])->name('presensi.pulang.store');
+        Route::post('/dashboard/presensi-pulang', [PresensiPulangController::class, 'store'])->name('presensi.pulang.store');
 
         //izin
-        Route::get('/dashbaord/presensi-izin', [PresensiIzinController::class, 'create'])->name('presensi.izin');
-        Route::post('/dashbaord/presensi-izin', [PresensiIzinController::class, 'store'])->name('presensi.izin.store');
+        Route::get('/dashboard/presensi-izin', [PresensiIzinController::class, 'create'])->name('presensi.izin');
+        Route::post('/dashboard/presensi-izin', [PresensiIzinController::class, 'store'])->name('presensi.izin.store');
 
         //sakit
-        Route::get('/dashbaord/presensi-sakit', [PresensiSakitController::class, 'create'])->name('presensi.sakit');
-        Route::post('/dashbaord/presensi-sakit', [PresensiSakitController::class, 'store'])->name('presensi.sakit.store');
+        Route::get('/dashboard/presensi-sakit', [PresensiSakitController::class, 'create'])->name('presensi.sakit');
+        Route::post('/dashboard/presensi-sakit', [PresensiSakitController::class, 'store'])->name('presensi.sakit.store');
 
         //profile user
         Route::resource('/user/profile', ProfileUserController::class)->names('profile_user');

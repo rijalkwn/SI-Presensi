@@ -30,7 +30,7 @@ class PresensiMasukController extends Controller
                 Presensi::create([
                     'nik' => auth()->user()->nik,
                     'nama' => $request->nama,
-                    'tanggal' => Carbon::now()->isoFormat('DD-MM-YY'),
+                    'tanggal' => Carbon::now()->isoFormat('YY-MM-DD'),
                     'jam_masuk' => Carbon::now()->isoFormat('HH:mm:ss'),
                     'status_kepegawaian' => $karyawan->kepegawaian->status_kepegawaian,
                     'status' => 'Hadir',

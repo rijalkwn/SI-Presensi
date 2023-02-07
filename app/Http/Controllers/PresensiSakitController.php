@@ -63,10 +63,15 @@ class PresensiSakitController extends Controller
         $nama_file = time() . "_" . $file->getClientOriginalName();
         $tujuan_upload = 'files/suratSakit/';
         $file->move($tujuan_upload, $nama_file);
-        Presensi::where('nik', auth()->user()->nik)->whereDate('created_at', Carbon::today())->update([
+        $update = Presensi::where('nik', auth()->user()->nik)->whereDate('created_at', Carbon::today())->update([
             'surat' => $nama_file,
         ]);
-        Alert::success('Absen Sakit', 'Absen sakit berhasil dilakukan');
-        return redirect()->back();
+        if ($update) {
+            Alert::success('Presensi Sakit', 'Presensi sakit berhasil');
+            return redirect()->route('home');
+        } else {
+            Alert::error('Presensi Sakit', 'Presensi sakit gagal terdapat kesalahan saat mengupload file');
+            return redirect()->route('presensi.sakit.create');
+        }
     }
 }

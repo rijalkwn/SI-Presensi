@@ -73,7 +73,7 @@
                                             </td>
                                             <td class="text-sm">
                                                 <p class="ps-2 text-sm font-weight-bold mb-0">
-                                                    {{ $presensi->tanggal }}
+                                                    {{ $presensi->tanggal ? \Carbon\Carbon::parse($presensi->tanggal)->format('d F Y') : 'Tidak Ada Tanggal' }}
                                                 </p>
                                             </td>
                                             <td class="text-sm">
@@ -99,17 +99,15 @@
                                                     @endif
                                                 </p>
                                             </td>
+                                            {{-- keterangan --}}
                                             <td class="text-sm">
                                                 <p class="text-sm font-weight-bold mb-0 ps-3">
                                                     @if ($presensi->status == 'Hadir')
-                                                        @if ($presensi->jam_masuk > '07:00:00')
-                                                            Terlambat
-                                                        @else
-                                                            Tepat Waktu
-                                                        @endif
+                                                        <span>{{ $presensi->keterangan }}</span>
                                                     @elseif ($presensi->status == 'Izin')
                                                         <span>
                                                             <a href="{{ asset('/files/suratIzin/' . $presensi->surat) }}"
+                                                                target="_blank"
                                                                 style="text-decoration: underline; color:cornflowerblue">lihat
                                                                 surat
                                                                 izin</a>
@@ -117,6 +115,7 @@
                                                     @elseif ($presensi->status == 'Sakit')
                                                         <span>
                                                             <a href="{{ asset('/files/suratSakit/' . $presensi->surat) }}"
+                                                                target="_blank"
                                                                 style="text-decoration: underline; color:cornflowerblue">lihat
                                                                 surat sakit</a>
                                                         </span>
@@ -140,13 +139,11 @@
                                                 </p>
                                             </td>
                                             <td>
-                                                <form action="/history/{{ $presensi->id }}" method="POST" class="my-auto">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-danger my-auto"
-                                                        onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
+                                                <a class="btn btn-link text-danger mb-0" id="buttonConfirmDelete_history"
+                                                    data-bs-toggle="modal" data-bs-target="#confirm_delete_history"
+                                                    data-attr="{{ route('delete_history', $presensi->id) }}">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -160,7 +157,7 @@
         @include('layouts.footers.auth.footer')
     </div>
 @endsection
-<!-- Modal Bulk Add Karyawan -->
+<!-- Modal Bulk Export Presensi -->
 <div class="modal fade" data-bs-backdrop="static" data-keyboard="false" id="bulk_presensi" tabindex="-1"
     aria-labelledby="bulk_presensiLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
@@ -210,6 +207,22 @@
         </div>
     </div>
 </div>
+
+{{-- modal delete presensi --}}
+<div class="modal fade" data-bs-backdrop="static" id="confirm_delete_history" tabindex="-1" role="dialog"
+    aria-labelledby="modalConfirmDeleteLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalConfirmDeleteLabel">Konfirmasi Hapus Data</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div id="showModalConfirmDelete_history">
+
+            </div>
+        </div>
+    </div>
+</div>
 @push('javascript')
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.13.2/b-2.3.4/b-html5-2.3.4/datatables.min.js">
@@ -217,6 +230,24 @@
     <script>
         $(document).ready(function() {
             $('#historyAdmin').DataTable({});
+        });
+
+        // display a modal confirm delete karyawan
+        $(document).on("click", "#buttonConfirmDelete_history", function(event) {
+            event.preventDefault();
+            let href = $(this).attr("data-attr");
+            $.ajax({
+                url: href,
+                // return the result
+                success: function(result) {
+                    $("#confirm_delete_history").modal("show");
+                    $("#showModalConfirmDelete_history").html(result).show();
+                },
+                error: function(jqXHR, testStatus, error) {
+                    console.log(error);
+                    alert("Page " + href + " cannot open. Error:" + error);
+                },
+            });
         });
     </script>
 @endpush

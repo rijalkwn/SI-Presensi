@@ -67,10 +67,15 @@ class PresensiIzinController extends Controller
         $nama_file = time() . "_" . $file->getClientOriginalName();
         $tujuan_upload = 'files/suratIzin/';
         $file->move($tujuan_upload, $nama_file);
-        Presensi::where('nik', auth()->user()->nik)->whereDate('created_at', Carbon::today())->update([
+        $update = Presensi::where('nik', auth()->user()->nik)->whereDate('created_at', Carbon::today())->update([
             'surat' => $nama_file,
         ]);
-        Alert::success('Absen Izin', 'Absen izin berhasil dilakukan');
-        return redirect()->route('home');
+        if ($update) {
+            Alert::success('Presensi Izin', 'Presensi izin berhasil');
+            return redirect()->route('home');
+        } else {
+            Alert::error('Presensi Izin', 'Presensi izin gagal terdapat kesalahan saat mengupload file');
+            return redirect()->route('presensi.izin.create');
+        }
     }
 }

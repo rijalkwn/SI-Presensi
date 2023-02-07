@@ -4,7 +4,7 @@
     @include('layouts.navbars.auth.topnav', ['title' => 'Dashboard'])
     <div class="container-fluid py-4">
         @error('PresensiError')
-            <div class="alert alert-info">{{ $message }}</div>
+            <div class="alert alert-success text-white">{{ $message }}</div>
         @enderror
         <div class="row">
             <div class="col-lg-3 col-sm-6 mb-xl-0">
@@ -135,7 +135,8 @@
                                                 <p class="ps-3">{{ $loop->iteration }}</p>
                                             </td>
                                             <td class="text-sm">
-                                                <p class="ps-2 text-sm font-weight-bold mb-0">{{ $presensi->tanggal }}
+                                                <p class="ps-2 text-sm font-weight-bold mb-0">
+                                                    {{ $presensi->tanggal ? \Carbon\Carbon::parse($presensi->tanggal)->format('d F Y') : 'Tidak Ada Tanggal' }}
                                                 </p>
                                             </td>
                                             <td class="text-sm">
@@ -169,6 +170,7 @@
                                                     @elseif ($presensi->status == 'Izin')
                                                         <span>
                                                             <a href="{{ asset('/files/suratIzin/' . $presensi->surat) }}"
+                                                                target="_blank"
                                                                 style="text-decoration: underline; color:cornflowerblue">lihat
                                                                 surat
                                                                 izin</a>
@@ -176,6 +178,7 @@
                                                     @elseif ($presensi->status == 'Sakit')
                                                         <span>
                                                             <a href="{{ asset('/files/suratSakit/' . $presensi->surat) }}"
+                                                                target="_blank"
                                                                 style="text-decoration: underline; color:cornflowerblue">lihat
                                                                 surat sakit</a>
                                                         </span>

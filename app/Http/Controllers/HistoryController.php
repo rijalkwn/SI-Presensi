@@ -31,6 +31,12 @@ class HistoryController extends Controller
         return redirect()->back();
     }
 
+    public function delete($id)
+    {
+        $presensi = Presensi::where('id', $id)->first();
+        return view('history.modal.delete', compact('presensi'));
+    }
+
     public function export(Request $request)
     {
         //request bulamn

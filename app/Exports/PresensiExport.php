@@ -25,6 +25,7 @@ class PresensiExport implements FromCollection, WithHeadings
                 'Tanggal' => $item->tanggal,
                 'Jam Masuk' => $item->jam_masuk,
                 'Jam Pulang' => $item->jam_pulang,
+                'Keterangan' => $item->keterangan,
                 'Status' => $item->status,
             ];
         });
@@ -39,6 +40,7 @@ class PresensiExport implements FromCollection, WithHeadings
             'Tanggal',
             'Jam Masuk',
             'Jam Pulang',
+            'Keterangan',
             'Status',
         ];
     }
