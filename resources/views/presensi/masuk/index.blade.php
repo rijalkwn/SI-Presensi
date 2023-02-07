@@ -67,33 +67,7 @@
         $(document).ready(function() {
             $('#basic-datatables').DataTable();
         });
-
-        window.setTimeout(function() {
-            document.getElementById('absenMasuk').removeAttribute('disabled')
-        }, 2000);
-
-        getLocation();
-
-        function getLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition);
-            } else {
-                alert('Geolocation tidak didukung oleh peramban ini');
-            }
-        }
-
-        function showPosition(position) {
-            var lat = position.coords.latitude;
-            var lng = position.coords.longitude;
-
-            document.getElementById('lat').value = lat;
-            document.getElementById('lng').value = lng;
-            document.getElementById('latTest').value = lat;
-            document.getElementById('lngTest').value = lng;
-        }
     </script>
-
-
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 
     <script>

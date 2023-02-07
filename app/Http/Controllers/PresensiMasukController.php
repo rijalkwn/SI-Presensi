@@ -12,75 +12,54 @@ use Stevebauman\Location\Facades\Location;
 
 class PresensiMasukController extends Controller
 {
-    public function create()
-    {
-        $karyawan = Karyawan::where('nik', auth()->user()->nik)->first();
-        $time = Carbon::now()->isoFormat('HH:mm:ss');
-        $today = Carbon::now()->isoFormat('dddd, D MMMM Y');
-        $presensi = Presensi::where('nik', auth()->user()->nik)->whereDate('created_at', Carbon::today())->first();
-
-        if ($presensi) {
-            if ($presensi->status == 'Hadir') {
-                return back()->withErrors([
-                    'PresensiError' => 'Anda sudah melakukan presensi masuk hari ini!!',
-                ])->onlyInput('PresensiError');
-            } elseif ($presensi->status == 'Izin') {
-                return back()->withErrors([
-                    'PresensiError' => 'Anda sudah melakukan Absen Izin hari ini!!',
-                ])->onlyInput('PresensiError');
-            } else {
-                return back()->withErrors([
-                    'PresensiError' => 'Anda sudah melakukan Absen Sakit hari ini!!',
-                ])->onlyInput('PresensiError');
-            }
-        } else {
-            return view('presensi.masuk.index', [
-                'title' => 'Presensi Masuk',
-                'active' => 'presensi_masuk',
-                'today' => $today,
-                'time' => $time,
-                'karyawan' => $karyawan,
-            ]);
-        }
-    }
-
     public function store(Request $request)
     {
         $karyawan = Karyawan::where('nik', auth()->user()->nik)->first();
 
-
         // data koordinat sekolah
-        $koordinat = Setting::where('id', 1)->first();
-
-        $jarak = $this->distance($request->lat, $request->lng, $koordinat->latitude, $koordinat->longitude, "K"); // <-- dihitung menggunakan satuan kilometer
-
+        $setting = Setting::where('id', 1)->first();
         $presensi = Presensi::where('nik', auth()->user()->nik)->whereDate('created_at', Carbon::today())->first();
-
-        if ($jarak > $koordinat->radius) {
-            Alert::error('Presensi Masuk', 'Anda tidak berada di dalam radius sekolah');
-            return redirect()->back();
-        } else {
-            if (Carbon::now()->isoFormat('HH:mm:ss') > $koordinat->jam_masuk) {
-                $presensi->create([
+        //jika sudah presensi
+        if ($presensi == null) {
+            if (Carbon::now() > $setting->jam_masuk) {
+                // jika terlambat satu jam tidak bisa presensi
+                if (Carbon::now()->diffInSeconds(Carbon::parse($setting->jam_masuk)) > 3600) {
+                    Alert::error('Presensi Masuk', 'Anda sudah lebih dari satu jam terlambat, tidak bisa melakukan presensi masuk');
+                    return redirect()->back();
+                }
+                Presensi::create([
                     'nik' => auth()->user()->nik,
-                    'nama' => auth()->user()->nama,
-                    'status' => 'Terlambat',
-                    'tanggal' => Carbon::now()->isoFormat('YY-MM-DD'),
+                    'nama' => $request->nama,
+                    'tanggal' => Carbon::now()->isoFormat('DD-MM-YY'),
                     'jam_masuk' => Carbon::now()->isoFormat('HH:mm:ss'),
                     'status_kepegawaian' => $karyawan->kepegawaian->status_kepegawaian,
+                    'status' => 'Hadir',
+                    'keterangan' => 'Terlambat',
                 ]);
             } else {
-                $presensi->create([
+                Presensi::create([
                     'nik' => auth()->user()->nik,
                     'nama' => auth()->user()->nama,
-                    'status' => 'Hadir Tepat Waktu',
-                    'tanggal' => Carbon::now()->isoFormat('YY-MM-DD'),
+                    'tanggal' => Carbon::now()->isoFormat('DD-MM-YY'),
                     'jam_masuk' => Carbon::now()->isoFormat('HH:mm:ss'),
                     'status_kepegawaian' => $karyawan->kepegawaian->status_kepegawaian,
+                    'status' => 'Hadir',
+                    'keterangan' => 'Tepat Waktu',
                 ]);
             }
             Alert::success('Presensi Masuk', 'Presensi masuk berhasil dilakukan');
-            return redirect()->route('home');
+            return redirect()->back();
+        } else {
+            if ($presensi->status == 'Izin') {
+                Alert::error('Presensi Masuk', 'Anda sudah melakukan absensi izin hari ini');
+                return redirect()->back();
+            } elseif ($presensi->status == 'Sakit') {
+                Alert::error('Presensi Masuk', 'Anda sudah melakukan absensi sakit hari ini');
+                return redirect()->back();
+            } else {
+                Alert::error('Presensi Masuk', 'Anda sudah melakukan presensi masuk hari ini');
+                return redirect()->back();
+            }
         }
     }
 }

@@ -38,8 +38,6 @@
                                                 aria-label="Password" required>
                                         </div>
                                         <div>
-                                            <a href="" class="text-sm text-gray-600 underline">Lupa
-                                                Password?</a>
                                             <div class="text-center">
                                                 <button type="submit"
                                                     class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Login</button>

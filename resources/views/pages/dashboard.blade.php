@@ -7,35 +7,18 @@
             <div class="alert alert-info">{{ $message }}</div>
         @enderror
         <div class="row">
-            <div class="col-lg-3 col-sm-6 mb-xl-0 mb-4">
+            <div class="col-lg-3 col-sm-6 mb-xl-0">
                 <div class="card">
-                    <a href="{{ route('presensi.masuk') }}">
+                    <form action="{{ route('presensi.masuk.store') }}" method="post" class="px-auto">
+                        @csrf
                         <div class="card-body p-3">
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
-                                        <h4 class="text-lg text-uppercase font-weight-bold my-3 ms-3">MASUK</h4>
-                                    </div>
-                                </div>
-                                <div class="col-4 my-auto">
-                                    <div
-                                        class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                                        <i class="fa fa-calendar ntext-lg opacity-10" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 mb-xl-0 mb-4">
-                <div class="card">
-                    <a href="{{ route('presensi.pulang') }}">
-                        <div class="card-body p-3">
-                            <div class="row">
-                                <div class="col-8">
-                                    <div class="numbers">
-                                        <h4 class="text-lg text-uppercase font-weight-bold my-3 ms-3">PULANG</h4>
+                                        <input type="text" name="nama" id="nama" value="{{ $karyawan->nama }}"
+                                            hidden>
+                                        <button type="submit" class="my-auto btn shadow-none fs-4 text-dark">MASUK</button>
+                                        </h4>
                                     </div>
                                 </div>
                                 <div class="col-4 my-auto">
@@ -46,7 +29,31 @@
                                 </div>
                             </div>
                         </div>
-                    </a>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 mb-xl-0 mb-4">
+                <div class="card">
+                    <form action="{{ route('presensi.pulang.store') }}" method="post" class="px-auto">
+                        @csrf
+                        <div class="card-body p-3">
+                            <div class="row">
+                                <div class="col-8">
+                                    <div class="numbers">
+                                        <button type="submit"
+                                            class="my-auto btn shadow-none fs-4 text-dark">PULANG</button>
+                                        </h4>
+                                    </div>
+                                </div>
+                                <div class="col-4 my-auto">
+                                    <div
+                                        class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
+                                        <i class="fa fa-calendar text-lg opacity-10" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
             <div class="col-lg-3 col-sm-6 mb-xl-0 mb-4">
@@ -56,7 +63,7 @@
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
-                                        <h4 class="text-lg text-uppercase font-weight-bold my-3 ms-3">IZIN</h4>
+                                        <button class="my-auto btn shadow-none fs-4 text-dark">IZIN</button>
                                     </div>
                                 </div>
                                 <div class="col-4 my-auto">
@@ -77,7 +84,7 @@
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
-                                        <h4 class="text-lg text-uppercase font-weight-bold my-3 ms-3">SAKIT</h4>
+                                        <button class="my-auto btn shadow-none fs-4 text-dark">SAKIT</button>
                                     </div>
                                 </div>
                                 <div class="col-4 my-auto">
@@ -154,14 +161,11 @@
                                                     @endif
                                                 </p>
                                             </td>
+                                            {{-- keterangan --}}
                                             <td class="text-sm">
                                                 <p class="text-sm font-weight-bold mb-0 ps-3">
                                                     @if ($presensi->status == 'Hadir')
-                                                        @if ($presensi->jam_masuk > $setting->jam_masuk)
-                                                            Terlambat
-                                                        @else
-                                                            Tepat Waktu
-                                                        @endif
+                                                        <span>{{ $presensi->keterangan }}</span>
                                                     @elseif ($presensi->status == 'Izin')
                                                         <span>
                                                             <a href="{{ asset('/files/suratIzin/' . $presensi->surat) }}"

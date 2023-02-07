@@ -23,11 +23,13 @@ class KaryawanController extends Controller
      */
     public function index()
     {
+        $kepegawaians = Kepegawaian::all();
         $karyawan  = Karyawan::all();
         return view('karyawan.index', [
             'title' => 'Karyawan',
             'active' => 'karyawan',
             'karyawans' => $karyawan,
+            'kepegawaians' => $kepegawaians,
         ]);
     }
 
@@ -119,7 +121,7 @@ class KaryawanController extends Controller
         $karyawan = Karyawan::where('nik', $id)->first();
         $user = User::where('nik', $id)->first();
         $kepegawaians = Kepegawaian::all();
-        return view('karyawan.edit', compact('kepegawaians', 'karyawan', 'user'), [
+        return view('karyawan.modal.edit', compact('kepegawaians', 'karyawan', 'user'), [
             'title' => 'Edit Karyawan',
             'active' => 'karyawan',
         ]);
@@ -177,6 +179,12 @@ class KaryawanController extends Controller
         Karyawan::where('nik', $nik)->delete();
         Alert::success('Data Karyawan Berhasil Dihapus');
         return redirect()->back();
+    }
+
+    public function delete($id)
+    {
+        $karyawan = Karyawan::where('nik', $id)->first();
+        return view('karyawan.modal.delete', compact('karyawan'));
     }
 
     public function bulk(Request $request)

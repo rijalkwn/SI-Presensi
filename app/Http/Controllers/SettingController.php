@@ -21,21 +21,15 @@ class SettingController extends Controller
         $validate = $request->validate([
             'jam_masuk' => 'required',
             'jam_pulang' => 'required|after:jam_masuk',
-            'latitude' => 'required',
-            'longitude' => 'required',
-            'radius' => 'required',
         ], [
             'jam_masuk.required' => 'Jam Masuk tidak boleh kosong',
             'jam_pulang.required' => 'Jam Pulang tidak boleh kosong',
             'jam_pulang.after' => 'Jam Pulang tidak boleh kurang dari Jam Masuk',
-            'latitude.required' => 'Latitude tidak boleh kosong',
-            'longitude.required' => 'Longitude tidak boleh kosong',
-            'radius.required' => 'Radius tidak boleh kosong',
         ]);
         $setting = Setting::first();
         $setting->update($validate);
 
-        Alert::success('Berhasil', 'Setting berhasil disimpan');
+        Alert::success('Berhasil', 'Setting Presensi berhasil diubah');
         return redirect()->back();
     }
 }

@@ -64,14 +64,11 @@
                                                     @endif
                                                 </p>
                                             </td>
+                                            {{-- keterangan --}}
                                             <td class="text-sm">
                                                 <p class="text-sm font-weight-bold mb-0 ps-3">
                                                     @if ($presensi->status == 'Hadir')
-                                                        @if ($presensi->jam_masuk > '07:00:00')
-                                                            Terlambat
-                                                        @else
-                                                            Tepat Waktu
-                                                        @endif
+                                                        <span>{{ $presensi->keterangan }}</span>
                                                     @elseif ($presensi->status == 'Izin')
                                                         <span>
                                                             <a href="{{ asset('/files/suratIzin/' . $presensi->surat) }}"
@@ -81,7 +78,7 @@
                                                         </span>
                                                     @elseif ($presensi->status == 'Sakit')
                                                         <span>
-                                                            <a href="{{ asset('files/suratSakit/' . $presensi->surat) }}"
+                                                            <a href="{{ asset('/files/suratSakit/' . $presensi->surat) }}"
                                                                 style="text-decoration: underline; color:cornflowerblue">lihat
                                                                 surat sakit</a>
                                                         </span>
@@ -93,13 +90,13 @@
                                             <td class="text-sm">
                                                 <p class="text-sm font-weight-bold mb-0 ms-3">
                                                     @if ($presensi->status == 'Hadir')
-                                                        <span class="badge badge-sm bg-success ms-2">Hadir</span>
+                                                        <span class="badge badge-sm bg-success">Hadir</span>
                                                     @elseif ($presensi->status == 'Izin')
-                                                        <span class="badge badge-sm bg-primary ms-2">Izin</span>
+                                                        <span class="badge badge-sm bg-primary">Izin</span>
                                                     @elseif ($presensi->status == 'Sakit')
-                                                        <span class="badge badge-sm bg-info ms-2">Sakit</span>
+                                                        <span class="badge badge-sm bg-info">Sakit</span>
                                                     @else
-                                                        <span class="badge badge-sm bg-danger ms-2">Tidak Absen</span>
+                                                        <span class="badge badge-sm bg-danger">Tidak Absen</span>
                                                     @endif
                                                 </p>
                                             </td>

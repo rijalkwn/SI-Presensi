@@ -22,11 +22,8 @@ return new class extends Migration
             $table->time('jam_masuk')->nullable();
             $table->time('jam_pulang')->nullable();
             $table->string('surat')->nullable();
+            $table->string('keterangan')->nullable();
             $table->string('status');
-            $table->string('lat_masuk')->nullable();
-            $table->string('long_masuk')->nullable();
-            $table->string('lat_pulang')->nullable();
-            $table->string('long_pulang')->nullable();
             $table->foreign('nik')->references('nik')->on('users')->onDelete('cascade');
             $table->foreign('status_kepegawaian')->references('status_kepegawaian')->on('kepegawaians')->onDelete('cascade');
             $table->timestamps();

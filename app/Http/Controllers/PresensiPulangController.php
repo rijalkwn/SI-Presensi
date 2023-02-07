@@ -11,70 +11,36 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class PresensiPulangController extends Controller
 {
-    public function create()
-    {
-        $settting = Setting::first();
-        $karyawan = Karyawan::where('nik', auth()->user()->nik)->first();
-        $time = Carbon::now()->isoFormat('HH:mm:ss');
-        $today = Carbon::now()->isoFormat('dddd, D MMMM Y');
-        $presensi = Presensi::where('nik', auth()->user()->nik)->whereDate('created_at', Carbon::today())->first();
-        if ($presensi) {
-            if ($presensi->status == 'Hadir') {
-                if ($presensi->jam_pulang == null) {
-                    if (Carbon::now()->isoFormat('HH:mm:ss') > $settting->jam_pulang) {
-                        return view('presensi.pulang.index', [
-                            'title' => 'Presensi Pulang',
-                            'active' => 'presensi_pulang',
-                            'today' => $today,
-                            'time' => $time,
-                            'karyawan' => $karyawan,
-                        ]);
-                    } else {
-                        return back()->withErrors([
-                            'PresensiError' => 'Anda belum bisa melakukan presensi pulang!!',
-                        ])->onlyInput('PresensiError');
-                    }
-                } else {
-                    return back()->withErrors([
-                        'PresensiError' => 'Anda sudah melakukan presensi pulang hari ini!!',
-                    ])->onlyInput('PresensiError');
-                }
-            } elseif ($presensi->status == 'Izin') {
-                return back()->withErrors([
-                    'PresensiError' => 'Anda sudah melakukan Absen Izin hari ini!!',
-                ])->onlyInput('PresensiError');
-            } else {
-                return back()->withErrors([
-                    'PresensiError' => 'Anda sudah melakukan Absen Sakit hari ini!!',
-                ])->onlyInput('PresensiError');
-            }
-        } else {
-            return back()->withErrors([
-                'PresensiError' => 'Anda belum melakukan presensi masuk hari ini!!',
-            ])->onlyInput('PresensiError');
-        }
-    }
-
     public function store()
     {
-        $settting = Setting::first();
-        $karyawan = Karyawan::where('nik', auth()->user()->nik)->first();
+        $setting = Setting::where('id', 1)->first();
         $presensi = Presensi::where('nik', auth()->user()->nik)->whereDate('created_at', Carbon::today())->first();
         //presensi pulang
         if ($presensi) {
             if ($presensi->jam_pulang == null) {
-                Presensi::where('nik', auth()->user()->nik)->whereDate('created_at', Carbon::today())->update([
-                    'jam_pulang' => Carbon::now()->isoFormat('HH:mm:ss'),
-                ]);
-                Alert::success('Presensi Pulang', 'Presensi pulang berhasil dilakukan');
-                return redirect()->route('home');
+                if (Carbon::now() > $setting->jam_pulang) {
+                    Presensi::where('nik', auth()->user()->nik)->whereDate('created_at', Carbon::today())->update([
+                        'jam_pulang' => Carbon::now()->isoFormat('HH:mm:ss'),
+                    ]);
+                } else {
+                    Alert::error('Presensi Pulang', 'Anda belum bisa melakukan presensi pulang');
+                    return redirect()->back();
+                }
             } else {
                 Alert::error('Presensi Pulang', 'Anda sudah melakukan presensi pulang hari ini');
                 return redirect()->route('home');
             }
         } else {
-            Alert::error('Presensi Pulang', 'Anda belum melakukan presensi masuk hari ini! Silakan melakukan presensi masuk terlebih dahulu');
-            return redirect()->route('presensi.masuk');
+            if ($presensi->status == 'Hadir') {
+                Alert::error('Presensi Pulang', 'Anda belum melakukan presensi masuk hari ini! Silakan melakukan presensi masuk terlebih dahulu');
+                return redirect()->route('presensi.masuk');
+            } elseif ($presensi->status == 'Izin') {
+                Alert::error('Presensi Pulang', 'Anda sudah melakukan absensi izin hari ini');
+                return redirect()->back();
+            } elseif ($presensi->status == 'Sakit') {
+                Alert::error('Presensi Pulang', 'Anda sudah melakukan absensi sakit hari ini');
+                return redirect()->back();
+            }
         }
     }
 }

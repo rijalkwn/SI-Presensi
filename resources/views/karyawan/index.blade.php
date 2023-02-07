@@ -21,8 +21,9 @@
                                             data-bs-target="#bulk_add_karyawan">
                                             <i class="fa fa-cloud-download"></i> Import
                                         </a>
-                                        <a href="/karyawan/create" class="btn btn-warning btn-sm"><i
-                                                class="fa fa-plus-square" aria-hidden="true"></i> Tambah
+                                        <a class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                                            data-bs-target="#add_karyawan">
+                                            <i class="fa fa-plus-square"></i> Tambah
                                         </a>
                                     </div>
                                 </div>
@@ -83,18 +84,18 @@
                                                     <td class="align-middle text-end">
                                                         <div
                                                             class="d-flex px-3 py-1 justify-content-center align-items-center">
-                                                            <a href="/karyawan/{{ $karyawan->nik }}/edit"
-                                                                class="btn btn-link text-warning mb-0"><i
-                                                                    class="fas fa-edit"></i></a>
-                                                            <form action="/karyawan/{{ $karyawan->nik }}" method="post"
-                                                                class="my-auto">
-                                                                @csrf
-                                                                @method('delete')
-                                                                <button type="submit" class="btn btn-link text-danger mb-0"
-                                                                    onclick="return confirm('Yakin ingin menghapus data ini??')">
-                                                                    <i class="fas fa-trash"></i>
-                                                                </button>
-                                                            </form>
+                                                            <a class="btn btn-link text-warning mb-0"
+                                                                id="buttonModalKaryawan" data-bs-toggle="modal"
+                                                                data-bs-target="#karyawan_view"
+                                                                data-attr="{{ route('karyawan.edit', $karyawan->nik) }}">
+                                                                <i class="fa fa-edit"></i>
+                                                            </a>
+                                                            <a class="btn btn-link text-danger mb-0"
+                                                                id="buttonConfirmDelete_karyawan" data-bs-toggle="modal"
+                                                                data-bs-target="#confirm_delete_karyawan"
+                                                                data-attr="{{ route('delete_karyawan', $karyawan->nik) }}">
+                                                                <i class="fa fa-trash"></i>
+                                                            </a>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -104,6 +105,7 @@
                                 </div>
                             </div>
                         </div>
+                        {{-- reset password --}}
                         <div class="tab-pane fade" id="tab-2">
                             <div class="card px-3 py-3">
                                 @if (session('success'))
@@ -140,7 +142,9 @@
                                         <input id="password-confirm" type="password" class="form-control"
                                             name="password_confirmation" required autocomplete="new-password">
                                     </div>
-                                    <button type="submit" class="btn btn-success">Reset</button>
+                                    <div class="text-end">
+                                        <button type="submit" class="btn btn-success">Reset</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -152,43 +156,39 @@
     </div>
 @endsection
 
-<!-- Modal Bulk Add Karyawan -->
-<div class="modal fade" data-bs-backdrop="static" data-keyboard="false" id="bulk_add_karyawan" tabindex="-1"
-    aria-labelledby="bulk_add_karyawanLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+<!-- Modal Import Add Karyawan -->
+@include('karyawan.modal.import')
+
+<!-- Modal Add Karyawan -->
+@include('karyawan.modal.create')
+
+<!-- Modal Edit Karyawan -->
+<div class="modal fade" data-bs-backdrop="static" data-keyboard="false" id="karyawan_view" tabindex="-1" role="dialog"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="bulk_add_karyawanLabel">Import Karyawan</h5>
-                <button type="button" class="btn-close btn-danger" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
+                <h5 class="modal-title">Edit Data Karyawan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <div class="col-12 mb-3">
-                    <div class="text-center">
-                        <img src="{{ asset('img/logos/import.png') }}" class="img-fluid" alt="none">
-                    </div>
-                </div>
-                <div class="col-12">
-                    Keterangan:
-                    <ul>
-                        <li>File harus berformat .xlsx, .xls, .csv</li>
-                        <li>File harus memiliki header kolom nik, nama, email, status kepegawaian</li>
-                        <li>Header kolom harus sesuai dengan contoh</li>
-                        <li>Status Kepegawaian hanya tersedia tiga yaitu "Guru Tidak Tetap", "Pegawai Tidak Tetap", dan
-                            "Guru Tamu"</li>
-                    </ul>
-                </div>
-                <form action="{{ route('karyawan.bulk') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="mb-3">
-                        <label for="file" class="form-label">File</label>
-                        <input class="form-control" type="file" id="file" name="file"
-                            accept=".xlsx, .xls, .csv" required>
-                    </div>
-                    <div class="mb-3 text-end">
-                        <button type="submit" class="btn btn-sm btn-primary">Upload</button>
-                    </div>
-                </form>
+            <div id="showModalKaryawan">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- modal delete karyawan --}}
+<div class="modal fade" data-bs-backdrop="static" id="confirm_delete_karyawan" tabindex="-1" role="dialog"
+    aria-labelledby="modalConfirmDeleteLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalConfirmDeleteLabel">Konfirmasi Hapus Data</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div id="showModalConfirmDelete_karyawan">
+
             </div>
         </div>
     </div>
@@ -198,10 +198,46 @@
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.13.2/b-2.3.4/b-html5-2.3.4/datatables.min.js">
     </script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#karyawan').DataTable({
 
+            });
+        });
+
+        // display a modal confirm edit karyawan
+        $(document).on("click", "#buttonModalKaryawan", function(event) {
+            event.preventDefault();
+            let href = $(this).attr("data-attr");
+            $.ajax({
+                url: href,
+                // return the result
+                success: function(result) {
+                    $("#karyawan_view").modal("show");
+                    $("#showModalKaryawan").html(result).show();
+                },
+                error: function(jqXHR, testStatus, error) {
+                    console.log(error);
+                    alert("Page " + href + " cannot open. Error:" + error);
+                },
+            });
+        });
+        // display a modal confirm delete karyawan
+        $(document).on("click", "#buttonConfirmDelete_karyawan", function(event) {
+            event.preventDefault();
+            let href = $(this).attr("data-attr");
+            $.ajax({
+                url: href,
+                // return the result
+                success: function(result) {
+                    $("#confirm_delete_karyawan").modal("show");
+                    $("#showModalConfirmDelete_karyawan").html(result).show();
+                },
+                error: function(jqXHR, testStatus, error) {
+                    console.log(error);
+                    alert("Page " + href + " cannot open. Error:" + error);
+                },
             });
         });
         // disable all input and button after submit

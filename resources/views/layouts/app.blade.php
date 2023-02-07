@@ -8,7 +8,11 @@
     <link rel="" sizes="76x76" href="/img/logos/logos.png">
     <link rel="icon" type="image/png" href="/img/logos/logos.png">
     <title>
-        SI Presensi | {{ $title ?? '' }}
+        @if ($title == '')
+            SI Presensi
+        @else
+            SI Presensi | {{ $title ?? '' }}
+        @endif
     </title>
 
     {{-- css bootstrap --}}

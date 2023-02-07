@@ -66,6 +66,7 @@ Route::group(['middleware' => 'admin'], function () {
     //karyawan
     Route::get('/karyawan/{{ $karyawan->id }}/edit', [KaryawanController::class, 'edit'])->name('karyawan');
     Route::resource('/karyawan', KaryawanController::class)->names('karyawan');
+    Route::get('/karyawan/delete_karyawan/{id}', [KaryawanController::class, 'delete'])->name('delete_karyawan');
     Route::post('/karyawan/import', [KaryawanController::class, 'bulk'])->name('karyawan.bulk');
     //kepegawaian
     Route::get('/kepegawaian/{{ $kepegawaian->id }}/edit', [KepegawaianController::class, 'edit']);
@@ -84,11 +85,9 @@ Route::group(['middleware' => 'admin'], function () {
 Route::group(['middleware' => 'user'], function () {
     //PRESENSI
     //masuk
-    Route::get('/dashbaord/presensi-masuk', [PresensiMasukController::class, 'create'])->name('presensi.masuk');
     Route::post('/dashbaord/presensi-masuk', [PresensiMasukController::class, 'store'])->name('presensi.masuk.store');
 
     //pulang
-    Route::get('/dashbaord/presensi-pulang', [PresensiPulangController::class, 'create'])->name('presensi.pulang');
     Route::post('/dashbaord/presensi-pulang', [PresensiPulangController::class, 'store'])->name('presensi.pulang.store');
 
     //izin

@@ -47,64 +47,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <label class="form-control-label">Lokasi Sekolah</label>
-                                <div class="col-lg-6">
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div
-                                                class="form-group
-                                        @error('latitude') has-danger @enderror">
-                                                <label for="latitude" class="form-control-label">Latitude</label>
-                                                <input type="latitude" name="latitude" id="latitude" placeholder="latitude"
-                                                    required
-                                                    class="form-control
-                                            @error('latitude') is-invalid @enderror"
-                                                    value="{{ old('latitude', $setting->latitude) }}">
-                                                @error('latitude')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div
-                                                class="form-group
-                                        @error('longitude') has-danger @enderror">
-                                                <label for="longitude" class="form-control-label">Longitude</label>
-                                                <input type="longitude" name="longitude" id="longitude" required
-                                                    class="form-control
-                                            @error('longitude') is-invalid @enderror"
-                                                    value="{{ old('longitude', $setting->longitude) }}">
-                                                @error('longitude')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div
-                                        class="form-group
-                                        @error('radius') has-danger @enderror">
-                                        <label class="form-control-label" for="radius">Radius</label>
-                                        <input type="number" name="radius" id="radius" required
-                                            class="form-control
-                                            @error('radius') is-invalid @enderror"
-                                            value="{{ old('radius', $setting->radius) }}">
-                                        @error('radius')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                        <span class="text-xs text-danger">*Satuan Kilometer (contoh: 0.05 KM = 50
-                                            Meter)*</span>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="row mt-4">
                                 <div class="col-lg-12">
                                     <button type="submit" class="btn btn-warning">Update</button>

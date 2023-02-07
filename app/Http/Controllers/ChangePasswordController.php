@@ -48,7 +48,7 @@ class ChangePasswordController extends Controller
             'password' => bcrypt($request->new_password),
         ]);
 
-        Alert::success('Berhasil', 'Data berhasil disimpan');
+        Alert::success('Berhasil', 'Password berhasil diubah');
         return redirect()->back();
     }
 }
