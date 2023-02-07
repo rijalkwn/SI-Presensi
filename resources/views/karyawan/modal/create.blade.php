@@ -10,6 +10,10 @@
                 <form action="/karyawan" method="post">
                     @csrf
                     <div class="card">
+                        <div class="alert alert-success text-sm-center">!Password dibuat secara default sesuai NIK dari
+                            masing
+                            masing
+                            karyawan</div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-6">

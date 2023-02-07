@@ -196,10 +196,14 @@ class KaryawanController extends Controller
             'file.mimes' => 'File harus berformat xlsx, xls, atau csv',
         ]);
 
-        Excel::import(new ImportUser, $request->file('file'));
-        Excel::import(new KaryawanImport, $request->file('file'));
+        try {
+            Excel::import(new ImportUser, $request->file('file'));
+            Excel::import(new KaryawanImport, $request->file('file'));
+        } catch (\Exception $e) {
+            Alert::error('Error!', 'Data karyawan gagal ditambahkan, pastikan data yang diupload sudah benar sesuai panduan');
+            return redirect()->back();
+        }
 
-        // Alert success
         Alert::success('Success!', 'Data karyawan berhasil ditambahkan');
         return redirect()->back();
     }

@@ -35,7 +35,7 @@ class ProfileUserController extends Controller
                 Rule::requiredIf(function () {
                     return Karyawan::where('nik', Auth::user()->nik)->first()->foto == null;
                 }),
-                'max:2048',
+                'max:4096',
             ],
             'nama' => 'required|string',
             'email' => 'required|email',
@@ -47,12 +47,13 @@ class ProfileUserController extends Controller
         ], [
             'nama.required' => 'Nama harus diisi',
             'email.required' => 'Email harus diisi',
+            'email.email' => 'Email tidak valid',
             'tempat_lahir.required' => 'Tempat lahir harus diisi',
             'tanggal_lahir.required' => 'Tanggal lahir harus diisi',
             'alamat.required' => 'Alamat harus diisi',
             'tmt.required' => 'TMT harus diisi',
             'kepegawaian_id.required' => 'Kepegawaian harus diisi',
-            'file.max' => 'Ukuran file maksimal 2MB',
+            'file.max' => 'Ukuran file maksimal 4MB',
         ]);
 
         Karyawan::where('nik', auth()->user()->nik)->update([

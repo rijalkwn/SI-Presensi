@@ -45,12 +45,12 @@ class PresensiIzinController extends Controller
     {
         $request->validate(
             [
-                'file' => 'required|mimes:pdf|max:2048',
+                'file' => 'required|mimes:pdf|max:4096',
             ],
             [
                 'file.required' => 'File surat izin tidak boleh kosong',
                 'file.mimes' => 'File surat izin harus berformat pdf',
-                'file.max' => 'File surat izin maksimal 2MB',
+                'file.max' => 'File surat izin maksimal 4MB',
             ]
         );
 

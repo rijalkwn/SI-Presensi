@@ -107,7 +107,7 @@
                         </div>
                         {{-- reset password --}}
                         <div class="tab-pane fade" id="tab-2">
-                            <div class="card px-3 py-3">
+                            <div class="card px-12 py-3">
                                 @if (session('success'))
                                     <div class="alert alert-success">
                                         {{ session('success') }}
@@ -142,6 +142,11 @@
                                         <input id="password-confirm" type="password" class="form-control"
                                             name="password_confirmation" required autocomplete="new-password">
                                     </div>
+                                    @error('password_confirmation')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                     <div class="text-end">
                                         <button type="submit" class="btn btn-success">Reset</button>
                                     </div>

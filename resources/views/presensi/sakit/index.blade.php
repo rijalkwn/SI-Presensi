@@ -13,38 +13,6 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="tanggal">Tanggal</label>
-                                        <input type="text" name="tanggal" id="tanggal" disabled class="form-control"
-                                            value="{{ $today }}">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="waktu">Waktu</label>
-                                        <input type="time" name="waktu" id="waktu" disabled class="form-control"
-                                            value="{{ $time }}">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="nik">NIK</label>
-                                        <input type="text" name="nik" id="nik" class="form-control" disabled
-                                            value="{{ $karyawan->nik }}">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="nama">Nama</label>
-                                        <input type="text" name="nama" id="nama" class="form-control" disabled
-                                            value="{{ $karyawan->nama }}">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
                                 {{-- file --}}
                                 <div class="col-lg-12">
                                     <div
@@ -58,6 +26,9 @@
                                             yang
                                             diupload benar.</label>
                                     </div>
+                                    @error('file')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row mt-4">

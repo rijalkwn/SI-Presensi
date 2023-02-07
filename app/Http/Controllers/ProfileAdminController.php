@@ -21,11 +21,13 @@ class ProfileAdminController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->validate([
-            'nik' => 'required|max:255',
+            'nik' => 'required|numeric|digits:16',
             'nama' => 'required|max:255',
             'email' => 'required|email|max:255',
         ], [
             'nik.required' => 'NIK harus diisi',
+            'nik.numeric' => 'NIK harus berupa angka',
+            'nik.digits' => 'NIK harus 16 digit',
             'nama.required' => 'Nama harus diisi',
             'nama.max' => 'Nama maksimal 255 karakter',
             'email.required' => 'Email harus diisi',

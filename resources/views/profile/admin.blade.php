@@ -34,9 +34,12 @@
                             {{-- NIK --}}
                             <div class="form-group">
                                 <label for="nik">NIK</label>
-                                <input type="text" name="nik" id="nik" class="form-control"
+                                <input type="number" name="nik" id="nik" class="form-control"
                                     value="{{ $user->nik }}">
                             </div>
+                            @error('nik')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
                     <div class="row">
@@ -47,6 +50,9 @@
                                 <input type="text" name="nama" id="nama" class="form-control"
                                     value="{{ $user->nama }}">
                             </div>
+                            @error('nama')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -57,6 +63,9 @@
                                 <input type="email" name="email" id="email" class="form-control"
                                     value="{{ $user->email }}">
                             </div>
+                            @error('email')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
                     <button type="submit" class="btn btn-warning">Save</button>

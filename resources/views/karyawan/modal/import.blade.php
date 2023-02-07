@@ -30,7 +30,7 @@
                             accept=".xlsx, .xls, .csv" required>
                     </div>
                     <div class="mb-3 text-end">
-                        <button type="submit" class="btn btn-sm btn-primary">Upload</button>
+                        <button type="submit" class="btn btn-sm btn-primary">Import</button>
                     </div>
                 </form>
             </div>

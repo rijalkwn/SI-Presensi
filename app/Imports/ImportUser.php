@@ -3,9 +3,10 @@
 namespace App\Imports;
 
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class ImportUser implements ToModel, WithHeadingRow
 {
@@ -16,12 +17,14 @@ class ImportUser implements ToModel, WithHeadingRow
      */
     public function model(array $row)
     {
-        return new User([
-            'nik'      => str_replace(' ', '', $row['nik']),
-            'nama'     => $row['nama'],
-            'email'    => str_replace(' ', '', $row['email']),
-            'role'     => 'user',
-            'password' => Hash::make(str_replace(' ', '', $row['nik'])),
-        ]);
+        $user = new User;
+        $user->nik = str_replace(' ', '', $row['nik']);
+        $user->nama = $row['nama'];
+        $user->email = str_replace(' ', '', $row['email']);
+        $user->role = 'user';
+        $user->password = Hash::make(str_replace(' ', '', $row['nik']));
+        $user->save();
+
+        return $user;
     }
 }

@@ -80,7 +80,7 @@ class KepegawaianController extends Controller
      */
     public function edit(Kepegawaian $kepegawaian)
     {
-        return view('kepegawaian.edit', [
+        return view('kepegawaian.modal.edit', [
             'title' => 'Edit Kepegawaian',
             'active' => 'Kepegawaian',
             'kepegawaian' => $kepegawaian,
@@ -119,8 +119,19 @@ class KepegawaianController extends Controller
      */
     public function destroy(Kepegawaian $kepegawaian)
     {
+        $karyawan = Karyawan::where('kepegawaian_id', $kepegawaian->id)->first();
+        if ($karyawan) {
+            Alert::error('Error', 'Status kepegawaian tidak bisa dihapus karena masih digunakan');
+            return redirect()->back();
+        }
         Kepegawaian::destroy($kepegawaian->id);
         Alert::success('Success', 'Kepegawaian berhasil dihapus');
         return redirect()->route('kepegawaian.index');
+    }
+
+    public function delete($id)
+    {
+        $kepegawaian = Kepegawaian::where('id', $id)->first();
+        return view('kepegawaian.modal.delete', compact('kepegawaian'));
     }
 }

@@ -43,7 +43,11 @@ class PresensiSakitController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'file' => 'required|mimes:pdf|max:2048',
+            'file' => 'required|mimes:pdf|max:4096',
+        ], [
+            'file.required' => 'File surat sakit harus diisi!!',
+            'file.mimes' => 'File surat sakit harus berformat PDF!!',
+            'file.max' => 'File surat sakit maksimal 4MB!!',
         ]);
 
         $karyawan = Karyawan::where('nik', auth()->user()->nik)->first();

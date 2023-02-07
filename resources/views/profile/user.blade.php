@@ -36,7 +36,7 @@
                             {{-- NIK --}}
                             <div class="form-group">
                                 <label for="nik">NIK</label>
-                                <input type="text" name="nik" id="nik" class="form-control"
+                                <input type="number" name="nik" id="nik" class="form-control"
                                     value="{{ $karyawan->nik }}" readonly>
                             </div>
                         </div>
