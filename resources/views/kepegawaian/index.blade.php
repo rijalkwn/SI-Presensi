@@ -1,7 +1,7 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 
 @section('content')
-    @include('layouts.navbars.auth.topnav', ['title' => 'Jabatan'])
+    @include('layouts.navbars.auth.topnav', ['title' => 'Status Kepegawaian'])
     <div class="container-fluid py-4">
         <div class="row mx-4">
             <div class="col-lg-12">
@@ -14,7 +14,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="card-body px-4 pt-0 pb-2">
+                    <div class="card-body px-4 pt-0 pb-3">
                         <div class="table-responsive p-0">
                             <table class="table align-items-center mb-0 table-hover" id="kepegawaian">
                                 <thead>
@@ -58,13 +58,6 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            <p class="text-danger text-xs ms-4 mt-4 alert">*Jangan menghapus data status kepegawaian ini
-                                apabila masih ada
-                                karyawan
-                                yang
-                                memiliki
-                                status kepegawaian yang
-                                akan dihapus*</p>
                         </div>
                     </div>
                 </div>
