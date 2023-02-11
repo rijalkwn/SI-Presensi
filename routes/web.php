@@ -52,7 +52,6 @@ Route::group(['middleware' => ['auth', 'prevent-back-history']], function () {
         //history
         Route::resource('/history', HistoryController::class)->names('history');
         Route::get('/history/delete_history/{id}', [HistoryController::class, 'delete'])->name('delete_history');
-        Route::get('/export', [HistoryController::class, 'export'])->name('export-excel');
 
         //karyawan
         Route::resource('/karyawan', KaryawanController::class)->names('karyawan');
@@ -105,3 +104,5 @@ Route::group(['middleware' => ['auth', 'prevent-back-history']], function () {
         Route::resource('/user/change_password', ChangePasswordController::class);
     });
 });
+
+Route::get('/export', [HistoryController::class, 'export'])->name('export-excel')->middleware('admin');

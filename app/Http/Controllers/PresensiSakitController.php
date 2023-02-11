@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Karyawan;
 use App\Models\Presensi;
+use App\Models\RekapPresensi;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -66,6 +67,24 @@ class PresensiSakitController extends Controller
         $update = Presensi::where('nik', auth()->user()->nik)->whereDate('created_at', Carbon::today())->update([
             'surat' => $nama_file,
         ]);
+
+        //jikaa nik sudah ada di rekap presensi
+        if (RekapPresensi::where('nik', auth()->user()->nik)->where('bulan', Carbon::now()->isoFormat('MM'))->exists()) {
+            RekapPresensi::where('nik', auth()->user()->nik)->where('bulan', Carbon::now()->isoFormat('MM'))->increment('sakit');
+        } else {
+            RekapPresensi::create([
+                'nik' => auth()->user()->nik,
+                'nama' => $karyawan->nama,
+                'status_kepegawaian' => $karyawan->kepegawaian->status_kepegawaian,
+                'bulan' => Carbon::now()->isoFormat('MM'),
+                'tahun' => Carbon::now()->isoFormat('YYYY'),
+                'hadir_tepat_waktu' => 0,
+                'hadir_terlambat' => 0,
+                'izin' => 0,
+                'sakit' => 1,
+            ]);
+        }
+
         if ($update) {
             Alert::success('Presensi Sakit', 'Presensi sakit berhasil');
             return redirect()->route('home');

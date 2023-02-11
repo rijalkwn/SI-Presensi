@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Karyawan;
 use App\Models\Presensi;
 use Illuminate\Http\Request;
+use App\Models\RekapPresensi;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class PresensiIzinController extends Controller
@@ -70,6 +71,23 @@ class PresensiIzinController extends Controller
         $update = Presensi::where('nik', auth()->user()->nik)->whereDate('created_at', Carbon::today())->update([
             'surat' => $nama_file,
         ]);
+
+        //jikaa nik sudah ada di rekap presensi
+        if (RekapPresensi::where('nik', auth()->user()->nik)->where('bulan', Carbon::now()->isoFormat('MM'))->exists()) {
+            RekapPresensi::where('nik', auth()->user()->nik)->where('bulan', Carbon::now()->isoFormat('MM'))->increment('izin');
+        } else {
+            RekapPresensi::create([
+                'bulan' => Carbon::now()->isoFormat('MM'),
+                'tahun' => Carbon::now()->isoFormat('YYYY'),
+                'nik' => auth()->user()->nik,
+                'nama' => $karyawan->nama,
+                'status_kepegawaian' => $karyawan->kepegawaian->status_kepegawaian,
+                'hadir_tepat_waktu' => 0,
+                'hadir_terlambat' => 0,
+                'izin' => 1,
+                'sakit' => 0,
+            ]);
+        }
         if ($update) {
             Alert::success('Presensi Izin', 'Presensi izin berhasil');
             return redirect()->route('home');

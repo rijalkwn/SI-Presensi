@@ -51,11 +51,16 @@ class User extends Authenticatable
 
     public function karyawan()
     {
-        return $this->belongsTo(Karyawan::class, 'nip', 'nip');
+        return $this->belongsTo(Karyawan::class, 'nik', 'nik');
     }
 
     public function presensis()
     {
-        return $this->hasMany(Presensi::class, 'nip', 'nip');
+        return $this->hasMany(Presensi::class, 'nik', 'nik');
+    }
+
+    public function rekapPresensis()
+    {
+        return $this->hasMany(RekapPresensi::class, 'nik', 'nik');
     }
 }

@@ -3,12 +3,13 @@
 namespace App\Exports;
 
 use App\Models\Presensi;
+use App\Models\RekapPresensi;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class PresensiExport implements FromCollection, WithHeadings
 {
-    private $data;
+    protected $data;
 
     public function __construct($data)
     {
@@ -17,19 +18,9 @@ class PresensiExport implements FromCollection, WithHeadings
 
     public function collection()
     {
-        return $this->data->map(function ($item) {
-            return [
-                'NIK' => $item->nik,
-                'Nama' => $item->nama,
-                'Status Kepegawaian' => $item->status_kepegawaian,
-                'Tanggal' => $item->tanggal,
-                'Jam Masuk' => $item->jam_masuk,
-                'Jam Pulang' => $item->jam_pulang,
-                'Keterangan' => $item->keterangan,
-                'Status' => $item->status,
-            ];
-        });
+        return $this->data;
     }
+
 
     public function headings(): array
     {
@@ -37,11 +28,12 @@ class PresensiExport implements FromCollection, WithHeadings
             'NIK',
             'Nama',
             'Status Kepegawaian',
-            'Tanggal',
-            'Jam Masuk',
-            'Jam Pulang',
-            'Keterangan',
-            'Status',
+            'Bulan',
+            'Tahun',
+            'Hadir Tepat Waktu',
+            'Hadir Terlambat',
+            'Izin',
+            'Sakit',
         ];
     }
 }

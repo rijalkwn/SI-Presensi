@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Karyawan;
 use App\Models\Presensi;
+use App\Models\RekapPresensi;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -36,6 +37,21 @@ class PresensiMasukController extends Controller
                     'status' => 'Hadir',
                     'keterangan' => 'Terlambat',
                 ]);
+                //jikaa nik sudah ada di rekap presensi
+                if (RekapPresensi::where('nik', auth()->user()->nik)->where('bulan', Carbon::now()->isoFormat('MM'))->exists()) {
+                    RekapPresensi::where('nik', auth()->user()->nik)->where('bulan', Carbon::now()->isoFormat('MM'))->increment('hadir_terlambat');
+                } else {
+                    RekapPresensi::create([
+                        'bulan' => Carbon::now()->isoFormat('MM'),
+                        'nik' => auth()->user()->nik,
+                        'nama' => $request->nama,
+                        'status_kepegawaian' => $karyawan->kepegawaian->status_kepegawaian,
+                        'hadir_tepat_waktu' => 0,
+                        'hadir_terlambat' => 1,
+                        'izin' => 0,
+                        'sakit' => 0,
+                    ]);
+                }
             } else {
                 Presensi::create([
                     'nik' => auth()->user()->nik,
@@ -46,6 +62,22 @@ class PresensiMasukController extends Controller
                     'status' => 'Hadir',
                     'keterangan' => 'Tepat Waktu',
                 ]);
+                //jikaa nik sudah ada di rekap presensi
+                if (RekapPresensi::where('nik', auth()->user()->nik)->where('bulan', Carbon::now()->isoFormat('MM'))->exists()) {
+                    RekapPresensi::where('nik', auth()->user()->nik)->where('bulan', Carbon::now()->isoFormat('MM'))->increment('hadir_tepat_waktu');
+                } else {
+                    RekapPresensi::create([
+                        'bulan' => Carbon::now()->isoFormat('MM'),
+                        'tahun' => Carbon::now()->isoFormat('YYYY'),
+                        'nik' => auth()->user()->nik,
+                        'nama' => $karyawan->nama,
+                        'status_kepegawaian' => $karyawan->kepegawaian->status_kepegawaian,
+                        'hadir_tepat_waktu' => 1,
+                        'hadir_terlambat' => 0,
+                        'izin' => 0,
+                        'sakit' => 0,
+                    ]);
+                }
             }
             Alert::success('Presensi Masuk', 'Presensi masuk berhasil dilakukan');
             return redirect()->back();

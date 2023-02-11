@@ -7,12 +7,13 @@ use PDF;
 use Carbon\Carbon;
 use App\Models\Karyawan;
 use App\Models\Presensi;
+use Termwind\Components\Dd;
 use Illuminate\Http\Request;
+use App\Models\RekapPresensi;
 use App\Exports\PresensiExport;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
-use Termwind\Components\Dd;
 
 class HistoryController extends Controller
 {
@@ -39,14 +40,11 @@ class HistoryController extends Controller
 
     public function export(Request $request)
     {
-        //request bulamn
+        //request bulan dan tahun
         $bulan = $request->bulan;
         $tahun = $request->tahun;
 
-        //query data
-        $data = Presensi::whereMonth('created_at', $bulan)
-            ->whereYear('created_at', $tahun)
-            ->get();
+        $data = RekapPresensi::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->get();
         return Excel::download(new PresensiExport($data), 'presensi.xlsx');
     }
 }
