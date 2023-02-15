@@ -20,23 +20,68 @@ class HistoryController extends Controller
     public function index(Request $request)
     {
         $title = 'History';
-        $presensis = Presensi::get();
+        //ditampilkan dari yg terakhir di tambahkan
+        $presensis = Presensi::orderBy('created_at', 'desc')->get();
 
         return view('history.historyAdmin', compact('title', 'presensis'));
     }
 
+    public function delete($id)
+    {
+        if ($id == 'all') {
+            $presensi = Presensi::all();
+            return view('history.modal.delete_all', compact('presensi'));
+        } else {
+            $presensi = Presensi::where('id', $id)->first();
+            $rekap = RekapPresensi::where('nik', $presensi->nik)->first();
+            return view('history.modal.delete', compact('presensi'));
+        }
+    }
     public function destroy($id)
     {
-        Presensi::where('id', $id)->delete();
+        if ($id == 'all') {
+            Presensi::truncate();
+            RekapPresensi::truncate();
+        } else {
+            $presensi = Presensi::where('id', $id)->first();
+            //nik dari presensi = nik dari rekap
+            $rekap = RekapPresensi::where('nik', $presensi->nik)->first();
+            if ($presensi->status == 'Hadir' && $presensi->keterangan == 'Tepat Waktu') {
+                if ($rekap->hadir_tepat_waktu == 1 && $rekap->hadir_terlambat == 0 && $rekap->izin == 0 && $rekap->sakit == 0) {
+                    RekapPresensi::where('nik', $presensi->nik)->delete();
+                } else {
+                    $rekap->hadir_tepat_waktu = $rekap->hadir_tepat_waktu - 1;
+                    $rekap->save();
+                }
+            } elseif ($presensi->status == 'Hadir' && $presensi->keterangan == 'Terlambat') {
+                if ($rekap->hadir_tepat_waktu == 0 && $rekap->hadir_terlambat == 1 && $rekap->izin == 0 && $rekap->sakit == 0) {
+                    RekapPresensi::where('nik', $presensi->nik)->delete();
+                } else {
+                    $rekap->hadir_terlambat = $rekap->hadir_terlambat - 1;
+                    $rekap->save();
+                }
+            } elseif ($presensi->status == 'Izin') {
+                if ($rekap->hadir_tepat_waktu == 0 && $rekap->hadir_terlambat == 0 && $rekap->izin == 1 && $rekap->sakit == 0) {
+                    RekapPresensi::where('nik', $presensi->nik)->delete();
+                } else {
+                    $rekap->izin = $rekap->izin - 1;
+                    $rekap->save();
+                }
+            } elseif ($presensi->status == 'Sakit') {
+                if ($rekap->hadir_tepat_waktu == 0 && $rekap->hadir_terlambat == 0 && $rekap->izin == 0 && $rekap->sakit == 1) {
+                    RekapPresensi::where('nik', $presensi->nik)->delete();
+                } else {
+                    $rekap->sakit = $rekap->sakit - 1;
+                    $rekap->save();
+                }
+            }
+            $presensi->delete();
+        }
         Alert::success('Berhasil', 'Data berhasil dihapus');
         return redirect()->back();
     }
 
-    public function delete($id)
-    {
-        $presensi = Presensi::where('id', $id)->first();
-        return view('history.modal.delete', compact('presensi'));
-    }
+
 
     public function export(Request $request)
     {

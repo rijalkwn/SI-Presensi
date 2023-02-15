@@ -25,6 +25,7 @@ class PresensiExport implements FromCollection, WithHeadings
     public function headings(): array
     {
         return [
+            'No',
             'NIK',
             'Nama',
             'Status Kepegawaian',

@@ -9,10 +9,16 @@
                     <div class="card-header pb-0">
                         <div class="d-flex align-items-center">
                             <p class="mb-0">History Presensi Karyawan</p>
-                            <div class="ms-auto d-flex">
+                            <div class="ms-auto d-flex mb-2">
                                 {{-- export excel --}}
-                                <a class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#bulk_presensi">
+                                <a class="btn btn-success btn-sm my-auto mx-2" data-bs-toggle="modal"
+                                    data-bs-target="#bulk_presensi">
                                     <i class="fa fa-cloud-upload"></i> Export Excel
+                                </a>
+                                <a class="btn btn-danger btn-sm my-auto mb-0" id="buttonConfirmDelete_history"
+                                    data-bs-toggle="modal" data-bs-target="#confirm_delete_history"
+                                    data-attr="{{ route('delete_history', 'all') }}">
+                                    <i class="fa fa-trash"></i> Hapus Semua
                                 </a>
                             </div>
                         </div>
@@ -207,6 +213,8 @@
         </div>
     </div>
 </div>
+
+
 
 {{-- modal delete presensi --}}
 <div class="modal fade" data-bs-backdrop="static" id="confirm_delete_history" tabindex="-1" role="dialog"
