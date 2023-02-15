@@ -1,4 +1,4 @@
-<form action="{{ route('history.destroy', $presensi->id) }}" method="POST">
+<form action="{{ route('history.destroy', $presensi->id) }}" method="post">
     @csrf
     @method('DELETE')
     <div class="modal-body">
