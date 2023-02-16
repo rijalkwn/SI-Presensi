@@ -18,7 +18,14 @@ class PresensiExport implements FromCollection, WithHeadings
 
     public function collection()
     {
-        return $this->data;
+        // filter kolom created_at dan updated_at dari data sebelum diexport
+        $data = collect($this->data)->map(function ($item) {
+            unset($item['created_at']);
+            unset($item['updated_at']);
+            return $item;
+        });
+
+        return $data;
     }
 
 

@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('nik');
             $table->string('nama');
+            $table->string('status_kepegawaian');
             $table->integer('bulan');
             $table->integer('tahun');
-            $table->string('status_kepegawaian');
             $table->integer('hadir_tepat_waktu');
             $table->integer('hadir_terlambat');
             $table->integer('izin');
