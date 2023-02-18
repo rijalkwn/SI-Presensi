@@ -4,7 +4,7 @@
     @include('layouts.navbars.auth.topnav', ['title' => 'Karyawan'])
     <div class="container-fluid py-4">
         <div class="row mx-4">
-            <div class="col-12">
+            <div class="col-9">
                 <div class="card">
                     <ul class="nav nav-tabs nav-bottom-line justify-content-center justify-content-md-start">
                         <li class="nav-item"> <a class="nav-link active" data-bs-toggle="tab" href="#tab-1"> Data Karyawan </a>
@@ -156,6 +156,23 @@
                     </div>
                 </div>
             </div>
+            <div class="col-lg-3">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h4>Jumlah User</h4>
+                    </div>
+                    <div class="card-body d-flex p-3 bg-success">
+                        <div class="card p-3 mx-auto text-center">
+                            <p>Admin</p>
+                            <p>{{ $countAdmin }}</p>
+                        </div>
+                        <div class="card p-3 mx-auto text-center">
+                            <p>Karyawan</p>
+                            <p>{{ $countUser }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         @include('layouts.footers.auth.footer')
     </div>
@@ -168,8 +185,8 @@
 @include('karyawan.modal.create')
 
 <!-- Modal Edit Karyawan -->
-<div class="modal fade" data-bs-backdrop="static" data-keyboard="false" id="karyawan_view" tabindex="-1" role="dialog"
-    aria-hidden="true">
+<div class="modal fade" data-bs-backdrop="static" data-keyboard="false" id="karyawan_view" tabindex="-1"
+    role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">

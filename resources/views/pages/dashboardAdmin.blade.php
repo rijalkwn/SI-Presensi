@@ -68,7 +68,7 @@
             </div>
         </div>
         <div class="row mt-4">
-            <div class="col-lg-12">
+            <div class="col-lg-6">
                 <div class="card mb-4">
                     <div class="card-header pb-0">
                         <div class="d-flex align-items-center">
@@ -195,19 +195,92 @@
                     </div>
                 </div>
             </div>
-        </div>
-        @include('layouts.footers.auth.footer')
-    </div>
-@endsection
-@push('javascript')
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.13.2/b-2.3.4/b-html5-2.3.4/datatables.min.js">
-    </script>
-    <script>
-        $(document).ready(function() {
-            $('#dashboardAdmin').DataTable({
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Grafik Presensi Bulanan</h5>
+                        <form method="POST" action="" id="chartForm">
+                            @csrf
+                            <div class="form-group">
+                                <label for="year">Tahun</label>
+                                <select name="year" class="form-control" id="year">
+                                    @for ($i = date('Y'); $i >= 2018; $i--)
+                                        <option value="{{ $i }}">{{ $i }}</option>
+                                    @endfor
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="month">Bulan</label>
+                                <select name="month" class="form-control" id="month">
+                                    @for ($i = 1; $i <= 12; $i++)
+                                        <option value="{{ $i }}">{{ date('F', mktime(0, 0, 0, $i, 1)) }}
+                                        </option>
+                                    @endfor
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Tampilkan Grafik</button>
+                        </form>
 
+                        <div class="chart-container">
+                            <div id="chart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @include('layouts.footers.auth.footer')
+        </div>
+    @endsection
+    @push('javascript')
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/modules/export-data.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.13.2/b-2.3.4/b-html5-2.3.4/datatables.min.js">
+        </script>
+        <script>
+            var data = {!! json_encode($data) !!};
+
+            Highcharts.chart('chart', {
+                title: {
+                    text: 'Presensi'
+                },
+                xAxis: {
+                    categories: data.map(function(d) {
+                        return d.bulan;
+                    })
+                },
+                yAxis: {
+                    title: {
+                        text: 'Jumlah'
+                    }
+                },
+                series: [{
+                    name: 'Kehadiran',
+                    data: data.map(function(d) {
+                        return d.kehadiran;
+                    })
+                }, {
+                    name: 'Izin',
+                    data: data.map(function(d) {
+                        return d.izin;
+                    })
+                }, {
+                    name: 'Sakit',
+                    data: data.map(function(d) {
+                        return d.sakit;
+                    })
+                }],
+                credits: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: true
+                }
             });
-        });
-    </script>
-@endpush
+            $(document).ready(function() {
+                $('#dashboardAdmin').DataTable({
+
+                });
+            });
+        </script>
+    @endpush

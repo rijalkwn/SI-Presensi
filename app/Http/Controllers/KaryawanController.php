@@ -25,10 +25,14 @@ class KaryawanController extends Controller
     {
         $kepegawaians = Kepegawaian::all();
         $karyawan  = Karyawan::all();
+        $countAdmin = User::where('role', 'admin')->count();
+        $countUser = User::where('role', 'user')->count();
         return view('karyawan.index', [
             'title' => 'Karyawan',
             'active' => 'karyawan',
             'karyawans' => $karyawan,
+            'countAdmin' => $countAdmin,
+            'countUser' => $countUser,
             'kepegawaians' => $kepegawaians,
         ]);
     }
@@ -197,7 +201,6 @@ class KaryawanController extends Controller
         ]);
 
         try {
-            Excel::import(new ImportUser, $request->file('file'));
             Excel::import(new KaryawanImport, $request->file('file'));
         } catch (\Exception $e) {
             Alert::error('Error!', 'Data karyawan gagal ditambahkan, pastikan data yang diupload sudah benar sesuai panduan');

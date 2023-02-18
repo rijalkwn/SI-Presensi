@@ -7,8 +7,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithValidation;
 
-class ImportUser implements ToModel, WithHeadingRow
+class ImportUser implements ToModel, WithHeadingRow, WithValidation
 {
     /**
      * @param array $row
@@ -17,14 +18,21 @@ class ImportUser implements ToModel, WithHeadingRow
      */
     public function model(array $row)
     {
-        $user = new User;
-        $user->nik = str_replace(' ', '', $row['nik']);
-        $user->nama = $row['nama'];
-        $user->email = str_replace(' ', '', $row['email']);
-        $user->role = 'user';
-        $user->password = Hash::make(str_replace(' ', '', $row['nik']));
-        $user->save();
+        $user = User::create([
+            'nik' => str_replace(' ', '', $row['nik']),
+            'nama' => $row['nama'],
+            'email' => str_replace(' ', '', $row['email']),
+            'role' => 'user',
+            'password' => bcrypt(str_replace(' ', '', $row['nik'])),
+        ]);
+    }
 
-        return $user;
+    public function rules(): array
+    {
+        return [
+            'nik' => 'required|unique:karyawans,nik',
+            'nama' => 'required',
+
+        ];
     }
 }

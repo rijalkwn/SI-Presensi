@@ -2,12 +2,13 @@
 
 namespace App\Imports;
 
+use App\Models\User;
 use App\Models\Karyawan;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 
-class KaryawanImport implements ToModel, WithHeadingRow
+class KaryawanImport implements ToModel, WithHeadingRow, WithValidation
 {
     /**
      * @param array $row
@@ -23,11 +24,31 @@ class KaryawanImport implements ToModel, WithHeadingRow
         } elseif ($row['status_kepegawaian'] == 'Guru Tamu') {
             $status = 3;
         }
-        return new Karyawan([
-            'nik' => $row['nik'],
+        $user = User::create([
+            'nik' => str_replace(' ', '', $row['nik']),
             'nama' => $row['nama'],
-            'email' => $row['email'],
+            'email' => str_replace(' ', '', $row['email']),
+            'role' => 'user',
+            'password' => bcrypt(str_replace(' ', '', $row['nik'])),
+        ]);
+
+        $user = Karyawan::create([
+            'nik' => str_replace(' ', '', $row['nik']),
+            'nama' => $row['nama'],
+            'email' => str_replace(' ', '', $row['email']),
             'kepegawaian_id' => $status,
         ]);
+
+
+        return $user;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'nik' => 'required|unique:karyawans,nik',
+            'nama' => 'required',
+
+        ];
     }
 }
