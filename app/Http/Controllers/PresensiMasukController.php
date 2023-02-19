@@ -11,6 +11,17 @@ use Illuminate\Http\Request;
 use App\Models\RekapPresensi;
 use RealRashid\SweetAlert\Facades\Alert;
 use Stevebauman\Location\Facades\Location;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationRuleParser;
+use Illuminate\Validation\Rules\Exists;
+use Illuminate\Validation\Rules\In;
+use Illuminate\Validation\Rules\Unique;
+use Illuminate\Validation\Rules\Required;
+use Illuminate\Validation\Rules\Confirmed;
+use Illuminate\Validation\Rules\Password;
+use Illuminate\Validation\Rules\Dimensions;
+use Illuminate\Validation\Rules\Base64Image;
+
 
 class PresensiMasukController extends Controller
 {
@@ -33,9 +44,21 @@ class PresensiMasukController extends Controller
             'lat' => 'required',
             'lng' => 'required',
         ]);
-        //ubah nama file img dari base64 ke jpg
-        $imageData = base64_decode($request->img);
-        $filename = time() . '_' . Str::random(10) . '.png';
+        // Mendapatkan data URI dari request
+        $dataUri = $request->img;
+
+        // Mendapatkan header dan body dari data URI
+        [$header, $body] = explode(',', $dataUri);
+
+        // Mendapatkan tipe konten dari header
+        $contentType = explode(';', $header)[0];
+
+        // Mendapatkan ekstensi file dari tipe konten
+        $extension = explode('/', $contentType)[1];
+
+        // Mendecode base64 dan menyimpan gambar ke file
+        $imageData = base64_decode($body);
+        $filename = time() . '_' . Str::random(10) . '.' . $extension;
         $path = public_path('img/presensi/masuk/' . $filename);
         file_put_contents($path, $imageData);
 

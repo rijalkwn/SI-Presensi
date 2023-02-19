@@ -23,6 +23,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="card-body px-4 pt-0 pb-2">
                         <div class="table-responsive p-0">
                             <table class="table align-items-center mb-0" id="historyAdmin">
@@ -110,8 +111,9 @@
                                             @if ($presensi->status == 'Hadir')
                                                 <td data-image="{{ $presensi->foto_masuk }}">
                                                     <a href="{{ asset('img/presensi/masuk/' . $presensi->foto_masuk) }}"
-                                                        target="_blank" onclick="return showImage(event)">Lihat Foto</a>
-                                                    <img id="image-preview" src="" style="display: none;">
+                                                        onclick="return showImage(event)">Lihat Foto</a>
+                                                    <br><img id="image-preview" src="" style="display: none;"
+                                                        width="200" height="200">
                                                 </td>
                                             @else
                                                 <td">Tidak Ada Foto</td>
