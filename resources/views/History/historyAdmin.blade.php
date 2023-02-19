@@ -49,6 +49,8 @@
                                             Jam Pulang
                                         </th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Foto
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Keterangan
                                         </th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -105,6 +107,15 @@
                                                     @endif
                                                 </p>
                                             </td>
+                                            @if ($presensi->status == 'Hadir')
+                                                <td data-image="{{ $presensi->foto_masuk }}">
+                                                    <a href="{{ asset('img/presensi/masuk/' . $presensi->foto_masuk) }}"
+                                                        target="_blank" onclick="return showImage(event)">Lihat Foto</a>
+                                                    <img id="image-preview" src="" style="display: none;">
+                                                </td>
+                                            @else
+                                                <td">Tidak Ada Foto</td>
+                                            @endif
                                             {{-- keterangan --}}
                                             <td class="text-sm">
                                                 <p class="text-sm font-weight-bold mb-0 ps-3">
@@ -239,6 +250,14 @@
         $(document).ready(function() {
             $('#historyAdmin').DataTable({});
         });
+
+        function showImage(event) {
+            event.preventDefault();
+            var imageUrl = event.target.href;
+            var imagePreview = document.getElementById("image-preview");
+            imagePreview.src = imageUrl;
+            imagePreview.style.display = "block";
+        }
 
         // display a modal confirm delete karyawan
         $(document).on("click", "#buttonConfirmDelete_history", function(event) {

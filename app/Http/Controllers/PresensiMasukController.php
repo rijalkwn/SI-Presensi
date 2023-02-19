@@ -3,18 +3,42 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Setting;
 use App\Models\Karyawan;
 use App\Models\Presensi;
-use App\Models\RekapPresensi;
-use App\Models\Setting;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\RekapPresensi;
 use RealRashid\SweetAlert\Facades\Alert;
 use Stevebauman\Location\Facades\Location;
 
 class PresensiMasukController extends Controller
 {
+    public function create()
+    {
+        $setting = Setting::where('id', 1)->first();
+        $karyawanside = Karyawan::where('nik', auth()->user()->nik)->first();
+        return view('presensi.masuk.index', [
+            'title' => 'Presensi Masuk',
+            'karyawan' => $karyawanside,
+            'setting' => $setting,
+        ]);
+    }
+
     public function store(Request $request)
     {
+        // Validasi request
+        $request->validate([
+            'img' => 'required',
+            'lat' => 'required',
+            'lng' => 'required',
+        ]);
+        //ubah nama file img dari base64 ke jpg
+        $imageData = base64_decode($request->img);
+        $filename = time() . '_' . Str::random(10) . '.png';
+        $path = public_path('img/presensi/masuk/' . $filename);
+        file_put_contents($path, $imageData);
+
         $karyawan = Karyawan::where('nik', auth()->user()->nik)->first();
 
         // data koordinat sekolah
@@ -24,15 +48,19 @@ class PresensiMasukController extends Controller
         if ($presensi == null) {
             if (Carbon::now() > $setting->jam_masuk) {
                 // jika terlambat satu jam tidak bisa presensi
-                if (Carbon::now()->diffInSeconds(Carbon::parse($setting->jam_masuk)) > 3600) {
+                /*if (Carbon::now()->diffInSeconds(Carbon::parse($setting->jam_masuk)) > 3600) {
                     Alert::error('Presensi Masuk', 'Anda sudah lebih dari satu jam terlambat, tidak bisa melakukan presensi masuk');
                     return redirect()->back();
                 }
+                */
                 Presensi::create([
                     'nik' => auth()->user()->nik,
-                    'nama' => $request->nama,
+                    'nama' => auth()->user()->nama,
                     'tanggal' => Carbon::now()->isoFormat('YY-MM-DD'),
                     'jam_masuk' => Carbon::now()->isoFormat('HH:mm:ss'),
+                    'foto_masuk' => $filename,
+                    'lat_masuk' => $request->lat,
+                    'lng_masuk' => $request->lng,
                     'status_kepegawaian' => $karyawan->kepegawaian->status_kepegawaian,
                     'status' => 'Hadir',
                     'keterangan' => 'Terlambat',
@@ -43,8 +71,9 @@ class PresensiMasukController extends Controller
                 } else {
                     RekapPresensi::create([
                         'bulan' => Carbon::now()->isoFormat('MM'),
+                        'tahun' => Carbon::now()->isoFormat('YYYY'),
                         'nik' => auth()->user()->nik,
-                        'nama' => $request->nama,
+                        'nama' => auth()->user()->nama,
                         'status_kepegawaian' => $karyawan->kepegawaian->status_kepegawaian,
                         'hadir_tepat_waktu' => 0,
                         'hadir_terlambat' => 1,
@@ -58,6 +87,9 @@ class PresensiMasukController extends Controller
                     'nama' => auth()->user()->nama,
                     'tanggal' => Carbon::now()->isoFormat('DD-MM-YY'),
                     'jam_masuk' => Carbon::now()->isoFormat('HH:mm:ss'),
+                    'foto_masuk' => $filename,
+                    'lat_masuk' => $request->lat,
+                    'lng_masuk' => $request->lng,
                     'status_kepegawaian' => $karyawan->kepegawaian->status_kepegawaian,
                     'status' => 'Hadir',
                     'keterangan' => 'Tepat Waktu',
@@ -70,7 +102,7 @@ class PresensiMasukController extends Controller
                         'bulan' => Carbon::now()->isoFormat('MM'),
                         'tahun' => Carbon::now()->isoFormat('YYYY'),
                         'nik' => auth()->user()->nik,
-                        'nama' => $karyawan->nama,
+                        'nama' => auth()->user()->nama,
                         'status_kepegawaian' => $karyawan->kepegawaian->status_kepegawaian,
                         'hadir_tepat_waktu' => 1,
                         'hadir_terlambat' => 0,
@@ -80,7 +112,7 @@ class PresensiMasukController extends Controller
                 }
             }
             Alert::success('Presensi Masuk', 'Presensi masuk berhasil dilakukan');
-            return redirect()->back();
+            return redirect()->route('dashboard');
         } else {
             if ($presensi->status == 'Izin') {
                 Alert::error('Presensi Masuk', 'Anda sudah melakukan absensi izin hari ini');

@@ -198,29 +198,6 @@
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Grafik Presensi Bulanan</h5>
-                        <form method="POST" action="" id="chartForm">
-                            @csrf
-                            <div class="form-group">
-                                <label for="year">Tahun</label>
-                                <select name="year" class="form-control" id="year">
-                                    @for ($i = date('Y'); $i >= 2018; $i--)
-                                        <option value="{{ $i }}">{{ $i }}</option>
-                                    @endfor
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="month">Bulan</label>
-                                <select name="month" class="form-control" id="month">
-                                    @for ($i = 1; $i <= 12; $i++)
-                                        <option value="{{ $i }}">{{ date('F', mktime(0, 0, 0, $i, 1)) }}
-                                        </option>
-                                    @endfor
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Tampilkan Grafik</button>
-                        </form>
-
                         <div class="chart-container">
                             <div id="chart"></div>
                         </div>
@@ -238,37 +215,42 @@
         <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.13.2/b-2.3.4/b-html5-2.3.4/datatables.min.js">
         </script>
         <script>
-            var data = {!! json_encode($data) !!};
+            // [{"count":3,"status":"Hadir"},{"count":1,"status":"Izin"}];
+            var data = <?= json_encode($data) ?>;
+
+            data = data.map(function(item) {
+                return item.count;
+            });
 
             Highcharts.chart('chart', {
                 title: {
                     text: 'Presensi'
                 },
                 xAxis: {
-                    categories: data.map(function(d) {
-                        return d.bulan;
-                    })
+                    categories: ['Hadir', 'Izin', 'Sakit']
                 },
                 yAxis: {
                     title: {
                         text: 'Jumlah'
                     }
                 },
+                plotOptions: {
+                    column: {
+                        stacking: 'normal',
+                        dataLabels: {
+                            enabled: false
+                        },
+                        shadow: false,
+                        center: ['50%', '50%'],
+                        borderWidth: 0
+                    }
+                },
                 series: [{
-                    name: 'Kehadiran',
-                    data: data.map(function(d) {
-                        return d.kehadiran;
-                    })
-                }, {
-                    name: 'Izin',
-                    data: data.map(function(d) {
-                        return d.izin;
-                    })
-                }, {
-                    name: 'Sakit',
-                    data: data.map(function(d) {
-                        return d.sakit;
-                    })
+                    name: 'Jumlah',
+                    data: data,
+                    type: 'column',
+                    colorByPoint: true,
+                    colors: ['#00c292', '#00a5e3', '#f46a6a']
                 }],
                 credits: {
                     enabled: false

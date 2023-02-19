@@ -37,9 +37,61 @@
                                         <label class="form-control-label" for="jam_pulang">Jam Pulang</label>
                                         <input type="time" name="jam_pulang" id="jam_pulang" required
                                             class="form-control
-                                            @error('latitude') has-danger @enderror"
+                                            @error('jam_pulang') has-danger @enderror"
                                             value="{{ old('jam_pulang', $setting->jam_pulang) }}">
                                         @error('jam_pulang')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div
+                                        class="form-group
+                                        @error('lat') has-danger @enderror">
+                                        <label class="form-control-label" for="lat">Latitude</label>
+                                        <input type="text" name="lat" id="lat" required
+                                            class="form-control
+                                            @error('lat') is-invalid @enderror"
+                                            value="{{ old('lat', $setting->lat) }}">
+                                        @error('lat')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div
+                                        class="form-group
+                                        @error('lng') has-danger @enderror">
+                                        <label class="form-control-label" for="lng">Longitude</label>
+                                        <input type="text" name="lng" id="lng" required
+                                            class="form-control
+                                            @error('lng') is-invalid @enderror"
+                                            value="{{ old('lng', $setting->lng) }}">
+                                        @error('lng')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div
+                                        class="form-group
+                                        @error('radius') has-danger @enderror">
+                                        <label class="form-control-label" for="radius">Radius</label>
+                                        <input type="text" name="radius" id="radius" required
+                                            class="form-control
+                                            @error('radius') is-invalid @enderror"
+                                            value="{{ old('radius', $setting->radius) }}">
+                                        @error('radius')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

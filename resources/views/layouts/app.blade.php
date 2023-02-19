@@ -29,7 +29,8 @@
     <!-- CSS Files -->
     <link rel="stylesheet" href="{{ url('assets/css/argon-dashboard.css') }}">
     <link rel="stylesheet" href="{{ url('assets/css/style.css') }}">
-    {{-- datatables --}}
+    {{-- lokasi --}}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
     {{-- datatables --}}
     <link rel="stylesheet" type="text/css"
         href="https://cdn.datatables.net/v/bs5/dt-1.13.2/b-2.3.4/b-html5-2.3.4/datatables.min.css" />
@@ -50,9 +51,6 @@
             @yield('content')
         </main>
     @endauth
-
-    {{-- jam --}}
-    <script src="{{ url('assets/js/jam.js') }}"></script>
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <!--   Core JS Files   -->
@@ -60,6 +58,8 @@
     <script src="{{ url('assets/js/core/bootstrap.min.js') }}"></script>
     <script src="{{ url('assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ url('assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
+    {{-- lokasi --}}
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
     <script>
         var win = navigator.platform.indexOf('Win') > -1;
         if (win && document.querySelector('#sidenav-scrollbar')) {

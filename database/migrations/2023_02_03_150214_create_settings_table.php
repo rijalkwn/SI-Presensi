@@ -17,6 +17,9 @@ return new class extends Migration
             $table->id();
             $table->time('jam_masuk');
             $table->time('jam_pulang');
+            $table->string('lat');
+            $table->string('lng');
+            $table->string('radius');
             $table->timestamps();
         });
     }

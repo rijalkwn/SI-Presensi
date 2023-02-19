@@ -21,6 +21,12 @@ return new class extends Migration
             $table->string('status_kepegawaian');
             $table->time('jam_masuk')->nullable();
             $table->time('jam_pulang')->nullable();
+            $table->longText('foto_masuk')->nullable();
+            $table->longText('foto_pulang')->nullable();
+            $table->string('lat_masuk')->nullable();
+            $table->string('lng_masuk')->nullable();
+            $table->string('lat_pulang')->nullable();
+            $table->string('lng_pulang')->nullable();
             $table->string('surat')->nullable();
             $table->string('keterangan')->nullable();
             $table->string('status');

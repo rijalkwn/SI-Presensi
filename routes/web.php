@@ -80,10 +80,11 @@ Route::group(['middleware' => ['auth', 'prevent-back-history']], function () {
 
     Route::group(['middleware' => 'user'], function () {
         //history
-        Route::get('/user/history', [HistoryUserController::class, 'index'])->name('history.user');
+        Route::get('user/history', [HistoryUserController::class, 'index'])->name('history.user');
 
         //PRESENSI
         //masuk
+        Route::get('/dashboard/presensi-masuk', [PresensiMasukController::class, 'create'])->name('presensi.masuk');
         Route::post('/dashboard/presensi-masuk', [PresensiMasukController::class, 'store'])->name('presensi.masuk.store');
 
         //pulang

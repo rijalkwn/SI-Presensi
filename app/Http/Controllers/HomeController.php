@@ -61,19 +61,9 @@ class HomeController extends Controller
         }
 
         // Inisialisasi array untuk menyimpan data dalam format yang dapat digunakan oleh Highcharts
-        $data = [];
-
-        // Looping untuk memproses data kehadiran, izin, dan sakit setiap bulannya
-        foreach ($kehadiran as $bulan => $jumlah_kehadiran) {
-            $jumlah_izin = isset($izin[$bulan]) ? $izin[$bulan] : 0;
-            $jumlah_sakit = isset($sakit[$bulan]) ? $sakit[$bulan] : 0;
-            $data[] = [
-                'bulan' => $bulan,
-                'kehadiran' => $jumlah_kehadiran,
-                'izin' => $jumlah_izin,
-                'sakit' => $jumlah_sakit,
-            ];
-        }
+        $data = Presensi::select(DB::raw('count(*) as count, status'))
+            ->groupBy('status')
+            ->get();
 
         // Kirim data ke view untuk ditampilkan pada chart
         $karyawanside = Karyawan::where('nik', auth()->user()->nik)->first();

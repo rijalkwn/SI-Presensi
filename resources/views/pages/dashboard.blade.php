@@ -9,27 +9,23 @@
         <div class="row">
             <div class="col-lg-3 col-sm-6 mb-xl-0">
                 <div class="card">
-                    <form action="{{ route('presensi.masuk.store') }}" method="post" class="px-auto">
-                        @csrf
+                    <a href="{{ route('presensi.masuk') }}" method>
                         <div class="card-body p-3">
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
-                                        <input type="text" name="nama" id="nama" value="{{ $karyawan->nama }}"
-                                            hidden>
-                                        <button type="submit" class="my-auto btn shadow-none fs-4 text-dark">MASUK</button>
-                                        </h4>
+                                        <button class="my-auto btn shadow-none fs-4 text-dark">MASUK</button>
                                     </div>
                                 </div>
                                 <div class="col-4 my-auto">
                                     <div
                                         class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                                        <i class="fa fa-calendar text-lg opacity-10" aria-hidden="true"></i>
+                                        <i class="fa fa-calendar-times-o text-lg opacity-10" aria-hidden="true"></i>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </a>
                 </div>
             </div>
             <div class="col-lg-3 col-sm-6 mb-xl-0 mb-4">
