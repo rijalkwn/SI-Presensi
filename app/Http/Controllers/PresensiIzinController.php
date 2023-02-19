@@ -56,7 +56,7 @@ class PresensiIzinController extends Controller
         );
 
         $karyawan = Karyawan::where('nik', auth()->user()->nik)->first();
-        Presensi::where('nik', auth()->user()->nik)->whereDate('created_at', Carbon::today())->create([
+        Presensi::create([
             'nik' => auth()->user()->nik,
             'nama' => auth()->user()->nama,
             'status' => 'Izin',
