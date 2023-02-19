@@ -68,7 +68,7 @@
             </div>
         </div>
         <div class="row mt-4">
-            <div class="col-lg-6">
+            <div class="col-lg-8">
                 <div class="card mb-4">
                     <div class="card-header pb-0">
                         <div class="d-flex align-items-center">
@@ -195,7 +195,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-4">
                 <div class="card">
                     <div class="card-body">
                         <div class="chart-container">
@@ -224,7 +224,7 @@
 
             Highcharts.chart('chart', {
                 title: {
-                    text: 'Presensi'
+                    text: 'Presensi Karyawan Harian'
                 },
                 xAxis: {
                     categories: ['Hadir', 'Izin', 'Sakit']

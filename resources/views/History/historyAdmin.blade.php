@@ -4,7 +4,7 @@
     @include('layouts.navbars.auth.topnav', ['title' => 'History Presensi'])
     <div class="container-fluid py-4">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-8">
                 <div class="card mb-4">
                     <div class="card-header pb-0">
                         <div class="d-flex align-items-center">
@@ -172,6 +172,15 @@
                     </div>
                 </div>
             </div>
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <div id="chart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         @include('layouts.footers.auth.footer')
     </div>
@@ -183,7 +192,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="bulk_presensiLabel">Export Presensi</h5>
-                <button type="button" class="btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-danger" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form action="{{ route('export-excel') }}" method="get" class="me-3">
@@ -246,11 +256,58 @@
 </div>
 @push('javascript')
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.13.2/b-2.3.4/b-html5-2.3.4/datatables.min.js">
     </script>
     <script>
         $(document).ready(function() {
             $('#historyAdmin').DataTable({});
+        });
+
+        var data = <?= json_encode($data) ?>;
+
+        data = data.map(function(item) {
+            return item.count;
+        });
+
+        Highcharts.chart('chart', {
+            title: {
+                text: 'Presensi Karyawan Keseluruhan'
+            },
+            xAxis: {
+                categories: ['Hadir', 'Izin', 'Sakit']
+            },
+            yAxis: {
+                title: {
+                    text: 'Jumlah'
+                }
+            },
+            plotOptions: {
+                column: {
+                    stacking: 'normal',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    shadow: false,
+                    center: ['50%', '50%'],
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: 'Jumlah',
+                data: data,
+                type: 'column',
+                colorByPoint: true,
+                colors: ['#00c292', '#00a5e3', '#f46a6a']
+            }],
+            credits: {
+                enabled: false
+            },
+            exporting: {
+                enabled: true
+            }
         });
 
         function showImage(event) {

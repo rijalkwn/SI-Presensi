@@ -19,11 +19,14 @@ class HistoryController extends Controller
 {
     public function index(Request $request)
     {
+        $data = Presensi::select(DB::raw('count(*) as count, status'))
+            ->groupBy('status')
+            ->get();
         $title = 'History';
         //ditampilkan dari yg terakhir di tambahkan
         $presensis = Presensi::orderBy('created_at', 'desc')->get();
 
-        return view('history.historyAdmin', compact('title', 'presensis'));
+        return view('history.historyAdmin', compact('title', 'presensis', 'data'));
     }
 
     public function delete($id)

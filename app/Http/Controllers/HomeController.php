@@ -27,45 +27,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // Ambil data presensiChart
-        $presensisChart = Presensi::all();
-
-        // Inisialisasi array untuk menyimpan jumlah kehadiran, izin, dan sakit setiap bulannya
-        $kehadiran = [];
-        $izin = [];
-        $sakit = [];
-
-        // Proses data presensi untuk menghitung jumlah kehadiran, izin, dan sakit setiap bulannya
-        foreach ($presensisChart as $presensiChart) {
-            $tanggal = date('Y-m', strtotime($presensiChart->tanggal));
-            switch ($presensiChart->status) {
-                case 'hadir':
-                    if (!isset($kehadiran[$tanggal])) {
-                        $kehadiran[$tanggal] = 0;
-                    }
-                    $kehadiran[$tanggal]++;
-                    break;
-                case 'izin':
-                    if (!isset($izin[$tanggal])) {
-                        $izin[$tanggal] = 0;
-                    }
-                    $izin[$tanggal]++;
-                    break;
-                case 'sakit':
-                    if (!isset($sakit[$tanggal])) {
-                        $sakit[$tanggal] = 0;
-                    }
-                    $sakit[$tanggal]++;
-                    break;
-            }
-        }
-
         // Inisialisasi array untuk menyimpan data dalam format yang dapat digunakan oleh Highcharts
-        $data = Presensi::select(DB::raw('count(*) as count, status'))
-            ->groupBy('status')
-            ->get();
+        $data = Presensi::whereDate('created_at', Carbon::today())->select(DB::raw('count(*) as count, status'))->groupBy('status')->get();
+        // $data = Presensi::where('')select(DB::raw('count(*) as count, status'))
+        //     ->groupBy('status')
+        //     ->get();
 
-        // Kirim data ke view untuk ditampilkan pada chart
         $karyawanside = Karyawan::where('nik', auth()->user()->nik)->first();
         $countMasuk = Presensi::whereDate('created_at', Carbon::today())->WhereNotNull('jam_masuk')->count();
         $countIzin = Presensi::whereDate('created_at', Carbon::today())->Where('status', 'Izin')->count();
