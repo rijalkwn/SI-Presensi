@@ -46,19 +46,24 @@ class KepegawaianController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate(
-            [
-                'status_kepegawaian' => 'required|unique:kepegawaians|max:255',
-            ],
-            [
-                'status_kepegawaian.required' => 'Status kepegawaian harus diisi',
-                'status_kepegawaian.unique' => 'Status kepegawaian sudah ada',
-                'status_kepegawaian.max' => 'Status kepegawaian maksimal 255 karakter',
-            ]
-        );
-        Kepegawaian::create($data);
-        Alert::success('Success', 'Kepegawaian berhasil ditambahkan');
-        return redirect()->route('kepegawaian.index');
+        try {
+            $data = $request->validate(
+                [
+                    'status_kepegawaian' => 'required|unique:kepegawaians|max:255',
+                ],
+                [
+                    'status_kepegawaian.required' => 'Status kepegawaian harus diisi',
+                    'status_kepegawaian.unique' => 'Status kepegawaian sudah ada',
+                    'status_kepegawaian.max' => 'Status kepegawaian maksimal 255 karakter',
+                ]
+            );
+            Kepegawaian::create($data);
+            Alert::success('Success', 'Kepegawaian berhasil ditambahkan');
+            return redirect()->route('kepegawaian.index');
+        } catch (\Exception $e) {
+            Alert::error('Error', $e->getMessage());
+            return redirect()->route('kepegawaian.index');
+        }
     }
 
     /**
@@ -96,19 +101,24 @@ class KepegawaianController extends Controller
      */
     public function update(Request $request, Kepegawaian $kepegawaian)
     {
-        $data = $request->validate(
-            [
-                'status_kepegawaian' => 'required|unique:kepegawaians|max:255',
-            ],
-            [
-                'status_kepegawaian.required' => 'Status kepegawaian harus diisi',
-                'status_kepegawaian.unique' => 'Status kepegawaian sudah ada',
-                'status_kepegawaian.max' => 'Status kepegawaian maksimal 255 karakter',
-            ]
-        );
-        Kepegawaian::where('id', $kepegawaian->id)->update($data);
-        Alert::success('Success', 'Status Kepegawaian berhasil diubah');
-        return redirect()->route('kepegawaian.index')->with('success', 'Kepegawaian berhasil diubah');
+        try {
+            $data = $request->validate(
+                [
+                    'status_kepegawaian' => 'required|unique:kepegawaians|max:255',
+                ],
+                [
+                    'status_kepegawaian.required' => 'Status kepegawaian harus diisi',
+                    'status_kepegawaian.unique' => 'Status kepegawaian sudah ada',
+                    'status_kepegawaian.max' => 'Status kepegawaian maksimal 255 karakter',
+                ]
+            );
+            Kepegawaian::where('id', $kepegawaian->id)->update($data);
+            Alert::success('Success', 'Status Kepegawaian berhasil diubah');
+            return redirect()->route('kepegawaian.index')->with('success', 'Kepegawaian berhasil diubah');
+        } catch (\Exception $e) {
+            Alert::error('Error', $e->getMessage());
+            return redirect()->route('kepegawaian.index');
+        }
     }
 
     /**
@@ -124,9 +134,14 @@ class KepegawaianController extends Controller
             Alert::error('Error', 'Status kepegawaian tidak bisa dihapus karena masih digunakan');
             return redirect()->back();
         }
-        Kepegawaian::destroy($kepegawaian->id);
-        Alert::success('Success', 'Kepegawaian berhasil dihapus');
-        return redirect()->route('kepegawaian.index');
+        try {
+            Kepegawaian::destroy($kepegawaian->id);
+            Alert::success('Success', 'Kepegawaian berhasil dihapus');
+            return redirect()->route('kepegawaian.index');
+        } catch (\Exception $e) {
+            Alert::error('Error', $e->getMessage());
+            return redirect()->route('kepegawaian.index');
+        }
     }
 
     public function delete($id)

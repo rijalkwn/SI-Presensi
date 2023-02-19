@@ -8,7 +8,7 @@
                 <h5 class="mb-0">Change Password</h5>
             </div>
             <div class="card-body">
-                <form action="{{ route('change_password.update', $user->nik) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('password.update', $user->nik) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="row mb-1">

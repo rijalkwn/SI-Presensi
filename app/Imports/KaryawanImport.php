@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Models\User;
 use App\Models\Karyawan;
+use App\Models\Kepegawaian;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
@@ -17,13 +18,6 @@ class KaryawanImport implements ToModel, WithHeadingRow, WithValidation
      */
     public function model(array $row)
     {
-        if ($row['status_kepegawaian'] == 'Guru Tidak Tetap') {
-            $status = 1;
-        } elseif ($row['status_kepegawaian'] == 'Pegawai Tidak Tetap') {
-            $status = 2;
-        } elseif ($row['status_kepegawaian'] == 'Guru Tamu') {
-            $status = 3;
-        }
         $user = User::create([
             'nik' => str_replace(' ', '', $row['nik']),
             'nama' => $row['nama'],
@@ -32,6 +26,8 @@ class KaryawanImport implements ToModel, WithHeadingRow, WithValidation
             'password' => bcrypt(str_replace(' ', '', $row['nik'])),
         ]);
 
+        $kepegawaian = Kepegawaian::where('status_kepegawaian', $row['status_kepegawaian'])->first();
+        $status = $kepegawaian->id;
         $user = Karyawan::create([
             'nik' => str_replace(' ', '', $row['nik']),
             'nama' => $row['nama'],
@@ -48,6 +44,7 @@ class KaryawanImport implements ToModel, WithHeadingRow, WithValidation
         return [
             'nik' => 'required|unique:karyawans,nik',
             'nama' => 'required',
+            'email' => 'required|unique:karyawans,email',
 
         ];
     }

@@ -50,7 +50,9 @@
                                             Jam Pulang
                                         </th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Foto
+                                            Foto Masuk </th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Foto Pulang </th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Keterangan
                                         </th>
@@ -111,6 +113,16 @@
                                             @if ($presensi->status == 'Hadir')
                                                 <td data-image="{{ $presensi->foto_masuk }}">
                                                     <a href="{{ asset('img/presensi/masuk/' . $presensi->foto_masuk) }}"
+                                                        target="_blank">Lihat Foto</a>
+                                                    {{-- <br><img id="image-preview" src="" style="display: none;"
+                                                        width="200" height="200"> --}}
+                                                </td>
+                                            @else
+                                                <td">Tidak Ada Foto</td>
+                                            @endif
+                                            @if ($presensi->status == 'Hadir')
+                                                <td data-image="{{ $presensi->foto_pulang }}">
+                                                    <a href="{{ asset('img/presensi/pulang/' . $presensi->foto_pulang) }}"
                                                         target="_blank">Lihat Foto</a>
                                                     {{-- <br><img id="image-preview" src="" style="display: none;"
                                                         width="200" height="200"> --}}

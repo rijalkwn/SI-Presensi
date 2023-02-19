@@ -18,24 +18,29 @@ class SettingController extends Controller
 
     public function update(Request $request)
     {
-        $validate = $request->validate([
-            'jam_masuk' => 'required',
-            'jam_pulang' => 'required|after:jam_masuk',
-            'lat' => 'required',
-            'lng' => 'required',
-            'radius' => 'required',
-        ], [
-            'jam_masuk.required' => 'Jam Masuk tidak boleh kosong',
-            'jam_pulang.required' => 'Jam Pulang tidak boleh kosong',
-            'jam_pulang.after' => 'Jam Pulang tidak boleh kurang dari Jam Masuk',
-            'lat.required' => 'Latitude tidak boleh kosong',
-            'lng.required' => 'Longitude tidak boleh kosong',
-            'radius.required' => 'Radius tidak boleh kosong',
-        ]);
-        $setting = Setting::first();
-        $setting->update($validate);
+        try {
+            $validate = $request->validate([
+                'jam_masuk' => 'required',
+                'jam_pulang' => 'required|after:jam_masuk',
+                'lat' => 'required',
+                'lng' => 'required',
+                'radius' => 'required',
+            ], [
+                'jam_masuk.required' => 'Jam Masuk tidak boleh kosong',
+                'jam_pulang.required' => 'Jam Pulang tidak boleh kosong',
+                'jam_pulang.after' => 'Jam Pulang tidak boleh kurang dari Jam Masuk',
+                'lat.required' => 'Latitude tidak boleh kosong',
+                'lng.required' => 'Longitude tidak boleh kosong',
+                'radius.required' => 'Radius tidak boleh kosong',
+            ]);
+            $setting = Setting::first();
+            $setting->update($validate);
 
-        Alert::success('Berhasil', 'Setting Presensi berhasil diubah');
-        return redirect()->back();
+            Alert::success('Berhasil', 'Setting Presensi berhasil diubah');
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            Alert::error('Gagal', 'Setting Presensi gagal diubah');
+            return redirect()->back();
+        }
     }
 }

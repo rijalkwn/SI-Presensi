@@ -17,10 +17,10 @@
                             <div class="card-header pb-0">
                                 <div class="d-flex align-items-center">
                                     <div class="ms-auto">
-                                        <a class="btn btn-success btn-sm" data-bs-toggle="modal"
+                                        {{-- <a class="btn btn-success btn-sm" data-bs-toggle="modal"
                                             data-bs-target="#bulk_add_karyawan">
                                             <i class="fa fa-cloud-download"></i> Import
-                                        </a>
+                                        </a> --}}
                                         <a class="btn btn-warning btn-sm" data-bs-toggle="modal"
                                             data-bs-target="#add_karyawan">
                                             <i class="fa fa-plus-square"></i> Tambah

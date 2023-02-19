@@ -74,7 +74,7 @@ Route::group(['middleware' => ['auth', 'prevent-back-history']], function () {
         Route::resource('/admin/profile', ProfileAdminController::class)->names('profile_admin');
 
         //change password
-        Route::resource('/admin/change_password', ChangePasswordController::class);
+        Route::resource('/admin/change_password', ChangePasswordController::class)->names('password');
     });
 
 

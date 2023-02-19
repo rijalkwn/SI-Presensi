@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
+use Termwind\Components\Dd;
 
 class ChangePasswordController extends Controller
 {
@@ -24,31 +25,39 @@ class ChangePasswordController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Validate
-        $request->validate([
-            // olf password must same with password in database
-            'old_password' => [
-                'required', function ($attribute, $value, $fail) {
-                    if (!Hash::check($value, Auth::user()->password)) {
-                        $fail('Password lama tidak sama');
-                    }
-                },
-            ],
-            'new_password' => 'required|string',
-            'ver_password' => 'required|string|same:new_password',
-        ], [
-            'old_password.required' => 'Password lama tidak boleh kosong',
-            'new_password.required' => 'Password baru tidak boleh kosong',
-            'ver_password.required' => 'Verifikasi password tidak boleh kosong',
-            'ver_password.same' => 'Verifikasi password tidak sama dengan password baru',
-        ]);
+        try {
+            // Validate
+            $request->validate([
+                // olf password must same with password in database
+                'old_password' => 'required',
+                'new_password' => 'required|string',
+                'ver_password' => 'required|string|same:new_password',
+            ], [
+                'old_password.required' => 'Password lama tidak boleh kosong',
+                'new_password.required' => 'Password baru tidak boleh kosong',
+                'ver_password.required' => 'Verifikasi password tidak boleh kosong',
+                'ver_password.same' => 'Verifikasi password tidak sama dengan password baru',
+            ]);
+            //cek old password
+            $user = User::where('nik', $id)->first();
+            if (!Hash::check($request->old_password, $user->password)) {
+                Alert::error('Gagal', 'Password lama tidak sesuai');
+                return redirect()->route('password.index');
+            }
+            //cek new password
+            if (Hash::check($request->new_password, $user->password)) {
+                Alert::error('Gagal', 'Password baru tidak boleh sama dengan password lama');
+                return redirect()->route('password.index');
+            }
+            User::where('nik', $id)->update([
+                'password' => bcrypt($request->new_password),
+            ]);
 
-
-        User::where('nik', $id)->update([
-            'password' => bcrypt($request->new_password),
-        ]);
-
-        Alert::success('Berhasil', 'Password berhasil diubah');
-        return redirect()->back();
+            Alert::success('Berhasil', 'Password berhasil diubah');
+            return redirect()->route('password.index');
+        } catch (\Throwable $th) {
+            Alert::error('Gagal', 'Password gagal diubah');
+            return redirect()->route('password.index');
+        }
     }
 }

@@ -59,48 +59,55 @@ class KaryawanController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(
-            [
-                'nik' => 'required|numeric|unique:users,nik|digits:16',
-                'nama' => 'required|max:255|string',
-                'email' => 'required|unique:users,email|email:dns',
-                'kepegawaian_id' => 'required',
-            ],
-            [
-                'nik.required' => 'NIK tidak boleh kosong',
-                'nik.numeric' => 'NIK harus berupa angka',
-                'nik.unique' => 'NIK sudah terdaftar',
-                'nik.digits' => 'NIK harus berjumlah 16 digit',
-                'nama.required' => 'Nama tidak boleh kosong',
-                'nama.max' => 'Nama tidak boleh lebih dari 255 karakter',
-                'nama.string' => 'Nama harus berupa huruf',
-                'email.required' => 'Email tidak boleh kosong',
-                'email.email' => 'Email tidak valid',
-                'email.unique' => 'Email sudah terdaftar',
-                'kepegawaian_id.required' => 'Kepegawaian tidak boleh kosong',
-            ]
-        );
+        try {
 
-        DB::table('users')->insert([
-            'nik' => $request->nik,
-            'nama' => $request->nama,
-            'email' => $request->email,
-            'password' => bcrypt($request->nik),
-            'role' => 'user',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
 
-        DB::table('karyawans')->insert([
-            'nik' => $request->nik,
-            'nama' => $request->nama,
-            'email' => $request->email,
-            'kepegawaian_id' => $request->kepegawaian_id,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-        Alert::success('Berhasil', 'Data Karyawan berhasil ditambahkan');
-        return redirect()->Route('karyawan.index')->with('success', 'Data berhasil ditambahkan');
+            $request->validate(
+                [
+                    'nik' => 'required|numeric|unique:users,nik|digits:16',
+                    'nama' => 'required|max:255|string',
+                    'email' => 'required|unique:users,email|email:dns',
+                    'kepegawaian_id' => 'required',
+                ],
+                [
+                    'nik.required' => 'NIK tidak boleh kosong',
+                    'nik.numeric' => 'NIK harus berupa angka',
+                    'nik.unique' => 'NIK sudah terdaftar',
+                    'nik.digits' => 'NIK harus berjumlah 16 digit',
+                    'nama.required' => 'Nama tidak boleh kosong',
+                    'nama.max' => 'Nama tidak boleh lebih dari 255 karakter',
+                    'nama.string' => 'Nama harus berupa huruf',
+                    'email.required' => 'Email tidak boleh kosong',
+                    'email.email' => 'Email tidak valid',
+                    'email.unique' => 'Email sudah terdaftar',
+                    'kepegawaian_id.required' => 'Kepegawaian tidak boleh kosong',
+                ]
+            );
+
+            DB::table('users')->insert([
+                'nik' => $request->nik,
+                'nama' => $request->nama,
+                'email' => $request->email,
+                'password' => bcrypt($request->nik),
+                'role' => 'user',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            DB::table('karyawans')->insert([
+                'nik' => $request->nik,
+                'nama' => $request->nama,
+                'email' => $request->email,
+                'kepegawaian_id' => $request->kepegawaian_id,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+            Alert::success('Berhasil', 'Data Karyawan berhasil ditambahkan');
+            return redirect()->Route('karyawan.index');
+        } catch (\Throwable $th) {
+            Alert::error('Gagal', 'Data Karyawan gagal ditambahkan');
+            return redirect()->Route('karyawan.index');
+        }
     }
 
     /**
@@ -140,34 +147,47 @@ class KaryawanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'nama' => 'required|string',
-            'email' => 'required|email|unique:users,nik',
-            'kepegawaian_id' => 'required',
-        ], [
-            'nama.required' => 'Nama tidak boleh kosong',
-            'nama.string' => 'Nama harus berupa huruf',
-            'email.required' => 'Email tidak boleh kosong',
-            'email.email' => 'Email tidak valid',
-            'email.unique' => 'Email sudah terdaftar',
-            'kepegawaian_id.required' => 'Kepegawaian tidak boleh kosong',
-        ]);
-        $datauser = [
-            'nama' => $request->nama,
-            'email' => $request->email,
-            'updated_at' => now(),
-        ];
-        User::where('nik', $id)->update($datauser);
-        $datakaryawan = [
-            'nama' => $request->nama,
-            'email' => $request->email,
-            'kepegawaian_id' => $request->kepegawaian_id,
-            'updated_at' => now(),
-        ];
-        Karyawan::where('nik', $id)->update($datakaryawan);
+        try {
+            $request->validate(
+                [
+                    'nama' => 'required|max:255|string',
+                    'email' => 'required|unique:users,email|email:dns',
+                    'kepegawaian_id' => 'required',
+                ],
+                [
+                    'nama.required' => 'Nama tidak boleh kosong',
+                    'nama.max' => 'Nama tidak boleh lebih dari 255 karakter',
+                    'nama.string' => 'Nama harus berupa huruf',
+                    'email.required' => 'Email tidak boleh kosong',
+                    'email.email' => 'Email tidak valid',
+                    'email.unique' => 'Email sudah terdaftar',
+                    'kepegawaian_id.required' => 'Kepegawaian tidak boleh kosong',
+                ]
+            );
 
-        Alert::success('Data Karyawan Berhasil Diubah');
-        return redirect()->route('karyawan.index');
+            $datauser = [
+                'nama' => $request->nama,
+                'email' => $request->email,
+                'updated_at' => now(),
+            ];
+
+            User::where('nik', $id)->update($datauser);
+
+            $datakaryawan = [
+                'nama' => $request->nama,
+                'email' => $request->email,
+                'kepegawaian_id' => $request->kepegawaian_id,
+                'updated_at' => now(),
+            ];
+
+            Karyawan::where('nik', $id)->update($datakaryawan);
+
+            Alert::success('Berhasil', 'Data Karyawan berhasil diubah');
+            return redirect()->Route('karyawan.index');
+        } catch (\Exception $e) {
+            Alert::error('Gagal', 'Data Karyawan gagal diubah');
+            return redirect()->Route('karyawan.index');
+        }
     }
 
 
@@ -179,10 +199,15 @@ class KaryawanController extends Controller
      */
     public function destroy($nik)
     {
-        User::where('nik', $nik)->delete();
-        Karyawan::where('nik', $nik)->delete();
-        Alert::success('Data Karyawan Berhasil Dihapus');
-        return redirect()->back();
+        try {
+            User::where('nik', $nik)->delete();
+            Karyawan::where('nik', $nik)->delete();
+            Alert::success('Data Karyawan Berhasil Dihapus');
+            return redirect()->back();
+        } catch (\Exception $e) {
+            Alert::error('Gagal', 'Data Karyawan gagal dihapus');
+            return redirect()->Route('karyawan.index');
+        }
     }
 
     public function delete($id)

@@ -49,39 +49,43 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <div
-                                        class="form-group
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div
+                                                class="form-group
                                         @error('lat') has-danger @enderror">
-                                        <label class="form-control-label" for="lat">Latitude</label>
-                                        <input type="text" name="lat" id="lat" required
-                                            class="form-control
+                                                <label class="form-control-label" for="lat">Latitude Lokasi
+                                                    Sekolah</label>
+                                                <input type="text" name="lat" id="lat" required
+                                                    class="form-control
                                             @error('lat') is-invalid @enderror"
-                                            value="{{ old('lat', $setting->lat) }}">
-                                        @error('lat')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div
-                                        class="form-group
+                                                    value="{{ old('lat', $setting->lat) }}">
+                                                @error('lat')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div
+                                                class="form-group
                                         @error('lng') has-danger @enderror">
-                                        <label class="form-control-label" for="lng">Longitude</label>
-                                        <input type="text" name="lng" id="lng" required
-                                            class="form-control
+                                                <label class="form-control-label" for="lng">Longitude Lokasi
+                                                    Sekolah</label>
+                                                <input type="text" name="lng" id="lng" required
+                                                    class="form-control
                                             @error('lng') is-invalid @enderror"
-                                            value="{{ old('lng', $setting->lng) }}">
-                                        @error('lng')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                                    value="{{ old('lng', $setting->lng) }}">
+                                                @error('lng')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-lg-6">
                                     <div
                                         class="form-group
