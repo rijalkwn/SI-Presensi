@@ -7,7 +7,7 @@
             <div class="col-lg-10">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="h3 mb-0">PULANG</h5>
+                        <h5 class="h3 mb-0">ABSEN PULANG</h5>
                     </div>
                     <div class="card-body">
                         <!-- alert success dan error -->
@@ -28,21 +28,26 @@
                         @endif
                         <form action="{{ route('presensi.masuk.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            <div class="row">
+                            <div class="row mb-3">
                                 {{-- file --}}
-                                <div class="col-lg-12">
+                                <h4 for="">Foto</h4>
+                                <div class="col-lg-3">
+                                    <label for="">Camera</label>
                                     <div class="webcam-capture"></div>
+                                    <button type="button" class="btn btn-dribbble mt-2" id="take">Ambil
+                                        Gambar</button>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <button type="button" class="btn" id="take">Ambil Gambar</button>
-                                    <div class="result ms-3"></div>
+                                <div class="col-lg-2">
                                     <input type="text" id="img" name="img" hidden>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label for="">Hasil Foto</label>
+                                    <div class="result"></div>
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col-lg-12">
+                                    <h4 for="lokasi">Lokasi</h4>
                                     <input type="text" id="lokasi" hidden>
                                     <input type="text" id="lat" name="lat" hidden>
                                     <input type="text" id="lng" name="lng" hidden>

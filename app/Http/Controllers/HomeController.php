@@ -37,9 +37,9 @@ class HomeController extends Controller
         $countMasuk = Presensi::whereDate('created_at', Carbon::today())->WhereNotNull('jam_masuk')->count();
         $countIzin = Presensi::whereDate('created_at', Carbon::today())->Where('status', 'Izin')->count();
         $countSakit = Presensi::whereDate('created_at', Carbon::today())->Where('status', 'Sakit')->count();
-        $presensiAll = Presensi::whereDate('created_at', Carbon::today())->get();
+        $presensiAll = Presensi::whereDate('created_at', Carbon::today())->orderBy('created_at', 'desc')->get();
         //presensiChart pada bulan ini user ini
-        $presensis = Presensi::whereMonth('created_at', Carbon::now()->month)->where('nik', auth()->user()->nik)->get();
+        $presensis = Presensi::whereMonth('created_at', Carbon::now()->month)->where('nik', auth()->user()->nik)->orderBy('created_at', 'desc')->get();
         return view('pages.home', [
             'title' => 'Dashboard',
             'active' => 'dashboard',

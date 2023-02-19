@@ -80,7 +80,7 @@ Route::group(['middleware' => ['auth', 'prevent-back-history']], function () {
 
     Route::group(['middleware' => 'user'], function () {
         //history
-        Route::get('user/history', [HistoryUserController::class, 'index'])->name('history.user');
+        Route::get('/history-user', [HistoryUserController::class, 'index'])->name('history.user');
 
         //PRESENSI
         //masuk

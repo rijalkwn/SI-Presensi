@@ -246,7 +246,7 @@
                     }
                 },
                 series: [{
-                    name: 'Jumlah',
+                    name: 'Status',
                     data: data,
                     type: 'column',
                     colorByPoint: true,

@@ -111,9 +111,9 @@
                                             @if ($presensi->status == 'Hadir')
                                                 <td data-image="{{ $presensi->foto_masuk }}">
                                                     <a href="{{ asset('img/presensi/masuk/' . $presensi->foto_masuk) }}"
-                                                        onclick="return showImage(event)">Lihat Foto</a>
-                                                    <br><img id="image-preview" src="" style="display: none;"
-                                                        width="200" height="200">
+                                                        target="_blank">Lihat Foto</a>
+                                                    {{-- <br><img id="image-preview" src="" style="display: none;"
+                                                        width="200" height="200"> --}}
                                                 </td>
                                             @else
                                                 <td">Tidak Ada Foto</td>
@@ -192,8 +192,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="bulk_presensiLabel">Export Presensi</h5>
-                <button type="button" class="btn-close btn-danger" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
+                <button type="button" class="btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form action="{{ route('export-excel') }}" method="get" class="me-3">
@@ -296,7 +295,7 @@
                 }
             },
             series: [{
-                name: 'Jumlah',
+                name: 'Status',
                 data: data,
                 type: 'column',
                 colorByPoint: true,
