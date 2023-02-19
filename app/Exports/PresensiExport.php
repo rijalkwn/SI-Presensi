@@ -22,6 +22,10 @@ class PresensiExport implements FromCollection, WithHeadings
         $data = collect($this->data)->map(function ($item) {
             unset($item['created_at']);
             unset($item['updated_at']);
+            $item['hadir_tepat_waktu'] = $item['hadir_tepat_waktu'] ?? 0;
+            $item['hadir_terlambat'] = $item['hadir_terlambat'] ?? 0;
+            $item['izin'] = $item['izin'] ?? 0;
+            $item['sakit'] = $item['sakit'] ?? 0;
             return $item;
         });
 

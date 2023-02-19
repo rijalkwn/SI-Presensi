@@ -126,30 +126,11 @@
                                             </span>
                                         @enderror
                                     </div>
-                                    <div class="form-group">
-                                        <label for="password">New Password</label>
-                                        <input id="password" type="password"
-                                            class="form-control @error('password') is-invalid @enderror" name="password"
-                                            required autocomplete="new-password">
-                                        @error('password')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="password-confirm">Confirm Password</label>
-                                        <input id="password-confirm" type="password" class="form-control"
-                                            name="password_confirmation" required autocomplete="new-password">
-                                    </div>
-                                    @error('password_confirmation')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                    <div class="text-end">
-                                        <button type="submit" class="btn btn-success">Reset</button>
-                                    </div>
+                                    <p class="text-danger text-xs fst-italic">*Password karyawan akan di setel ulang yaitu
+                                        sesuai NIK*</p>
+                                    <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                        data-bs-target="#resetPasswordModal">Reset</button>
+
                                 </form>
                             </div>
                         </div>
@@ -161,18 +142,19 @@
                     <div class="card-header text-center">
                         <h4>Jumlah User</h4>
                     </div>
-                    <div class="card-body d-flex p-3 bg-success">
-                        <div class="card p-3 mx-auto text-center">
+                    <div class="card-body d-flex p-3 bg-success align-items-center">
+                        <div class="card p-3 me-2 mx-auto text-center flex-fill">
                             <p>Admin</p>
                             <p>{{ $countAdmin }}</p>
                         </div>
-                        <div class="card p-3 mx-auto text-center">
+                        <div class="card p-3 ms-2 mx-auto text-center flex-fill">
                             <p>Karyawan</p>
                             <p>{{ $countUser }}</p>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
         @include('layouts.footers.auth.footer')
     </div>
@@ -185,8 +167,8 @@
 @include('karyawan.modal.create')
 
 <!-- Modal Edit Karyawan -->
-<div class="modal fade" data-bs-backdrop="static" data-keyboard="false" id="karyawan_view" tabindex="-1"
-    role="dialog" aria-hidden="true">
+<div class="modal fade" data-bs-backdrop="static" data-keyboard="false" id="karyawan_view" tabindex="-1" role="dialog"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -215,6 +197,27 @@
         </div>
     </div>
 </div>
+
+{{-- modal confirm reset --}}
+<div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-labelledby="resetPasswordModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="resetPasswordModalLabel">Konfirmasi Reset Password</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Anda yakin ingin melakukan reset password pada karyawan ini?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-success">Reset</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @push('javascript')
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
@@ -262,6 +265,11 @@
                 },
             });
         });
+        //confirm reset password
+        document.getElementById("resetPasswordButton").addEventListener("click", function() {
+            document.querySelector("form").submit();
+        });
+
         // disable all input and button after submit
         $('form').submit(function() {
             // show spinner on button

@@ -5,7 +5,7 @@
     <div class="container-fluid py-4">
         <div class="card col-lg-10">
             <div class="card-header text-center mb-3">
-                <h5 class="h3 mb-0">Profile Pegawai</h5>
+                <h5 class="h3 mb-0">Profile {{ Auth::user()->nama }}</h5>
             </div>
             <div class="card-body">
                 <form action="{{ route('profile_user.update', $karyawan->nik) }}" method="post" enctype="multipart/form-data">

@@ -37,11 +37,17 @@
                                             <input type="password" name="password" class="form-control form-control-lg"
                                                 aria-label="Password" required>
                                         </div>
-                                        <div>
-                                            <div class="text-center">
-                                                <button type="submit"
-                                                    class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Login</button>
-                                            </div>
+                                        <div class="flex flex-col mb-3">
+                                            <a class="text-sm text-gray-600 hover:text-gray-900"
+                                                style="text-decoration: underline" data-bs-toggle="modal"
+                                                {{-- cursor tangan --}} style="cursor: pointer;"
+                                                data-bs-target="#bulk_presensi"> Lupa Password?
+                                            </a>
+                                        </div>
+                                        <div class="text-center">
+                                            <button type="submit"
+                                                class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Login</button>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -59,3 +65,23 @@
         </section>
     </main>
 @endsection
+
+<!-- Modal Lupa Password-->
+<div class="modal fade" data-bs-backdrop="static" data-keyboard="false" id="bulk_presensi" tabindex="-1"
+    aria-labelledby="bulk_presensiLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bulk_presensiLabel">Pesan</h5>
+                <button type="button" class="btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Untuk lupa password, silahkan hubungi admin.</p>
+                {{-- btn close --}}
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

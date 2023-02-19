@@ -91,6 +91,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-12 text-end">
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
                                     <button type="submit" class="btn btn-warning">Submit</button>
                                 </div>
                             </div>

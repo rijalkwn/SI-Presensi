@@ -118,7 +118,7 @@
                                                         width="200" height="200"> --}}
                                                 </td>
                                             @else
-                                                <td">Tidak Ada Foto</td>
+                                                <td>Tidak Ada Foto</td>
                                             @endif
                                             @if ($presensi->status == 'Hadir')
                                                 <td data-image="{{ $presensi->foto_pulang }}">
@@ -128,7 +128,7 @@
                                                         width="200" height="200"> --}}
                                                 </td>
                                             @else
-                                                <td">Tidak Ada Foto</td>
+                                                <td>Tidak Ada Foto</td>
                                             @endif
                                             {{-- keterangan --}}
                                             <td class="text-sm">
@@ -238,8 +238,10 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-4 ms-auto d-flex">
-                            <button type="submit" class="btn btn-success mt-3 ms-auto">Export</button>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-sm btn-secondary"
+                                data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-sm btn-success">Export</button>
                         </div>
                     </div>
                 </form>
@@ -279,9 +281,20 @@
 
         var data = <?= json_encode($data) ?>;
 
-        data = data.map(function(item) {
-            return item.count;
-        });
+        // Membuat objek untuk menyimpan jumlah kategori
+        var counts = {
+            'Hadir': 0,
+            'Izin': 0,
+            'Sakit': 0
+        };
+
+        // Menghitung jumlah kategori berdasarkan data
+        for (var i = 0; i < data.length; i++) {
+            counts[data[i].status] += parseInt(data[i].count);
+        }
+
+        // Menyusun data menjadi array berdasarkan urutan kategori
+        var sortedData = [counts['Hadir'], counts['Izin'], counts['Sakit']];
 
         Highcharts.chart('chart', {
             title: {
@@ -308,7 +321,7 @@
             },
             series: [{
                 name: 'Status',
-                data: data,
+                data: sortedData,
                 type: 'column',
                 colorByPoint: true,
                 colors: ['#00c292', '#00a5e3', '#f46a6a']
@@ -320,6 +333,8 @@
                 enabled: true
             }
         });
+
+
 
         function showImage(event) {
             event.preventDefault();

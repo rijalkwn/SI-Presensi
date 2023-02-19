@@ -103,7 +103,7 @@ Route::group(['middleware' => ['auth', 'prevent-back-history']], function () {
         Route::resource('/user/profile', ProfileUserController::class)->names('profile_user');
 
         //password
-        Route::resource('/user/change_password', ChangePasswordController::class);
+        Route::resource('/user/change_password', ChangePasswordController::class)->names('password');
     });
 });
 

@@ -218,13 +218,24 @@
             // [{"count":3,"status":"Hadir"},{"count":1,"status":"Izin"}];
             var data = <?= json_encode($data) ?>;
 
-            data = data.map(function(item) {
-                return item.count;
-            });
+            // Membuat objek untuk menyimpan jumlah kategori
+            var counts = {
+                'Hadir': 0,
+                'Izin': 0,
+                'Sakit': 0
+            };
+
+            // Menghitung jumlah kategori berdasarkan data
+            for (var i = 0; i < data.length; i++) {
+                counts[data[i].status] += parseInt(data[i].count);
+            }
+
+            // Menyusun data menjadi array berdasarkan urutan kategori
+            var sortedData = [counts['Hadir'], counts['Izin'], counts['Sakit']];
 
             Highcharts.chart('chart', {
                 title: {
-                    text: 'Presensi Karyawan Harian'
+                    text: 'Presensi Karyawan Hari Ini'
                 },
                 xAxis: {
                     categories: ['Hadir', 'Izin', 'Sakit']
@@ -247,7 +258,7 @@
                 },
                 series: [{
                     name: 'Status',
-                    data: data,
+                    data: sortedData,
                     type: 'column',
                     colorByPoint: true,
                     colors: ['#00c292', '#00a5e3', '#f46a6a']
@@ -259,6 +270,7 @@
                     enabled: true
                 }
             });
+
             $(document).ready(function() {
                 $('#dashboardAdmin').DataTable({
 

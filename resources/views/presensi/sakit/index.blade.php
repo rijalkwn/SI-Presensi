@@ -27,7 +27,7 @@
                                             diupload benar.</label>
                                     </div>
                                     @error('file')
-                                        <div class="text-danger">{{ $message }}</div>
+                                        <div class="text-danger text-small text-bold">*{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
