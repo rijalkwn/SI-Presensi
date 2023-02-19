@@ -7,7 +7,7 @@
             <div class="col-lg-10">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="h3 mb-0">MASUK</h5>
+                        <h5 class="h3 mb-0">PULANG</h5>
                     </div>
                     <div class="card-body">
                         <!-- alert success dan error -->

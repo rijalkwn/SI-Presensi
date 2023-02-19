@@ -88,6 +88,7 @@ Route::group(['middleware' => ['auth', 'prevent-back-history']], function () {
         Route::post('/dashboard/presensi-masuk', [PresensiMasukController::class, 'store'])->name('presensi.masuk.store');
 
         //pulang
+        Route::get('/dashboard/presensi-pulang', [PresensiPulangController::class, 'create'])->name('presensi.pulang');
         Route::post('/dashboard/presensi-pulang', [PresensiPulangController::class, 'store'])->name('presensi.pulang.store');
 
         //izin
