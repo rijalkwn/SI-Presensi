@@ -32,7 +32,21 @@ class HomeController extends Controller
         // $data = Presensi::where('')select(DB::raw('count(*) as count, status'))
         //     ->groupBy('status')
         //     ->get();
+        $tanggal = date('Y-m-d');
 
+        // Menghitung jumlah karyawan yang sudah presensi hari ini
+        $karyawan_hadir = DB::table('presensis')
+            ->where('tanggal', Carbon::today())
+            ->count();
+
+        // Menghitung jumlah karyawan yang belum presensi hari ini
+        $karyawan_belum_hadir = DB::table('karyawans')
+            ->whereNotIn('nik', function ($query) use ($tanggal) {
+                $query->select('nik')
+                    ->from('presensis')
+                    ->where('tanggal', $tanggal);
+            })
+            ->count();
         $karyawanside = Karyawan::where('nik', auth()->user()->nik)->first();
         $countMasuk = Presensi::whereDate('created_at', Carbon::today())->WhereNotNull('jam_masuk')->count();
         $countIzin = Presensi::whereDate('created_at', Carbon::today())->Where('status', 'Izin')->count();
@@ -50,6 +64,8 @@ class HomeController extends Controller
             'presensiAll' => $presensiAll,
             'karyawan' => $karyawanside,
             'data' => $data,
+            'karyawan_hadir' => $karyawan_hadir,
+            'karyawan_belum_hadir' => $karyawan_belum_hadir,
         ]);
     }
 

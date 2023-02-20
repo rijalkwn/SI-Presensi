@@ -8,7 +8,7 @@
                 <li class="breadcrumb-item text-sm text-white active" aria-current="page">judul</li> --}}
                 <img src="{{ url('/img/logos/logos.png') }}" class="navbar-brand-img h-35" style="height: 35px"
                     alt="main_logo">
-                <span class="ms-1 font-weight-bold px-2 py-2">SI Presensi Karyawan</span>
+                <span class="ms-1 font-weight-bold px-2 py-2">E-Presensi</span>
             </ol>
             {{-- <h6 class="font-weight-bolder text-white mb-0">judul</h6> --}}
         </nav>

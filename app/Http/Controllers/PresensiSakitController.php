@@ -87,7 +87,7 @@ class PresensiSakitController extends Controller
 
         if ($update) {
             Alert::success('Presensi Sakit', 'Presensi sakit berhasil');
-            return redirect()->route('home');
+            return redirect()->route('dashboard');
         } else {
             Alert::error('Presensi Sakit', 'Presensi sakit gagal terdapat kesalahan saat mengupload file');
             return redirect()->route('presensi.sakit.create');

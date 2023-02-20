@@ -10,6 +10,7 @@ use Termwind\Components\Dd;
 use Illuminate\Http\Request;
 use App\Imports\KaryawanImport;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\Facades\DataTables;
@@ -218,21 +219,71 @@ class KaryawanController extends Controller
 
     public function bulk(Request $request)
     {
-        $request->validate([
-            'file' => 'required|mimes:xlsx,xls,csv',
-        ], [
-            'file.required' => 'File tidak boleh kosong',
-            'file.mimes' => 'File harus berformat xlsx, xls, atau csv',
-        ]);
-
         try {
-            Excel::import(new KaryawanImport, $request->file('file'));
-        } catch (\Exception $e) {
-            Alert::error('Error!', 'Data karyawan gagal ditambahkan, pastikan data yang diupload sudah benar sesuai panduan');
-            return redirect()->back();
-        }
+            // Validasi file yang diunggah
+            $request->validate([
+                'file' => 'required|mimes:xlsx,xls'
+            ]);
 
-        Alert::success('Success!', 'Data karyawan berhasil ditambahkan');
-        return redirect()->back();
+            // Proses impor data Excel
+            $path = $request->file('file')->getRealPath();
+            $data = Excel::toArray([], $request->file('file'));
+
+            if ($data && count($data) > 0) {
+                $headerRow = $data[0][0];
+                if ($headerRow[0] === 'nik' && $headerRow[1] === 'nama' && $headerRow[2] === 'email' && $headerRow[3] === 'status_kepegawaian') {
+                    // Proses pembuatan karyawan
+                    foreach ($data[0] as $row) {
+                        // Validasi NIK yang unik
+                        $user = User::where('nik', $row[0])->first();
+                        if ($user) {
+                            Alert::error('Gagal', 'NIK "' . $row[0] . '" sudah terdaftar.');
+                            return redirect()->route('karyawan.index');
+                        }
+
+                        // Validasi email yang unik
+                        $user = User::where('email', $row[2])->first();
+                        if ($user) {
+                            Alert::error('Gagal', 'Email "' . $row[2] . '" sudah terdaftar.');
+                            return redirect()->route('karyawan.index');
+                        }
+
+                        // Cari data kepegawaian berdasarkan status kepegawaian
+                        $kepegawaian = Kepegawaian::where('status_kepegawaian', $row[3])->first();
+                        if (!$kepegawaian) {
+                            Alert::error('Gagal', 'Data kepegawaian tidak ditemukan untuk status kepegawaian "' . $row[3] . '".');
+                            return redirect()->route('karyawan.index');
+                        }
+
+                        // Buat user baru
+                        $newUser = User::create([
+                            'nik' => $row[0],
+                            'nama' => $row[1],
+                            'email' => $row[2],
+                            'password' => Hash::make($row[0]),
+                            'role' => 'user',
+                        ]);
+
+                        // Buat data karyawan baru
+                        // Karyawan::create([
+                        //     'nik' => $row[0],
+                        //     'nama' => $row[1],
+                        //     'email' => $row[2],
+                        //     'kepegawaian_id' => $kepegawaian->id,
+                        //     'user_id' => $newUser->id,
+                        // ]);
+                    }
+
+                    // Tampilkan pesan sukses
+                    return redirect()->route('karyawan.index')->with('success', 'Data karyawan berhasil diimpor.');
+                } else {
+                    return redirect()->back()->withErrors('Header kolom file Excel tidak sesuai dengan format yang diharapkan.');
+                }
+            } else {
+                return redirect()->back()->withErrors('Tidak ada data yang ditemukan dalam file Excel.');
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors('Terjadi kesalahan saat mengimpor data karyawan.');
+        }
     }
 }

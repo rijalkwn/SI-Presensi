@@ -107,12 +107,10 @@
                         </div>
                         {{-- reset password --}}
                         <div class="tab-pane fade" id="tab-2">
-                            <div class="card px-12 py-3">
-                                @if (session('success'))
-                                    <div class="alert alert-success">
-                                        {{ session('success') }}
-                                    </div>
-                                @endif
+                            <div class="alert alert-info text-white mx-2 my-2">Password akan direset sesuai dengan NIK dari
+                                karyawan
+                                tersebut!!</div>
+                            <div class="card px-2 py-3">
                                 <form method="POST" action="{{ route('admin.reset-password') }}">
                                     @csrf
                                     <div class="form-group">
@@ -126,8 +124,6 @@
                                             </span>
                                         @enderror
                                     </div>
-                                    <p class="text-danger text-xs fst-italic">*Password karyawan akan di setel ulang yaitu
-                                        sesuai NIK*</p>
                                     <button type="button" class="btn btn-success" data-bs-toggle="modal"
                                         data-bs-target="#resetPasswordModal">Reset</button>
 

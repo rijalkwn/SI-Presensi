@@ -4,15 +4,16 @@
     @include('layouts.navbars.auth.topnav', ['title' => 'Dashboard'])
     <div class="container-fluid py-4">
         <div class="row">
-            <div class="col-lg-4 col-sm-6 mb-xl-0 mb-4">
+            <div class="col-lg-6 col-sm-6 mb-xl-0 mb-4">
                 <div class="card">
                     <div class="card-body p-3">
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <h4 class="text-lg text-uppercase font-weight-bold my-3 ms-3">HADIR</h4>
+                                    <h4 class="text-lg text-uppercase font-weight-bold my-3 ms-3">KARYAWAN SUDAH ABSEN</h4>
                                     {{-- jumlah karyawan yang sudah absen --}}
-                                    <p class="text-sm text-uppercase my-3 ms-3">{{ $countMasuk }} Karyawan
+                                    <p class="text-sm text-uppercase my-3 ms-3">Jumlah :
+                                        <strong>{{ $karyawan_hadir }}</strong> Orang
                                     </p>
 
                                 </div>
@@ -26,40 +27,23 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-sm-6 mb-xl-0 mb-4">
+            <div class="col-lg-6 col-sm-6 mb-xl-0 mb-4">
                 <div class="card">
                     <div class="card-body p-3">
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <h4 class="text-lg text-uppercase font-weight-bold my-3 ms-3">IZIN</h4>
-                                    <p class="text-sm text-uppercase my-3 ms-3">{{ $countIzin }}
-                                        Karyawan</p>
+                                    <h4 class="text-lg text-uppercase font-weight-bold my-3 ms-3">KARYAWAN BELUM ABSEN</h4>
+                                    {{-- jumlah karyawan yang sudah absen --}}
+                                    <p class="text-sm text-uppercase my-3 ms-3">Jumlah :
+                                        <strong>{{ $karyawan_belum_hadir }}</strong> Orang
+                                    </p>
+
                                 </div>
                             </div>
                             <div class="col-4 my-auto">
                                 <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                                    <i class="fa fa-calendar-times-o text-lg opacity-10" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-6 mb-xl-0 mb-4">
-                <div class="card">
-                    <div class="card-body p-3">
-                        <div class="row">
-                            <div class="col-8">
-                                <div class="numbers">
-                                    <h4 class="text-lg text-uppercase font-weight-bold my-3 ms-3">SAKIT</h4>
-                                    <p class="text-sm text-uppercase my-3 ms-3">{{ $countSakit }}
-                                        Karyawan</p>
-                                </div>
-                            </div>
-                            <div class="col-4 my-auto">
-                                <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                                    <i class="fa fa-thermometer-full text-lg opacity-10" aria-hidden="true"></i>
+                                    <i class="fa fa-calendar ntext-lg opacity-10" aria-hidden="true"></i>
                                 </div>
                             </div>
                         </div>

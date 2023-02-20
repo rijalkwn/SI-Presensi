@@ -69,7 +69,7 @@ class PresensiIzinController extends Controller
             $nama_file = time() . "_" . $file->getClientOriginalName();
             $tujuan_upload = 'files/suratIzin/';
             $file->move($tujuan_upload, $nama_file);
-            $update = Presensi::where('nik', auth()->user()->nik)->whereDate('created_at', Carbon::today())->update([
+            Presensi::where('nik', auth()->user()->nik)->whereDate('created_at', Carbon::today())->update([
                 'surat' => $nama_file,
             ]);
 
@@ -90,7 +90,7 @@ class PresensiIzinController extends Controller
                 ]);
             }
             Alert::success('Berhasil', 'Presensi izin berhasil dilakukan');
-            return redirect()->back();
+            return redirect()->route('dashboard');
         } catch (\Throwable $th) {
             Alert::error('Gagal', 'Presensi gagal dilakukan');
             return redirect()->back();
