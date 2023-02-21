@@ -89,7 +89,7 @@
                                                     width="200" height="200"> --}}
                                                 </td>
                                             @else
-                                                <td">Tidak Ada Foto</td>
+                                                <td>Tidak Ada Foto</td>
                                             @endif
                                             {{-- keterangan --}}
                                             <td class="text-sm">

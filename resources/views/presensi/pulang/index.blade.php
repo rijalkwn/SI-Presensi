@@ -32,7 +32,7 @@
                                 {{-- file --}}
                                 <h4 for="">Foto</h4>
                                 <div class="col-lg-3">
-                                    <label for="">Camera</label>
+                                    <label for="">Kamera</label>
                                     <div class="webcam-capture"></div>
                                     <button type="button" class="btn btn-dribbble mt-2" id="take">Ambil
                                         Gambar</button>
