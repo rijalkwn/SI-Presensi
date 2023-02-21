@@ -10,7 +10,7 @@
         @if ($title == '')
             SI Presensi
         @else
-            {{ $title ?? '' }}
+            {{ $title ?? '' }} - SI Presensi
         @endif
     </title>
 

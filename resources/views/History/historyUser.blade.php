@@ -183,7 +183,7 @@
 
         Highcharts.chart('chart', {
             title: {
-                text: 'Presensi Karyawan Keseluruhan'
+                text: 'Presensi Anda'
             },
             xAxis: {
                 categories: ['Hadir', 'Izin', 'Sakit']

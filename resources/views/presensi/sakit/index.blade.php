@@ -33,6 +33,7 @@
                             </div>
                             <div class="row mt-4">
                                 <div class="col-lg-6">
+                                    <a href="{{ route('dashboard') }}" class="btn btn-secondary">Batal</a>
                                     <button class="btn btn-warning" type="submit">Submit</button>
                                 </div>
                             </div>

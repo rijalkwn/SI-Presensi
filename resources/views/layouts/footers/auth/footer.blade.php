@@ -4,7 +4,7 @@
             <div class="col-lg-6 mb-lg-0 mb-4">
                 <div class="copyright text-center text-sm text-muted"><span class="text-dark
                     ">©
-                        2023 made with <i class="fa fa-heart"></i> by SMA Negeri 1 Prembun And Me</span>
+                        2023 made with <i class="fa fa-heart"></i> by SMA Negeri 1 Prembun</span>
                     {{-- <script>
                         document.write(new Date().getFullYear())
                     </script>, --}}

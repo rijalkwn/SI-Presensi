@@ -78,7 +78,7 @@ class PresensiMasukController extends Controller
         $presensi = Presensi::where('nik', auth()->user()->nik)->whereDate('created_at', Carbon::today())->first();
         //jarak
         if ($jarak > $setting->radius) {
-            Alert::error('Gagal', 'Anda tidak berada di dalam radius sekolah!! Pastikan anda berada di dalam radius sekolah untuk melakukan presensi masuk!!');
+            Alert::error('Gagal', 'Anda tidak berada di dalam radius sekolah!! Pastikan posisi anda berada di dalam lingkaran merah untuk melakukan presensi masuk!!');
             return redirect()->back();
         }
         Presensi::create([

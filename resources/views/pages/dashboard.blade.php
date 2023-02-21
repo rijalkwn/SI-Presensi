@@ -7,7 +7,7 @@
             <div class="alert alert-success text-white">{{ $message }}</div>
         @enderror
         <div class="row">
-            <div class="col-lg-3 col-sm-6 mb-xl-0">
+            <div class="col-lg-3 col-sm-6 mb-xl-0 mb-4">
                 <div class="card">
                     <a href="{{ route('presensi.masuk') }}" method>
                         <div class="card-body p-3">
@@ -97,7 +97,7 @@
                 <div class="card mb-4">
                     <div class="card-header pb-0">
                         <div class="d-flex align-items-center">
-                            <p class="mb-0">History Presensi Minggu Ini</p>
+                            <p class="mb-0">History Presensi Bulan Ini</p>
                         </div>
                     </div>
                     <div class="card-body px-4 pt-0 pb-3">

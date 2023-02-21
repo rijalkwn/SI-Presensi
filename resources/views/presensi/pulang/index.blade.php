@@ -61,7 +61,7 @@
                             </div>
                             <div class="row mt-4">
                                 <div class="col-lg-6">
-                                    <a href="{{ route('dashboard') }}" class="btn btn-danger">Cancel</a>
+                                    <a href="{{ route('dashboard') }}" class="btn btn-secondary">Batal</a>
                                     <button type="submit" class="btn btn-warning submit">Submit</button>
                                 </div>
                             </div>
