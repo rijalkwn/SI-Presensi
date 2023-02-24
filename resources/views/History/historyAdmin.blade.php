@@ -113,24 +113,24 @@
                                             @if ($presensi->status == 'Hadir')
                                                 <td data-image="{{ $presensi->foto_masuk }}">
                                                     <a href="{{ asset('img/presensi/masuk/' . $presensi->foto_masuk) }}"
-                                                        target="_blank"
+                                                        class="ms-3" target="_blank"
                                                         style="text-decoration: underline; color: cornflowerblue">lihat_foto</a>
                                                     {{-- <br><img id="image-preview" src="" style="display: none;"
                                                         width="200" height="200"> --}}
                                                 </td>
                                             @else
-                                                <td>Tidak Ada Foto</td>
+                                                <td class="ms-3">Tidak Ada Foto</td>
                                             @endif
                                             @if ($presensi->status == 'Hadir' && $presensi->jam_pulang != null)
                                                 <td data-image="{{ $presensi->foto_pulang }}">
                                                     <a href="{{ asset('img/presensi/pulang/' . $presensi->foto_pulang) }}"
-                                                        target="_blank"
+                                                        class="ms-3" target="_blank"
                                                         style="text-decoration: underline; color: cornflowerblue">lihat_foto</a>
                                                     {{-- <br><img id="image-preview" src="" style="display: none;"
                                                         width="200" height="200"> --}}
                                                 </td>
                                             @else
-                                                <td>Tidak Ada Foto</td>
+                                                <td class="ms-3">Tidak Ada Foto</td>
                                             @endif
                                             {{-- keterangan --}}
                                             <td class="text-sm">

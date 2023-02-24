@@ -60,55 +60,48 @@ class KaryawanController extends Controller
      */
     public function store(Request $request)
     {
-        try {
+        $request->validate(
+            [
+                'nik' => 'required|numeric|unique:users,nik|digits:16',
+                'nama' => 'required|max:255|string',
+                'email' => 'required|unique:users,email|email:dns',
+                'kepegawaian_id' => 'required',
+            ],
+            [
+                'nik.required' => 'NIK tidak boleh kosong',
+                'nik.numeric' => 'NIK harus berupa angka',
+                'nik.unique' => 'NIK sudah terdaftar',
+                'nik.digits' => 'NIK harus berjumlah 16 digit',
+                'nama.required' => 'Nama tidak boleh kosong',
+                'nama.max' => 'Nama tidak boleh lebih dari 255 karakter',
+                'nama.string' => 'Nama harus berupa huruf',
+                'email.required' => 'Email tidak boleh kosong',
+                'email.email' => 'Email tidak valid',
+                'email.unique' => 'Email sudah terdaftar',
+                'kepegawaian_id.required' => 'Kepegawaian tidak boleh kosong',
+            ]
+        );
 
+        DB::table('users')->insert([
+            'nik' => $request->nik,
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'password' => bcrypt($request->nik),
+            'role' => 'user',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
 
-            $request->validate(
-                [
-                    'nik' => 'required|numeric|unique:users,nik|digits:16',
-                    'nama' => 'required|max:255|string',
-                    'email' => 'required|unique:users,email|email:dns',
-                    'kepegawaian_id' => 'required',
-                ],
-                [
-                    'nik.required' => 'NIK tidak boleh kosong',
-                    'nik.numeric' => 'NIK harus berupa angka',
-                    'nik.unique' => 'NIK sudah terdaftar',
-                    'nik.digits' => 'NIK harus berjumlah 16 digit',
-                    'nama.required' => 'Nama tidak boleh kosong',
-                    'nama.max' => 'Nama tidak boleh lebih dari 255 karakter',
-                    'nama.string' => 'Nama harus berupa huruf',
-                    'email.required' => 'Email tidak boleh kosong',
-                    'email.email' => 'Email tidak valid',
-                    'email.unique' => 'Email sudah terdaftar',
-                    'kepegawaian_id.required' => 'Kepegawaian tidak boleh kosong',
-                ]
-            );
-
-            DB::table('users')->insert([
-                'nik' => $request->nik,
-                'nama' => $request->nama,
-                'email' => $request->email,
-                'password' => bcrypt($request->nik),
-                'role' => 'user',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-
-            DB::table('karyawans')->insert([
-                'nik' => $request->nik,
-                'nama' => $request->nama,
-                'email' => $request->email,
-                'kepegawaian_id' => $request->kepegawaian_id,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-            Alert::success('Berhasil', 'Data Karyawan berhasil ditambahkan');
-            return redirect()->Route('karyawan.index');
-        } catch (\Throwable $th) {
-            Alert::error('Gagal', 'Data Karyawan gagal ditambahkan');
-            return redirect()->Route('karyawan.index');
-        }
+        DB::table('karyawans')->insert([
+            'nik' => $request->nik,
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'kepegawaian_id' => $request->kepegawaian_id,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        Alert::success('Berhasil', 'Data Karyawan berhasil ditambahkan');
+        return redirect()->Route('karyawan.index');
     }
 
     /**
