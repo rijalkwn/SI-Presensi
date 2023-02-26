@@ -85,6 +85,7 @@ class PresensiIzinController extends Controller
                     'status_kepegawaian' => $karyawan->kepegawaian->status_kepegawaian,
                     'hadir_tepat_waktu' => 0,
                     'hadir_terlambat' => 0,
+                    'tidak_presensi_pulang' => 0,
                     'izin' => 1,
                     'sakit' => 0,
                 ]);

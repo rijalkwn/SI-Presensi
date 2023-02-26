@@ -94,14 +94,9 @@ class PresensiMasukController extends Controller
             //keterangan tepat waktu jika jam masuk kurang dari jam masuk di setting
             'keterangan' => Carbon::now()->isoFormat('HH:mm:ss') > $setting->jam_masuk ? 'Terlambat' : 'Tepat Waktu',
         ]);
-        //jikaa nik sudah ada di rekap presensi
+        //jika nik sudah ada di rekap presensi
         if (RekapPresensi::where('nik', auth()->user()->nik)->where('bulan', Carbon::now()->isoFormat('MM'))->exists()) {
-            //jika jam masuk lebih dari jam masuk di setting
-            if (Carbon::now()->isoFormat('HH:mm:ss') > $setting->jam_masuk) {
-                RekapPresensi::where('nik', auth()->user()->nik)->where('bulan', Carbon::now()->isoFormat('MM'))->increment('hadir_terlambat');
-            } else {
-                RekapPresensi::where('nik', auth()->user()->nik)->where('bulan', Carbon::now()->isoFormat('MM'))->increment('hadir_tepat_waktu');
-            }
+            RekapPresensi::where('nik', auth()->user()->nik)->where('bulan', Carbon::now()->isoFormat('MM'))->increment('tidak_presensi_pulang');
         } else {
             RekapPresensi::create([
                 'bulan' => Carbon::now()->isoFormat('MM'),
@@ -109,9 +104,9 @@ class PresensiMasukController extends Controller
                 'nik' => auth()->user()->nik,
                 'nama' => auth()->user()->nama,
                 'status_kepegawaian' => $karyawan->kepegawaian->status_kepegawaian,
-                //jika jam masuk lebih dari jam masuk di setting
-                'hadir_terlambat' => Carbon::now()->isoFormat('HH:mm:ss') > $setting->jam_masuk ? 1 : 0,
-                'hadir_tepat_waktu' => Carbon::now()->isoFormat('HH:mm:ss') > $setting->jam_masuk ? 0 : 1,
+                'hadir_terlambat' => 0,
+                'hadir_tepat_waktu' => 0,
+                'tidak_presensi_pulang' => 1,
                 'izin' => 0,
                 'sakit' => 0,
             ]);

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('tahun');
             $table->integer('hadir_tepat_waktu');
             $table->integer('hadir_terlambat');
+            $table->integer('tidak_presensi_pulang');
             $table->integer('izin');
             $table->integer('sakit');
             $table->foreign('nik')->references('nik')->on('users')->onDelete('cascade');

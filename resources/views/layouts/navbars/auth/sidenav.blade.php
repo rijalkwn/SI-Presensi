@@ -69,6 +69,15 @@
                         <span class="nav-link-text ms-1">History Presensi</span>
                     </a>
                 </li>
+                <li class="nav-item my-0">
+                    <a class="nav-link {{ Request::is('rekap*') ? 'active' : '' }}" href="{{ route('rekap.user') }}">
+                        <div
+                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="fa fa-book text-dark text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Rekap Presensi</span>
+                    </a>
+                </li>
             @endif
             @if (auth()->user()->role == 'admin')
                 <li class="nav-item mt-1 d-flex align-items-center">
@@ -92,6 +101,15 @@
                             <i class="fa fa-files-o text-dark text-sm opacity-10"></i>
                         </div>
                         <span class="nav-link-text ms-1">Status Kepegawaian</span>
+                    </a>
+                </li>
+                <li class="nav-item my-0">
+                    <a class="nav-link {{ Request::is('rekap*') ? 'active' : '' }}" href="{{ route('rekap.index') }}">
+                        <div
+                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="fa fa-book text-dark text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Rekap Presensi</span>
                     </a>
                 </li>
                 <li class="nav-item my-0">

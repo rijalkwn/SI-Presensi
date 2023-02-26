@@ -80,6 +80,7 @@ class PresensiSakitController extends Controller
                 'tahun' => Carbon::now()->isoFormat('YYYY'),
                 'hadir_tepat_waktu' => 0,
                 'hadir_terlambat' => 0,
+                'tidak_presensi_pulang' => 0,
                 'izin' => 0,
                 'sakit' => 1,
             ]);

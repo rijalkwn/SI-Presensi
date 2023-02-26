@@ -13,6 +13,7 @@ use App\Http\Controllers\ProfileUserController;
 use App\Http\Controllers\PresensiIzinController;
 use App\Http\Controllers\ProfileAdminController;
 use App\Http\Controllers\PresensiMasukController;
+use App\Http\Controllers\RekapPresensiController;
 use App\Http\Controllers\PresensiSakitController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ChangePasswordController;
@@ -62,6 +63,9 @@ Route::group(['middleware' => ['auth', 'prevent-back-history']], function () {
         Route::resource('/kepegawaian', KepegawaianController::class)->names('kepegawaian');
         Route::get('/kepegawaian/delete_kepegawaian/{id}', [KepegawaianController::class, 'delete'])->name('delete_kepegawaian');
 
+        //rekap presensi
+        Route::get('/rekap-presensi', [RekapPresensiController::class, 'index'])->name('rekap.index');
+
         //setting presensi
         Route::get('/setting', [SettingController::class, 'index'])->name('setting.index');
         Route::post('/setting/edit', [SettingController::class, 'update'])->name('setting.update');
@@ -98,6 +102,9 @@ Route::group(['middleware' => ['auth', 'prevent-back-history']], function () {
         //sakit
         Route::get('/dashboard/presensi-sakit', [PresensiSakitController::class, 'create'])->name('presensi.sakit');
         Route::post('/dashboard/presensi-sakit', [PresensiSakitController::class, 'store'])->name('presensi.sakit.store');
+
+        //rekapan presensi
+        Route::get('/dashboard/rekap-presensi', [RekapPresensiController::class, 'user'])->name('rekap.user');
 
         //profile user
         Route::resource('/user/profile', ProfileUserController::class)->names('profile_user');

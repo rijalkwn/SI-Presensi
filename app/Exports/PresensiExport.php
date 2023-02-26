@@ -24,6 +24,7 @@ class PresensiExport implements FromCollection, WithHeadings
             unset($item['updated_at']);
             $item['hadir_tepat_waktu'] = $item['hadir_tepat_waktu'] ?? 0;
             $item['hadir_terlambat'] = $item['hadir_terlambat'] ?? 0;
+            $item['tidak_presensi_pulang'] = $item['tidak_presensi_pulang'] ?? 0;
             $item['izin'] = $item['izin'] ?? 0;
             $item['sakit'] = $item['sakit'] ?? 0;
             return $item;
@@ -44,6 +45,7 @@ class PresensiExport implements FromCollection, WithHeadings
             'Tahun',
             'Hadir Tepat Waktu',
             'Hadir Terlambat',
+            'Tidak Presensi Pulang',
             'Izin',
             'Sakit',
         ];

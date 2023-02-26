@@ -97,6 +97,14 @@ class PresensiPulangController extends Controller
             'lng_pulang' => $request->lng,
         ]);
 
+        if (Carbon::now()->isoFormat('HH:mm:ss') > $setting->jam_masuk) {
+            RekapPresensi::where('nik', auth()->user()->nik)->where('bulan', Carbon::now()->isoFormat('MM'))->increment('hadir_terlambat');
+            RekapPresensi::where('nik', auth()->user()->nik)->where('bulan', Carbon::now()->isoFormat('MM'))->decrement('tidak_presensi_pulang');
+        } else {
+            RekapPresensi::where('nik', auth()->user()->nik)->where('bulan', Carbon::now()->isoFormat('MM'))->increment('hadir_tepat_waktu');
+            RekapPresensi::where('nik', auth()->user()->nik)->where('bulan', Carbon::now()->isoFormat('MM'))->decrement('tidak_presensi_pulang');
+        }
+
         Alert::success('Berhasil', 'Presensi pulang berhasil!!');
         return redirect()->route('dashboard');
     }
