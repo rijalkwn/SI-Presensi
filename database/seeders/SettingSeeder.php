@@ -18,7 +18,8 @@ class SettingSeeder extends Seeder
     {
         Setting::create([
             'jam_masuk' => '08:00:00',
-            'jam_pulang' => '17:00:00',
+            'jam_pulang_senin_kamis' => '17:00:00',
+            'jam_pulang_jumat' => '16:00:00',
             'lat' => '-7.0549617827935815',
             'lng' => '110.44325249453608',
             'radius' => '50',

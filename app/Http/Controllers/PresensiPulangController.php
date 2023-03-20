@@ -30,17 +30,39 @@ class PresensiPulangController extends Controller
                 ])->onlyInput('PresensiError');
             } else {
                 //harus di atas jam pulang
-                if (Carbon::now()->isoFormat('HH:mm:ss') < $setting->jam_pulang) {
-                    return back()->withErrors([
-                        'PresensiError' => 'Anda belum bisa melakukan presensi pulang!!',
-                    ])->onlyInput('PresensiError');
+                //cek hari ini hari apa
+                $hari = Carbon::now()->isoFormat('dddd');
+                //jika hari ini monday hingga thursday
+                if ($hari == 'Monday' || $hari == 'Tuesday' || $hari == 'Wednesday' || $hari == 'Thursday') {
+                    if (Carbon::now()->isoFormat('HH:mm:ss') < $setting->jam_pulang_senin_kamis) {
+                        return back()->withErrors([
+                            'PresensiError' => 'Anda belum bisa melakukan presensi pulang!!',
+                        ])->onlyInput('PresensiError');
+                    } else {
+                        return view('presensi.pulang.index', [
+                            'title' => 'Presensi Pulang',
+                            'karyawan' => $karyawanside,
+                            'setting' => $setting,
+                            'presensi' => $presensi,
+                        ]);
+                    }
+                } elseif ($hari == 'Friday') {
+                    if (Carbon::now()->isoFormat('HH:mm:ss') < $setting->jam_pulang_jumat) {
+                        return back()->withErrors([
+                            'PresensiError' => 'Anda belum bisa melakukan presensi pulang!!',
+                        ])->onlyInput('PresensiError');
+                    } else {
+                        return view('presensi.pulang.index', [
+                            'title' => 'Presensi Pulang',
+                            'karyawan' => $karyawanside,
+                            'setting' => $setting,
+                            'presensi' => $presensi,
+                        ]);
+                    }
                 } else {
-                    return view('presensi.pulang.index', [
-                        'title' => 'Presensi Pulang',
-                        'karyawan' => $karyawanside,
-                        'setting' => $setting,
-                        'presensi' => $presensi,
-                    ]);
+                    return back()->withErrors([
+                        'PresensiError' => 'Anda tidak bisa melakukan presensi pulang!!',
+                    ])->onlyInput('PresensiError');
                 }
             }
         } else {

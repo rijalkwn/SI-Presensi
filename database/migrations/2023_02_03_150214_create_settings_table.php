@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
             $table->time('jam_masuk');
-            $table->time('jam_pulang');
+            $table->time('jam_pulang_senin_kamis');
+            $table->time('jam_pulang_jumat');
             $table->string('lat');
             $table->string('lng');
             $table->string('radius');

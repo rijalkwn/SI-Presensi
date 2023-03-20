@@ -4,7 +4,7 @@
     @include('layouts.navbars.auth.topnav', ['title' => 'Dashboard'])
     <div class="container-fluid py-4">
         @error('PresensiError')
-            <div class="alert alert-success text-white">{{ $message }}</div>
+            <div class="alert alert-warning text-white">{{ $message }}</div>
         @enderror
         <div class="row">
             <div class="col-lg-3 col-sm-6 mb-xl-0 mb-4">

@@ -48,9 +48,11 @@
                                             Belum Presensi Pulang
                                         </th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Izin </th>
+                                            Izin
+                                        </th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Sakit </th>
+                                            Sakit
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>

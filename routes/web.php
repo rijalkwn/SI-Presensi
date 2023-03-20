@@ -34,7 +34,7 @@ Route::group(['middleware' => ['prevent-back-history']], function () {
     //center
     Route::get('/', [CenterController::class, 'index'])->name('home');
 
-    //login 
+    //login
     Route::get('/login', [LoginController::class, 'show'])->name('login')->middleware('guest');
     Route::post('/login', [LoginController::class, 'login'])->name('login.perform')->middleware('guest');
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
@@ -104,7 +104,7 @@ Route::group(['middleware' => ['auth', 'prevent-back-history']], function () {
         Route::post('/dashboard/presensi-sakit', [PresensiSakitController::class, 'store'])->name('presensi.sakit.store');
 
         //rekapan presensi
-        Route::get('/dashboard/rekap-presensi', [RekapPresensiController::class, 'user'])->name('rekap.user');
+        Route::get('/rekap-presensi-user', [RekapPresensiController::class, 'user'])->name('rekap.user');
 
         //profile user
         Route::resource('/user/profile', ProfileUserController::class)->names('profile_user');

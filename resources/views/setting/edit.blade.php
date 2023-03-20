@@ -30,20 +30,41 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <div
-                                        class="form-group
-                                        @if (isset($setting->jam_pulang)) {{ $setting->jam_pulang }}
-                                                @else @endif">
-                                        <label class="form-control-label" for="jam_pulang">Jam Pulang</label>
-                                        <input type="time" name="jam_pulang" id="jam_pulang" required
-                                            class="form-control
-                                            @error('jam_pulang') has-danger @enderror"
-                                            value="{{ old('jam_pulang', $setting->jam_pulang) }}">
-                                        @error('jam_pulang')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div
+                                            class="form-group
+                                            @if (isset($setting->jam_pulang_senin_kamis)) {{ $setting->jam_pulang_senin_kamis }}
+                                                    @else @endif">
+                                            <label class="form-control-label" for="jam_pulang_senin_kamis">Jam Pulang <span class="text-warning">*Hari Senin - Kamis</span></label>
+                                            <input type="time" name="jam_pulang_senin_kamis" id="jam_pulang_senin_kamis" required
+                                                class="form-control
+                                                @error('jam_pulang_senin_kamis') has-danger @enderror"
+                                                value="{{ old('jam_pulang_senin_kamis', $setting->jam_pulang_senin_kamis) }}">
+                                            @error('jam_pulang_senin_kamis')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div
+                                            class="form-group
+                                            @if (isset($setting->jam_pulang_jumat)) {{ $setting->jam_pulang_jumat }}
+                                                    @else @endif">
+                                            <label class="form-control-label" for="jam_pulang_jumat">Jam Pulang <span class="text-warning">*Hari Jumat</span></label>
+                                            <input type="time" name="jam_pulang_jumat" id="jam_pulang_jumat" required
+                                                class="form-control
+                                                @error('jam_pulang_jumat') has-danger @enderror"
+                                                value="{{ old('jam_pulang_jumat', $setting->jam_pulang_jumat) }}">
+                                            @error('jam_pulang_jumat')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
