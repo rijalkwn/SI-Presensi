@@ -12,7 +12,7 @@
                                     <img src="{{ asset('img/logos/logos.png') }}" class="img-fluid mb-3 ml-md-4 ml-sm-5"
                                         width="60px" alt="Logo">
                                     <p class="mb-0">Selamat Datang</p>
-                                    <h4 style="font-weight: bolder;">di SI-Presensi Karyawan</h4>
+                                    <h4 style="font-weight: bolder;">di PresKa</h4>
                                     <p style="font-size: small; color: grey;">merupakan aplikasi untuk presensi karyawan
                                         SMA
                                         Negeri 1 Prembun</p>
@@ -76,10 +76,11 @@
                 <button type="button" class="btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Untuk lupa password, silahkan hubungi admin.</p>
+                <h5>Untuk lupa password, silahkan hubungi admin. Terima kasih!!!</h5>
+                <p class="mt-4">Contact Admin : 081234567890 (MARGONO)</p>
                 {{-- btn close --}}
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-sm btn-warning" data-bs-dismiss="modal">Tutup</button>
                 </div>
             </div>
         </div>

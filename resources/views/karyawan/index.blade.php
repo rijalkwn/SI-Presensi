@@ -6,129 +6,88 @@
         <div class="row mx-4">
             <div class="col-9">
                 <div class="card">
-                    <ul class="nav nav-tabs nav-bottom-line justify-content-center justify-content-md-start">
-                        <li class="nav-item"> <a class="nav-link active" data-bs-toggle="tab" href="#tab-1"> Data Karyawan </a>
-                        </li>
-                        <li class="nav-item"> <a class="nav-link" data-bs-toggle="tab" href="#tab-2"> Reset Password
-                                Karyawan </a> </li>
-                    </ul>
-                    <div class="tab-content mb-0 pb-0">
-                        <div class="tab-pane fade show active" id="tab-1">
-                            <div class="card-header pb-0">
-                                <div class="d-flex align-items-center">
-                                    <div class="ms-auto">
-                                        {{-- <a class="btn btn-success btn-sm" data-bs-toggle="modal"
+                    <div class="card-header pb-0">
+                        <h4>Data Karyawan</h4>
+                        <div class="d-flex align-items-center">
+                            <div class="ms-auto">
+                                {{-- <a class="btn btn-success btn-sm" data-bs-toggle="modal"
                                             data-bs-target="#bulk_add_karyawan">
                                             <i class="fa fa-cloud-download"></i> Import
                                         </a> --}}
-                                        <a class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                            data-bs-target="#add_karyawan">
-                                            <i class="fa fa-plus-square"></i> Tambah
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body px-4 py-3">
-                                <div class="table-responsive p-0">
-                                    <table class="table align-items-center mb-0 table-striped" id="karyawan">
-                                        <thead>
-                                            <tr>
-                                                <th
-                                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                    No
-                                                </th>
-                                                <th
-                                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                    NIK
-                                                </th>
-                                                <th
-                                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                    Nama
-                                                </th>
-                                                <th
-                                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                    Email
-                                                </th>
-                                                <th
-                                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                    Status Kepegawaian</th>
-                                                <th
-                                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                    Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($karyawans as $karyawan)
-                                                <tr>
-                                                    <td>
-                                                        <p class="text-sm font-weight-bold mb-0 ms-3">
-                                                            {{ $loop->iteration }}
-                                                        </p>
-                                                    </td>
-                                                    <td>
-                                                        <p class="text-sm font-weight-bold mb-0">{{ $karyawan->nik }}
-                                                        </p>
-                                                    </td>
-                                                    <td>
-                                                        <p class="text-sm font-weight-bold mb-0">{{ $karyawan->nama }}
-                                                        </p>
-                                                    </td>
-                                                    <td>
-                                                        <p class="text-sm font-weight-bold mb-0">{{ $karyawan->email }}
-                                                        </p>
-                                                    </td>
-                                                    <td class="align-middle text-center text-sm">
-                                                        <p class="text-sm font-weight-bold mb-0">
-                                                            {{ $karyawan->kepegawaian->status_kepegawaian }}</p>
-                                                    </td>
-                                                    <td class="align-middle text-end">
-                                                        <div
-                                                            class="d-flex px-3 py-1 justify-content-center align-items-center">
-                                                            <a class="btn btn-link text-warning mb-0"
-                                                                id="buttonModalKaryawan" data-bs-toggle="modal"
-                                                                data-bs-target="#karyawan_view"
-                                                                data-attr="{{ route('karyawan.edit', $karyawan->nik) }}">
-                                                                <i class="fa fa-edit"></i>
-                                                            </a>
-                                                            <a class="btn btn-link text-danger mb-0"
-                                                                id="buttonConfirmDelete_karyawan" data-bs-toggle="modal"
-                                                                data-bs-target="#confirm_delete_karyawan"
-                                                                data-attr="{{ route('delete_karyawan', $karyawan->nik) }}">
-                                                                <i class="fa fa-trash"></i>
-                                                            </a>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
+                                {{-- tambah karyawan --}}
+                                <a href="{{ route('karyawan.create') }}" class="btn btn-danger">Tambah</a>
                             </div>
                         </div>
-                        {{-- reset password --}}
-                        <div class="tab-pane fade" id="tab-2">
-                            <div class="alert alert-info text-white mx-2 my-2">Password akan direset sesuai dengan NIK dari
-                                karyawan
-                                tersebut!!</div>
-                            <div class="card px-2 py-3">
-                                <form method="POST" action="{{ route('admin.reset-password') }}">
-                                    @csrf
-                                    <div class="form-group">
-                                        <label for="email">Email Karyawan</label>
-                                        <input id="email" type="email"
-                                            class="form-control @error('email') is-invalid @enderror" name="email"
-                                            value="{{ old('email') }}" required autocomplete="email">
-                                        @error('email')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                                        data-bs-target="#resetPasswordModal">Reset</button>
-
-                                </form>
-                            </div>
+                    </div>
+                    <div class="card-body px-4 py-3">
+                        <div class="table-responsive p-0">
+                            <table class="table align-items-center mb-0 table-striped" id="karyawan">
+                                <thead>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            No
+                                        </th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            NIK
+                                        </th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Nama
+                                        </th>
+                                        <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                            Email
+                                        </th>
+                                        <th
+                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Status Kepegawaian</th>
+                                        <th
+                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($karyawans as $karyawan)
+                                        <tr>
+                                            <td>
+                                                <p class="text-sm font-weight-bold mb-0 ms-3">
+                                                    {{ $loop->iteration }}
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p class="text-sm font-weight-bold mb-0">{{ $karyawan->nik }}
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p class="text-sm font-weight-bold mb-0">{{ $karyawan->nama }}
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p class="text-sm font-weight-bold mb-0">{{ $karyawan->email }}
+                                                </p>
+                                            </td>
+                                            <td class="align-middle text-center text-sm">
+                                                <p class="text-sm font-weight-bold mb-0">
+                                                    {{ $karyawan->kepegawaian->status_kepegawaian }}</p>
+                                            </td>
+                                            <td class="align-middle text-end">
+                                                <div class="d-flex px-3 py-1 justify-content-center align-items-center">
+                                                    <a class="btn btn-link text-warning mb-0" id="buttonModalKaryawan"
+                                                        data-bs-toggle="modal" data-bs-target="#karyawan_view"
+                                                        data-attr="{{ route('karyawan.edit', $karyawan->nik) }}">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
+                                                    <a class="btn btn-link text-danger mb-0"
+                                                        id="buttonConfirmDelete_karyawan" data-bs-toggle="modal"
+                                                        data-bs-target="#confirm_delete_karyawan"
+                                                        data-attr="{{ route('delete_karyawan', $karyawan->nik) }}">
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -150,7 +109,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
         @include('layouts.footers.auth.footer')
     </div>
@@ -159,8 +117,6 @@
 <!-- Modal Import Add Karyawan -->
 @include('karyawan.modal.import')
 
-<!-- Modal Add Karyawan -->
-@include('karyawan.modal.create')
 
 <!-- Modal Edit Karyawan -->
 <div class="modal fade" data-bs-backdrop="static" data-keyboard="false" id="karyawan_view" tabindex="-1" role="dialog"
@@ -260,10 +216,6 @@
                     alert("Page " + href + " cannot open. Error:" + error);
                 },
             });
-        });
-        //confirm reset password
-        document.getElementById("resetPasswordButton").addEventListener("click", function() {
-            document.querySelector("form").submit();
         });
 
         // disable all input and button after submit

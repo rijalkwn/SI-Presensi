@@ -142,39 +142,28 @@ class KaryawanController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $request->validate(
+            request()->validate(
                 [
                     'nama' => 'required|max:255|string',
-                    'email' => 'required|unique:users,email|email:dns',
+                    'email' => 'required|email:dns',
                     'kepegawaian_id' => 'required',
-                ],
-                [
-                    'nama.required' => 'Nama tidak boleh kosong',
-                    'nama.max' => 'Nama tidak boleh lebih dari 255 karakter',
-                    'nama.string' => 'Nama harus berupa huruf',
-                    'email.required' => 'Email tidak boleh kosong',
-                    'email.email' => 'Email tidak valid',
-                    'email.unique' => 'Email sudah terdaftar',
-                    'kepegawaian_id.required' => 'Kepegawaian tidak boleh kosong',
+
                 ]
             );
 
-            $datauser = [
+            User::where('nik', $id)->update([
                 'nama' => $request->nama,
                 'email' => $request->email,
                 'updated_at' => now(),
-            ];
+            ]);
 
-            User::where('nik', $id)->update($datauser);
-
-            $datakaryawan = [
+            Karyawan::where('nik', $id)->update([
                 'nama' => $request->nama,
                 'email' => $request->email,
                 'kepegawaian_id' => $request->kepegawaian_id,
                 'updated_at' => now(),
-            ];
+            ]);
 
-            Karyawan::where('nik', $id)->update($datakaryawan);
 
             Alert::success('Berhasil', 'Data Karyawan berhasil diubah');
             return redirect()->Route('karyawan.index');

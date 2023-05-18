@@ -83,16 +83,4 @@ class HistoryController extends Controller
         Alert::success('Berhasil', 'Data berhasil dihapus');
         return redirect()->back();
     }
-
-
-
-    public function export(Request $request)
-    {
-        //request bulan dan tahun
-        $bulan = $request->bulan;
-        $tahun = $request->tahun;
-
-        $data = RekapPresensi::whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->get();
-        return Excel::download(new PresensiExport($data), 'presensi.xlsx');
-    }
 }

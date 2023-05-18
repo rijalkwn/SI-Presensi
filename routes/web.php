@@ -71,8 +71,8 @@ Route::group(['middleware' => ['auth', 'prevent-back-history']], function () {
         Route::post('/setting/edit', [SettingController::class, 'update'])->name('setting.update');
 
         //reset password
-        Route::get('/admin/reset-password', [ResetPasswordController::class, 'index'])->name('admin.reset-password');
-        Route::post('/admin/reset-password', [ResetPasswordController::class, 'resetPassword'])->name('admin.reset-password');
+        Route::get('/reset-password', [ResetPasswordController::class, 'index'])->name('reset-password.index');
+        Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword'])->name('reset-password');
 
         //profile admin
         Route::resource('/admin/profile', ProfileAdminController::class)->names('profile_admin');
@@ -114,4 +114,4 @@ Route::group(['middleware' => ['auth', 'prevent-back-history']], function () {
     });
 });
 
-Route::get('/export', [HistoryController::class, 'export'])->name('export-excel')->middleware('admin');
+Route::get('/export', [RekapPresensiController::class, 'export'])->name('export-excel')->middleware('admin');

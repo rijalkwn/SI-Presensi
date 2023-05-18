@@ -12,39 +12,37 @@ class ResetPasswordController extends Controller
 {
     public function index()
     {
-        return view('auth.reset', [
+        return view('resetPassword.index', [
             'title' => 'Reset Password',
             'active' => 'resetPassword',
         ]);
     }
     public function resetPassword(Request $request)
     {
-        try {
-            $validatedData = $request->validate(
-                [
-                    'email' => 'required|email',
-                ],
-                [
-                    'email.required' => 'Email tidak boleh kosong',
-                    'email.email' => 'Email tidak valid',
-                ]
-            );
-
-            $user = User::where('email', $validatedData['email'])->first();
-            //jika email tidak pada database
-            if (!$user) {
-                Alert::error('Gagal', 'Email tidak terdaftar');
-                return redirect()->back();
-            }
-
-            DB::table('users')->where('email', $validatedData['email'])->update([
-                'password' => Hash::make($user->nik),
-            ]);
-            Alert::success('Berhasil', 'Password karyawan berhasil direset');
-            return redirect()->back();
-        } catch (\Throwable $th) {
-            Alert::error('Gagal', 'Password karyawan gagal direset');
+        $validatedData = $request->validate(
+            [
+                'nik' => 'required|numeric|digits:16',
+                'konfirmasi' => 'required|same:nik',
+            ],
+            [
+                'nik.required' => 'NIK tidak boleh kosong',
+                'nik.numeric' => 'NIK harus berupa angka',
+                'nik.digits' => 'NIK harus berjumlah 16 digit',
+                'konfirmasi.required' => 'Konfirmasi NIK tidak boleh kosong',
+                'konfirmasi.same' => 'Konfirmasi NIK tidak sama dengan NIK',
+            ]
+        );
+        //validasi nik harus ada di database
+        $user = User::where('nik', $validatedData['nik'])->first();
+        if (!$user) {
+            Alert::error('Warning', 'Reset password gagal, email atau NIK tidak terdaftar');
             return redirect()->back();
         }
+
+        DB::table('users')->where('nik', $validatedData['nik'])->update([
+            'password' => Hash::make($user->nik),
+        ]);
+        Alert::success('Berhasil', 'Password karyawan berhasil direset');
+        return redirect()->back();
     }
 }

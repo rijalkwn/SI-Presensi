@@ -3,7 +3,7 @@
     <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
             aria-hidden="true" id="iconSidenav"></i>
-        <a class="navbar-brand m-0" href="/dashboard">
+        <a class="navbar-brand m-0" href="{{ Auth()->user()->role == 'admin' ? '/admin/profile' : '/user/profile' }}">
             {{-- nama user --}}
             <div class="d-flex align-items-center">
                 <div class="avatar avatar-sm avatar-indicators avatar-online">
@@ -91,6 +91,16 @@
                             <i class="fa fa-users text-dark text-sm opacity-10"></i>
                         </div>
                         <span class="nav-link-text ms-1">Data Karyawan</span>
+                    </a>
+                </li>
+                <li class="nav-item my-0">
+                    <a class="nav-link {{ Request::is('reset*') ? 'active' : '' }}"
+                        href="{{ route('reset-password.index') }}">
+                        <div
+                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="fa fa-unlock text-dark text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Reset Password Karyawan</span>
                     </a>
                 </li>
                 <li class="nav-item my-0">

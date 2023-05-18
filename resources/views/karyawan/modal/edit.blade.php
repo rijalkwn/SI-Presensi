@@ -46,11 +46,11 @@
                 <div class="col-lg-6">
                     <div class="form-group
                         @error('kepegawaian_id') has-danger @enderror">
-                        <label class="form-control-label" for="kepegawaian_id">Status
+                        <label class="form-control-label" for="kepegawaian">Status
                             Kepegawaian</label>
                         <select name="kepegawaian_id" id="kepegawaian_id" required
                             class="form-control
-                            @error('jabatan_id') is-invalid @enderror">
+                            @error('kepegawaian_id') is-invalid @enderror">
                             <option value="" disabled>Pilih Status Kepegawaian</option>
                             @foreach ($kepegawaians as $kepegawaian)
                                 <option value="{{ $kepegawaian->id }}"
@@ -58,7 +58,7 @@
                                     {{ $kepegawaian->status_kepegawaian }}</option>
                             @endforeach
                         </select>
-                        @error('kepegawaian')
+                        @error('kepegawaian_id')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -69,7 +69,7 @@
             <div class="row mt-4">
                 <div class="col-lg-12 text-end">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-warning">Submit</button>
+                    <button type="submit" class="btn btn-warning">Simpan</button>
                 </div>
             </div>
         </div>
