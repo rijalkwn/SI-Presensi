@@ -76,9 +76,6 @@ Route::group(['middleware' => ['auth', 'prevent-back-history']], function () {
 
         //profile admin
         Route::resource('/admin/profile', ProfileAdminController::class)->names('profile_admin');
-
-        //change password
-        Route::resource('/admin/change_password', ChangePasswordController::class)->names('password');
     });
 
 
@@ -110,8 +107,9 @@ Route::group(['middleware' => ['auth', 'prevent-back-history']], function () {
         Route::resource('/user/profile', ProfileUserController::class)->names('profile_user');
 
         //password
-        Route::resource('/user/change_password', ChangePasswordController::class)->names('password');
+
     });
 });
-
+//password
+Route::resource('/change_password', ChangePasswordController::class)->names('password');
 Route::get('/export', [RekapPresensiController::class, 'export'])->name('export-excel')->middleware('admin');

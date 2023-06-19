@@ -147,8 +147,7 @@
                 </a>
             </li>
             <li class="nav-item my-0">
-                <a class="nav-link {{ $title == 'Change Password' ? 'active' : '' }}"
-                    href="/{{ Auth::user()->role }}/change_password">
+                <a class="nav-link {{ $title == 'Change Password' ? 'active' : '' }}" href="/change_password">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="fa fa-key text-dark text-sm opacity-10"></i>

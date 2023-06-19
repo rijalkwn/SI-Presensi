@@ -53,28 +53,28 @@ class HistoryController extends Controller
                 if ($rekap->hadir_tepat_waktu == 1 && $rekap->hadir_terlambat == 0 && $rekap->izin == 0 && $rekap->sakit == 0) {
                     RekapPresensi::where('nik', $presensi->nik)->delete();
                 } else {
-                    $rekap->hadir_tepat_waktu = $rekap->hadir_tepat_waktu - 1;
+                    $rekap->hadir_tepat_waktu = $rekap->hadir_tepat_waktu;
                     $rekap->save();
                 }
             } elseif ($presensi->status == 'Hadir' && $presensi->keterangan == 'Terlambat') {
                 if ($rekap->hadir_tepat_waktu == 0 && $rekap->hadir_terlambat == 1 && $rekap->izin == 0 && $rekap->sakit == 0) {
                     RekapPresensi::where('nik', $presensi->nik)->delete();
                 } else {
-                    $rekap->hadir_terlambat = $rekap->hadir_terlambat - 1;
+                    $rekap->hadir_terlambat = $rekap->hadir_terlambat;
                     $rekap->save();
                 }
             } elseif ($presensi->status == 'Izin') {
                 if ($rekap->hadir_tepat_waktu == 0 && $rekap->hadir_terlambat == 0 && $rekap->izin == 1 && $rekap->sakit == 0) {
                     RekapPresensi::where('nik', $presensi->nik)->delete();
                 } else {
-                    $rekap->izin = $rekap->izin - 1;
+                    $rekap->izin = $rekap->izin;
                     $rekap->save();
                 }
             } elseif ($presensi->status == 'Sakit') {
                 if ($rekap->hadir_tepat_waktu == 0 && $rekap->hadir_terlambat == 0 && $rekap->izin == 0 && $rekap->sakit == 1) {
                     RekapPresensi::where('nik', $presensi->nik)->delete();
                 } else {
-                    $rekap->sakit = $rekap->sakit - 1;
+                    $rekap->sakit = $rekap->sakit;
                     $rekap->save();
                 }
             }

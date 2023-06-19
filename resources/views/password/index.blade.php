@@ -51,7 +51,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12 text-end">
-                            <button type="submit" class="btn btn-sm btn-warning mt-2 mb-0">Save</button>
+                            <button type="submit" class="btn btn-sm btn-warning mt-2 mb-0">Ubah Password</button>
                         </div>
                     </div>
                 </form>

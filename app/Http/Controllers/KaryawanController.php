@@ -141,36 +141,38 @@ class KaryawanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        try {
-            request()->validate(
-                [
-                    'nama' => 'required|max:255|string',
-                    'email' => 'required|email:dns',
-                    'kepegawaian_id' => 'required',
+        request()->validate(
+            [
+                //nama tidak boleh angka
+                'nama' => 'required|max:255|string',
+                'email' => 'required|email:unique',
+                'kepegawaian_id' => 'required',
+            ],
+            [
+                'nama.required' => 'Nama tidak boleh kosong',
+                'nama.max' => 'Nama tidak boleh lebih dari 255 karakter',
+                'nama.string' => 'Nama harus berupa huruf',
+                'email.required' => 'Email tidak boleh kosong',
+                'email.email' => 'Email tidak valid',
+                'email.unique' => 'Email sudah terdaftar',
+                'kepegawaian_id.required' => 'Kepegawaian tidak boleh kosong',
+            ]
+        );
+        User::where('nik', $id)->update([
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'updated_at' => now(),
+        ]);
 
-                ]
-            );
+        Karyawan::where('nik', $id)->update([
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'kepegawaian_id' => $request->kepegawaian_id,
+            'updated_at' => now(),
+        ]);
 
-            User::where('nik', $id)->update([
-                'nama' => $request->nama,
-                'email' => $request->email,
-                'updated_at' => now(),
-            ]);
-
-            Karyawan::where('nik', $id)->update([
-                'nama' => $request->nama,
-                'email' => $request->email,
-                'kepegawaian_id' => $request->kepegawaian_id,
-                'updated_at' => now(),
-            ]);
-
-
-            Alert::success('Berhasil', 'Data Karyawan berhasil diubah');
-            return redirect()->Route('karyawan.index');
-        } catch (\Exception $e) {
-            Alert::error('Gagal', 'Data Karyawan gagal diubah');
-            return redirect()->Route('karyawan.index');
-        }
+        Alert::success('Berhasil', 'Data Karyawan berhasil diubah');
+        return redirect()->Route('karyawan.index');
     }
 
 

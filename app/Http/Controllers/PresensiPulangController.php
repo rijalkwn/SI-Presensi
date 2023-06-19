@@ -28,6 +28,10 @@ class PresensiPulangController extends Controller
                 return back()->withErrors([
                     'PresensiError' => 'Anda sudah melakukan absen sakit hari ini!!',
                 ])->onlyInput('PresensiError');
+            } elseif ($presensi->jam_pulang != null) {
+                return back()->withErrors([
+                    'PresensiError' => 'Anda sudah melakukan absen hadir hari ini!!',
+                ])->onlyInput('PresensiError');
             } else {
                 //harus di atas jam pulang
                 //cek hari ini hari apa
